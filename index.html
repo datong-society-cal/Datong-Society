@@ -1,9 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 	<head>
 		<title>Datong Society of China Studies | UC Berkeley</title>
@@ -20,11 +16,14 @@
 				<!-- Header -->
 					<header id="header">
 						<div class="logo">
-							<span class="icon fa-diamond"></span>
+							<img src="images/logo.jpg" alt="Logo" />
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>Datong Society</h1>
+								<h1 class="site-title">
+								<span class="en">Datong Society</span>
+								<span class="zh">大同学社</span>
+								</h1>
 								<p>Student-led Organization at UC Berkeley</p>
 							</div>
 						</div>
@@ -47,6 +46,14 @@
 								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
 								<p><strong>Datong Society of China Studies at UC Berkeley</strong> is a student-led intellectual community bridging diverse academic perspectives on China and East Asia.</p>
 								<p>We welcome undergraduates, graduate students, and researchers across disciplines—ranging from history and cultural studies to political economy and empirical social science (both qualitative and quantitative).</p>
+							
+								<ul class="actions" style="margin-top: 2rem;">
+									<li>
+										<a href="https://drive.google.com/file/d/150G3mOQQMEs_7rvN6iZqLCZytTj8DsjH/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="button icon fa-file-pdf-o">
+											Read Society Constitution (PDF)
+										</a>
+									</li>
+								</ul>
 							</article>
 
 						<!-- Activities (Work) -->
@@ -67,6 +74,33 @@
 								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
 								<p>We prioritize high-density intellectual exchange in an open, collaborative setting.</p>
 								<p>Whether you are pursuing formal China studies or applying social science methods to East Asian issues, Datong provides a space for critical inquiry and interdisciplinary learning.</p>
+								<h3 class="major" style="margin-top: 2.5rem;">Meet Our Members</h3>
+
+								<div class="member-grid">
+									<!-- 1. 甲 (有照片) -->
+									<div class="member-card">
+										<div class="member-avatar">
+											<img src="images/members/alex.jpg" alt="">
+										</div>
+										<div class="member-info">
+											<h4> Example!! <span>| Co-President</span></h4>
+											<p class="meta">UC Berkeley '26 • Political Economy</p>
+											<p class="bio">Research Focus: Empirical Asian trade dynamics & institutional change.</p>
+										</div>
+									</div>
+
+									<!-- 2. 乙 (无照片：使用 initials 徽章) -->
+									<div class="member-card">
+										<div class="member-avatar initials">
+											<span>JL</span>
+										</div>
+										<div class="member-info">
+											<h4> Example!! <span>| Academic Officer</span></h4>
+											<p class="meta">UC Berkeley '25 • History & Asian Studies</p>
+											<p class="bio">Research Focus: Late Qing intellectual exchanges and modern statecraft.</p>
+										</div>
+									</div>
+								</div>
 							</article>
 
 						<!-- Contact / Get Involved -->
@@ -76,18 +110,28 @@
 
 								<p><strong>Primary Contact Email:</strong> <a href="mailto:greenw@berkeley.edu">greenw@berkeley.edu</a></p>
 
+								<!-- 表单服务配置：自动推送到 greenw@berkeley.edu -->
+								<form method="POST" action="https://formsubmit.co/greenw@berkeley.edu">
+									<!-- 关闭 FormSubmit 的验证码弹窗（可选） -->
+									<input type="hidden" name="_captcha" value="false">
+
 									<div class="fields">
 										<div class="field half">
 											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
+											<input type="text" name="name" id="name" required />
 										</div>
 										<div class="field half">
 											<label for="email">Email</label>
-											<input type="email" name="email" id="email" />
+											<input type="email" name="email" id="email" required />
+										</div>
+										<!-- 新增：邮件标题输入框 -->
+										<div class="field">
+											<label for="subject">Subject</label>
+											<input type="text" name="_subject" id="subject" placeholder="e.g., Membership Inquiry / Research Collaboration" required />
 										</div>
 										<div class="field">
 											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="4"></textarea>
+											<textarea name="message" id="message" rows="4" required></textarea>
 										</div>
 									</div>
 									<ul class="actions">
@@ -107,7 +151,7 @@
 
 				<!-- Footer -->
 					<footer id="footer">
-						<p class="copyright">&copy; Datong Society of China Studies. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+						<p class="copyright">&copy; Datong Society of China Studies. All Rights Reserved.</p>
 					</footer>
 
 			</div>
