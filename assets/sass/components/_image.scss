@@ -14,7 +14,7 @@
 
 		&:before {
 			@include vendor('pointer-events', 'none');
-			background-image: url('../../images/overlay.png');
+			background-image: url('../../images/background/overlay-texture.png');
 			background-color: _palette(bg-overlay);
 			border-radius: _size(border-radius);
 			content: '';
@@ -73,15 +73,49 @@
 			}
 		}
 
+		// Full-bleed banner variant.
+		// Cancels the parent article's horizontal padding so a wide banner spans the
+		// whole card instead of only the text column. `height: auto` guarantees the
+		// image is never cropped -- the entire frame is always visible.
+		&.main.bleed {
+			margin-left:	-2.5rem;
+			margin-right:	-2.5rem;
+			width:			calc(100% + 5rem);
+			max-width:		none;
+			border-radius:	0;
+
+			&:before,
+			img {
+				border-radius: 0;
+			}
+
+			img {
+				width: 100%;
+				height: auto;
+			}
+		}
+
 		@include breakpoint('<=small') {
 			&.main {
 				margin: (_size(element-margin) * 1) 0;
+			}
+
+			&.main.bleed {
+				margin-left:	-2rem;
+				margin-right:	-2rem;
+				width:			calc(100% + 4rem);
 			}
 		}
 
 		@include breakpoint('<=xsmall') {
 			&.main {
 				margin: (_size(element-margin) * 0.75) 0;
+			}
+
+			&.main.bleed {
+				margin-left:	-1.5rem;
+				margin-right:	-1.5rem;
+				width:			calc(100% + 3rem);
 			}
 		}
 	}

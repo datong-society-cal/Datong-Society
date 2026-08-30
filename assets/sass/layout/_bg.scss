@@ -16,6 +16,19 @@
 		height: 100vh;
 		z-index: 1;
 
+		// Two-plate background. --bg-shift is the *only* thing the script writes:
+		// 0 = bg-1 (top of a section / the home page), 1 = bg-2 (bottom of a
+		// section). Everything derived from it is CSS.
+		--bg-shift: 0;
+
+		// 0 at both ends, 1 at the halfway point — thickens the frosted glass
+		// while the two plates cross over, then clears again once they settle.
+		--bg-mid: calc(#{"min(var(--bg-shift), 1 - var(--bg-shift))"} * 2);
+
+		// Centre of the soft edge that sinks up the screen as bg-2 settles in.
+		// Pushed one full edge-width past each end so the extremes are clean.
+		--bg-edge: calc((1 - var(--bg-shift)) * 180% - 40%);
+
 		&:before, &:after {
 			content: '';
 			display: block;
@@ -30,7 +43,7 @@
 			@include vendor('transition', 'background-color #{_duration(bg)} ease-in-out');
 			@include vendor('transition-delay', '#{_duration(intro)}');
 			background-image:		linear-gradient(to top, #{_palette(bg-overlay)}, #{_palette(bg-overlay)}),
-									url('../../images/overlay.png');
+									url('../../images/background/overlay-texture.png');
 			background-size:		auto,
 									256px 256px;
 			background-position:	center,
@@ -40,23 +53,55 @@
 			z-index: 2;
 		}
 
-		&:after {
+		// bg-2, the plate that "settles" in. Painted before :after (same z-index,
+		// earlier in the tree) so bg-1 sits on top of it and dissolves away.
+		.bg-far {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
 			@include vendor('transform', 'scale(1.125)');
 			@include vendor('transition', (
 				'transform #{_duration(article)} ease-in-out',
 				'filter #{_duration(article)} ease-in-out'
 			));
-			background-image:		url('../../images/bg.jpg');
+			background-image:		url('../../images/background/bg-2.jpg');
 			background-position:	center;
 			background-size:		cover;
 			background-repeat:		no-repeat;
 			z-index: 1;
 		}
 
+		&:after {
+			@include vendor('transform', 'scale(1.125)');
+			@include vendor('transition', (
+				'transform #{_duration(article)} ease-in-out',
+				'filter #{_duration(article)} ease-in-out'
+			));
+			background-image:		url('../../images/background/bg-1.jpg');
+			background-position:	center;
+			background-size:		cover;
+			background-repeat:		no-repeat;
+			z-index: 1;
+
+			// The dissolve is two layers: a plain opacity fade (works everywhere)
+			// plus a soft vertical mask, so bg-2 appears to settle up from the
+			// bottom of the screen instead of simply fading in on the spot.
+			opacity: calc(1 - var(--bg-shift));
+			-webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--bg-edge) - 40%), transparent calc(var(--bg-edge) + 40%));
+			mask-image: linear-gradient(to bottom, #000 calc(var(--bg-edge) - 40%), transparent calc(var(--bg-edge) + 40%));
+		}
+
 		body.is-article-visible & {
-			&:after {
+			// Frosted glass: the template's usual blur, plus extra softening that
+			// peaks while the plates are mid-swap.
+			&:after,
+			.bg-far {
 				@include vendor('transform', 'scale(1.0825)');
 				@include vendor('filter', 'blur(0.2rem)');
+				filter: blur(calc(0.2rem + var(--bg-mid) * 0.55rem));
 			}
 		}
 

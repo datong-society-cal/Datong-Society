@@ -626,7 +626,7 @@ input, select, textarea {
 
 		.image:before {
 			pointer-events: none;
-			background-image: url("../../images/overlay.png");
+			background-image: url("../../images/background/overlay-texture.png");
 			background-color: rgba(19, 21, 25, 0.5);
 			border-radius: 4px;
 			content: '';
@@ -684,11 +684,37 @@ input, select, textarea {
 				width: 100%;
 			}
 
+			/* Full-bleed banner: cancels the parent article's horizontal padding so the
+			   banner spans the whole card. height:auto => never cropped. */
+			.image.main.bleed {
+				margin-left: -2.5rem;
+				margin-right: -2.5rem;
+				width: calc(100% + 5rem);
+				max-width: none;
+				border-radius: 0;
+			}
+
+				.image.main.bleed:before,
+				.image.main.bleed img {
+					border-radius: 0;
+				}
+
+				.image.main.bleed img {
+					width: 100%;
+					height: auto;
+				}
+
 		@media screen and (max-width: 736px) {
 
 			.image.main {
 				margin: 2rem 0;
 			}
+
+				.image.main.bleed {
+					margin-left: -2rem;
+					margin-right: -2rem;
+					width: calc(100% + 4rem);
+				}
 
 		}
 
@@ -697,6 +723,12 @@ input, select, textarea {
 			.image.main {
 				margin: 1.5rem 0;
 			}
+
+				.image.main.bleed {
+					margin-left: -1.5rem;
+					margin-right: -1.5rem;
+					width: calc(100% + 3rem);
+				}
 
 		}
 
@@ -1086,19 +1118,31 @@ input, select, textarea {
 
 /* BG */
 
-	#bg {
-		-moz-transform: scale(1.0);
-		-webkit-transform: scale(1.0);
-		-ms-transform: scale(1.0);
-		transform: scale(1.0);
-		-webkit-backface-visibility: hidden;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100vh;
-		z-index: 1;
-	}
+		#bg {
+			transform: scale(1.0);
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100vh;
+			z-index: 1;
+
+			/* Two-plate background. --bg-shift is the only thing the script
+			   writes: 0 = bg-1 (home page / top of a section), 1 = bg-2
+			   (bottom of a section). Everything derived from it is CSS. */
+			--bg-shift: 0;
+
+			/* 0 at both ends, 1 at the halfway point — thickens the frosted
+			   glass while the two plates cross over. */
+			--bg-mid: calc(min(var(--bg-shift), 1 - var(--bg-shift)) * 2);
+
+			/* Centre of the soft edge that sinks up the screen as bg-2 settles
+			   in; pushed a full edge-width past each end so the extremes are
+			   clean (fully bg-1 at 0, fully bg-2 at 1). */
+			--bg-edge: calc((1 - var(--bg-shift)) * 180% - 40%);
+		}
 
 		#bg:before, #bg:after {
 			content: '';
@@ -1119,11 +1163,35 @@ input, select, textarea {
 			-webkit-transition-delay: 0.75s;
 			-ms-transition-delay: 0.75s;
 			transition-delay: 0.75s;
-			background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/overlay.png");
+			background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/background/overlay-texture.png");
 			background-size: auto, 256px 256px;
 			background-position: center, center;
 			background-repeat: no-repeat, repeat;
 			z-index: 2;
+		}
+
+		/* bg-2 — the plate that "settles" in. Painted before #bg:after (same
+		   z-index, earlier in the tree), so bg-1 sits on top and dissolves. */
+		#bg .bg-far {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			-moz-transform: scale(1.125);
+			-webkit-transform: scale(1.125);
+			-ms-transform: scale(1.125);
+			transform: scale(1.125);
+			-moz-transition: -moz-transform 0.325s ease-in-out, -moz-filter 0.325s ease-in-out;
+			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
+			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
+			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
+			background-image: url("../../images/background/bg-2.jpg");
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			z-index: 1;
 		}
 
 		#bg:after {
@@ -1135,14 +1203,24 @@ input, select, textarea {
 			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/bg.jpg");
+			background-image: url("../../images/background/bg-1.jpg");
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
 			z-index: 1;
+
+			/* The dissolve is two layers: a plain opacity fade (works
+			   everywhere) plus a soft vertical mask, so bg-2 appears to settle
+			   up from the bottom of the screen rather than fading on the spot. */
+			opacity: calc(1 - var(--bg-shift));
+			-webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--bg-edge) - 40%), transparent calc(var(--bg-edge) + 40%));
+			mask-image: linear-gradient(to bottom, #000 calc(var(--bg-edge) - 40%), transparent calc(var(--bg-edge) + 40%));
 		}
 
-		body.is-article-visible #bg:after {
+		/* Frosted glass: the template's usual blur plus extra softening that
+		   peaks while the two plates are mid-swap. */
+		body.is-article-visible #bg:after,
+		body.is-article-visible #bg .bg-far {
 			-moz-transform: scale(1.0825);
 			-webkit-transform: scale(1.0825);
 			-ms-transform: scale(1.0825);
@@ -1151,6 +1229,7 @@ input, select, textarea {
 			-webkit-filter: blur(0.2rem);
 			-ms-filter: blur(0.2rem);
 			filter: blur(0.2rem);
+			filter: blur(calc(0.2rem + var(--bg-mid) * 0.55rem));
 		}
 
 		body.is-preload #bg:before {
@@ -1719,6 +1798,15 @@ input, select, textarea {
 			filter: grayscale(0%);
 		}
 
+		/* 头像缺失时的优雅降级：隐藏破图，显示中性占位圆 */
+		.member-avatar.img-failed {
+			background: linear-gradient(140deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
+		}
+
+		.member-avatar.img-failed img {
+			display: none;
+		}
+
 		/* 首字母徽章（无照片时） */
 		.member-avatar.initials span {
 			font-size: 1.05rem;
@@ -1726,6 +1814,77 @@ input, select, textarea {
 			letter-spacing: 1px;
 			color: #ffffff;
 			opacity: 0.85;
+		}
+
+		/* 社长卡片：独占第一行，其余成员从第二行起两列排布 */
+		.member-card.is-featured {
+			grid-column: 1 / -1;
+			align-items: center;
+			gap: 1.25rem;
+			padding: 1.35rem 1.5rem;
+			border-color: rgba(201, 161, 67, 0.28);
+			background: linear-gradient(100deg, rgba(201, 161, 67, 0.09), rgba(255, 255, 255, 0.03) 62%);
+		}
+
+		.member-card.is-featured:hover {
+			border-color: rgba(201, 161, 67, 0.5);
+		}
+
+		.member-card.is-featured .member-avatar {
+			width: 68px;
+			height: 68px;
+			min-width: 68px;
+			border-color: rgba(201, 161, 67, 0.45);
+		}
+
+		.member-card.is-featured .member-avatar.initials span {
+			font-size: 1.35rem;
+			letter-spacing: 1.5px;
+		}
+
+		.member-card.is-featured .member-info h4 {
+			font-size: 1.1rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.member-card.is-featured .member-info h4 span,
+		.member-card.is-featured .member-info .meta {
+			font-size: 0.82rem;
+			opacity: 0.7;
+		}
+
+		.member-card.is-featured .member-info .meta {
+			margin-bottom: 0.5rem;
+		}
+
+		.member-card.is-featured .member-info .bio {
+			font-size: 0.85rem;
+		}
+
+		@media screen and (max-width: 480px) {
+
+			.member-card.is-featured {
+				align-items: flex-start;
+				gap: 0.9rem;
+				padding: 1rem;
+			}
+
+			.member-card.is-featured .member-avatar {
+				width: 54px;
+				height: 54px;
+				min-width: 54px;
+			}
+
+		}
+
+		/* Get Involved 页脚：CalLink 登记说明 */
+		.org-note {
+			margin-top: 1.75rem;
+			padding-top: 1.25rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.08);
+			font-size: 0.78rem;
+			line-height: 1.6;
+			color: rgba(255, 255, 255, 0.6);
 		}
 
 		/* 文字层次优化 */
@@ -1753,4 +1912,655 @@ input, select, textarea {
 			line-height: 1.35;
 			margin: 0;
 			opacity: 0.85;
+		}
+
+	/* Events Gallery (Past Events article) */
+
+		.events-intro {
+			font-size: 0.95rem;
+			line-height: 1.7;
+			opacity: 0.85;
+			margin-bottom: 2rem;
+		}
+
+		.events-intro .lead {
+			font-size: 1.05rem;
+			opacity: 1;
+			color: #ffffff;
+			margin-bottom: 0.8rem;
+		}
+
+		.events-filter {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem;
+			margin: 1.5rem 0 0.5rem;
+			padding-bottom: 1rem;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		}
+
+		.events-filter button {
+			background: transparent;
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			color: rgba(255, 255, 255, 0.78);
+			padding: 0.4rem 1rem;
+			font-family: inherit;
+			font-size: 0.72rem;
+			font-weight: 600;
+			letter-spacing: 0.12rem;
+			text-transform: uppercase;
+			cursor: pointer;
+			border-radius: 999px;
+			white-space: nowrap;
+			min-width: 3.5rem;
+			transition: all 0.25s ease;
+		}
+
+		.events-filter button:hover {
+			border-color: rgba(255, 255, 255, 0.5);
+			color: #ffffff;
+			background: rgba(255, 255, 255, 0.05);
+		}
+
+		.events-filter button.is-active {
+			background: #ffffff !important;
+			border-color: #ffffff !important;
+			color: #1b1f22 !important;
+		}
+
+		.event-card {
+			margin: 2.2rem 0 0;
+			padding: 1.4rem 1.4rem 1.6rem;
+			background: rgba(255, 255, 255, 0.035);
+			border: 1px solid rgba(255, 255, 255, 0.09);
+			border-radius: 4px;
+			transition: border-color 0.3s ease, background 0.3s ease;
+		}
+
+		.event-card:hover {
+			border-color: rgba(255, 255, 255, 0.22);
+			background: rgba(255, 255, 255, 0.055);
+		}
+
+		.event-cover {
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			max-height: 420px;
+			overflow: hidden;
+			border-radius: 3px;
+			background: #000;
+			margin-bottom: 1rem;
+			cursor: zoom-in;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.event-cover img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center bottom;
+			display: block;
+			flex: 0 0 auto;
+		}
+
+		/* 竖幅合影：放宽容器比例，让整张照片（全体成员 + Doe Library）完整可见 */
+		.event-cover.fit-contain {
+			aspect-ratio: 5 / 6;
+			max-height: 620px;
+		}
+
+		.event-cover.fit-contain img {
+			object-fit: contain;
+			object-position: center;
+			background: #000;
+		}
+
+		.event-head {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: baseline;
+			justify-content: space-between;
+			gap: 0.6rem 1rem;
+			margin-bottom: 0.55rem;
+		}
+
+		.event-card h3 {
+			margin: 0;
+			font-size: 1.18rem;
+			letter-spacing: 0.04rem;
+			line-height: 1.3;
+			color: #ffffff;
+		}
+
+		.event-card h3 .en {
+			display: block;
+			font-size: 0.82rem;
+			font-weight: 300;
+			letter-spacing: 0.08rem;
+			opacity: 0.6;
+			margin-top: 0.18rem;
+		}
+
+		.event-meta {
+			display: flex;
+			align-items: center;
+			gap: 0.55rem;
+			font-size: 0.72rem;
+			letter-spacing: 0.1rem;
+			text-transform: uppercase;
+		}
+
+		.event-tag {
+			padding: 3px 9px;
+			border: 1px solid rgba(255, 255, 255, 0.22);
+			border-radius: 999px;
+			opacity: 0.78;
+		}
+
+		.event-date {
+			opacity: 0.55;
+		}
+
+		.event-desc {
+			font-size: 0.88rem;
+			line-height: 1.65;
+			opacity: 0.86;
+			margin: 0.4rem 0 0;
+		}
+
+		.event-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+			gap: 0.55rem;
+			margin-top: 1.1rem;
+		}
+
+		.event-gallery a {
+			display: block;
+			aspect-ratio: 4 / 3;
+			overflow: hidden;
+			border-radius: 3px;
+			background: #000;
+			cursor: zoom-in;
+		}
+
+		.event-gallery img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center bottom;
+			display: block;
+			transition: transform 0.45s ease, filter 0.45s ease, opacity 0.45s ease;
+		}
+
+		.event-gallery a:hover img {
+			transform: scale(1.06);
+			filter: brightness(1.08);
+		}
+
+		.event-card.is-hidden {
+			display: none;
+		}
+
+	/* Lightbox */
+
+		.lb-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.93);
+			display: none;
+			align-items: center;
+			justify-content: center;
+			z-index: 20000;
+			cursor: zoom-out;
+			padding: 2vh 2vw;
+		}
+
+		.lb-overlay.is-open {
+			display: flex;
+		}
+
+		.lb-overlay img {
+			max-width: 94vw;
+			max-height: 90vh;
+			object-fit: contain;
+			box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+		}
+
+		.lb-cap {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 16px;
+			text-align: center;
+			color: rgba(255, 255, 255, 0.7);
+			font-size: 0.78rem;
+			letter-spacing: 0.06rem;
+			pointer-events: none;
+		}
+
+	/* Mobile tweaks for events */
+
+		@media screen and (max-width: 736px) {
+			.event-card {
+				padding: 1rem;
+			}
+			.event-card h3 {
+				font-size: 1.05rem;
+			}
+			.event-gallery {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+	/* Persistent logo on article views — Datong emblem on an ink plate, drifting mist */
+
+		.svg-defs {
+			position: absolute;
+			width: 0;
+			height: 0;
+			overflow: hidden;
+		}
+
+		/* Outer anchor: positioning + hover tooltip.
+		   Deliberately NOT clipping, or the tooltip would be cut off.
+		   The box is deliberately LARGER than the plate by --ring-pad on every
+		   side, so the reading-progress ring has room outside the emblem.
+		   The offsets are pulled back by the same amount, which keeps the
+		   emblem itself exactly where it was approved.
+		   pointer-events is off on the anchor and back on for the plate, so the
+		   ring never steals clicks from the page underneath. */
+		.article-logo {
+			--ring-pad: 20px;
+			display: none;
+			position: fixed;
+			top: calc(1.2rem - var(--ring-pad));
+			left: calc(1.2rem - var(--ring-pad));
+			z-index: 15000;
+			width: calc(108px + var(--ring-pad) * 2);
+			height: calc(108px + var(--ring-pad) * 2);
+			border-radius: 50%;
+			text-decoration: none;
+			cursor: pointer;
+			pointer-events: none;
+			opacity: 0;
+			transform: translateY(-6px);
+			transition: opacity 0.45s ease, transform 0.45s ease;
+		}
+
+		/* The plate: deep ink-navy so the emblem's white + gold read strongly.
+		   isolation keeps the mist's screen blend confined to this plate. */
+		.article-logo .logo-plate {
+			position: absolute;
+			inset: var(--ring-pad);
+			z-index: 1;
+			pointer-events: auto;
+			border-radius: 50%;
+			overflow: hidden;
+			isolation: isolate;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: radial-gradient(circle at 34% 26%, #16386a 0%, #0a1c3e 46%, #04091a 100%);
+			border: 1px solid rgba(201, 161, 67, 0.5);
+			box-shadow:
+				0 8px 38px rgba(0, 0, 0, 0.62),
+				0 2px 8px rgba(0, 0, 0, 0.55),
+				0 0 0 5px rgba(201, 161, 67, 0.05),
+				inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+				inset 0 -10px 26px rgba(0, 0, 0, 0.55);
+		}
+
+		/* Mist container — clips the drifting layers to the circle */
+		.article-logo .logo-mist {
+			position: absolute;
+			inset: 0;
+			border-radius: 50%;
+			overflow: hidden;
+			pointer-events: none;
+		}
+
+		/* Oversized so drift never exposes an edge. A background is required,
+		   otherwise Chrome skips rendering the element (the filter replaces it). */
+		.article-logo .mist {
+			position: absolute;
+			inset: -45%;
+			display: block;
+			background: #000;
+			will-change: transform;
+			transform-origin: 50% 50%;
+		}
+
+		.article-logo .mist-navy {
+			filter: url(#dtMistNavy);
+			opacity: 0.62;
+			mix-blend-mode: screen;
+			animation: dtMistDriftA 26s ease-in-out infinite;
+		}
+
+		.article-logo .mist-gold {
+			filter: url(#dtMistGold);
+			opacity: 0.5;
+			mix-blend-mode: screen;
+			animation: dtMistDriftB 34s ease-in-out infinite;
+		}
+
+		/* Front mist: drifts across the emblem, pooled toward the base so the
+		   emblem's centre stays crisp and legible. */
+		.article-logo .logo-mist-front {
+			z-index: 3;
+			-webkit-mask-image: linear-gradient(to top,
+				rgba(0, 0, 0, 0.95) 0%,
+				rgba(0, 0, 0, 0.5) 34%,
+				rgba(0, 0, 0, 0.12) 62%,
+				rgba(0, 0, 0, 0) 80%);
+			mask-image: linear-gradient(to top,
+				rgba(0, 0, 0, 0.95) 0%,
+				rgba(0, 0, 0, 0.5) 34%,
+				rgba(0, 0, 0, 0.12) 62%,
+				rgba(0, 0, 0, 0) 80%);
+		}
+
+		.article-logo .logo-mist-front .mist-navy {
+			opacity: 0.34;
+			animation-duration: 31s;
+		}
+
+		.article-logo .logo-mist-front .mist-gold {
+			opacity: 0.28;
+			animation-duration: 39s;
+		}
+
+		@keyframes dtMistDriftA {
+			0%   { transform: translate3d(-6%,  2%, 0) scale(1.06) rotate(0deg); }
+			50%  { transform: translate3d( 7%, -4%, 0) scale(1.18) rotate(9deg); }
+			100% { transform: translate3d(-6%,  2%, 0) scale(1.06) rotate(0deg); }
+		}
+
+		@keyframes dtMistDriftB {
+			0%   { transform: translate3d( 5%, -5%, 0) scale(1.14) rotate(0deg); }
+			50%  { transform: translate3d(-8%,  4%, 0) scale(1.02) rotate(-11deg); }
+			100% { transform: translate3d( 5%, -5%, 0) scale(1.14) rotate(0deg); }
+		}
+
+		/* Vignette + inner gold ring: pushes the mist back, adds weight */
+		.article-logo .logo-rim {
+			position: absolute;
+			inset: 0;
+			border-radius: 50%;
+			pointer-events: none;
+			background: radial-gradient(circle at 50% 50%,
+				rgba(4, 9, 26, 0) 46%,
+				rgba(4, 9, 26, 0.28) 74%,
+				rgba(4, 9, 26, 0.8) 100%);
+			box-shadow: inset 0 0 0 1px rgba(201, 161, 67, 0.22);
+		}
+
+		.article-logo img {
+			position: relative;
+			z-index: 2;
+			width: 78%;
+			height: 78%;
+			object-fit: contain;
+			display: block;
+			filter:
+				drop-shadow(0 2px 7px rgba(0, 0, 0, 0.7))
+				drop-shadow(0 0 12px rgba(201, 161, 67, 0.22));
+		}
+
+		/* ---- Reading-progress ring --------------------------------------
+		   Sits in the --ring-pad gutter outside the plate, behind it.
+		   Geometry: 148x148 viewBox, centre (74,74);
+		   progress + track at r=64, ticks 66.5-72, shimmer centred at 12 o'clock. */
+
+		.article-logo .logo-ring {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			pointer-events: none;
+		}
+
+		.article-logo .logo-ring svg {
+			width: 100%;
+			height: 100%;
+			display: block;
+			overflow: visible;
+		}
+
+		.ring-track {
+			fill: none;
+			stroke: rgba(214, 228, 255, 0.09);
+			stroke-width: 1.1;
+		}
+
+		.ring-progress {
+			fill: none;
+			stroke: url(#dtRingGold);
+			stroke-width: 2.4;
+			stroke-linecap: round;
+			filter: drop-shadow(0 0 5px rgba(201, 161, 67, 0.45));
+		}
+
+		.ring-ticks .tick {
+			stroke: rgba(206, 222, 255, 0.28);
+			stroke-width: 1;
+		}
+
+		/* Every 6th tick (4 per turn) reads as a cardinal mark */
+		.ring-ticks .tick-major {
+			stroke: rgba(201, 161, 67, 0.6);
+			stroke-width: 1.35;
+		}
+
+		.ring-head {
+			fill: #F6E6B6;
+			filter: drop-shadow(0 0 6px rgba(233, 203, 126, 0.95));
+			transition: opacity 0.3s ease;
+		}
+
+		/* The glimmer when a tick sweeps past 12 o'clock — deliberately faint */
+		.ring-shimmer {
+			opacity: 0;
+		}
+
+		.shimmer-glow {
+			fill: url(#dtRingGlow);
+		}
+
+		.shimmer-arc {
+			fill: none;
+			stroke: #F7E7BC;
+			stroke-width: 1.5;
+			stroke-linecap: round;
+			filter: drop-shadow(0 0 5px rgba(201, 161, 67, 0.8));
+		}
+
+		.ring-shimmer.flare {
+			animation: dtRingFlare 1.25s cubic-bezier(0.16, 0.7, 0.3, 1) 1;
+		}
+
+		@keyframes dtRingFlare {
+			0%   { opacity: 0; }
+			9%   { opacity: 0.92; }
+			34%  { opacity: 0.42; }
+			100% { opacity: 0; }
+		}
+
+		body.is-article-visible .article-logo {
+			display: block;
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		body.is-article-visible .article-logo:hover {
+			transform: scale(1.04);
+		}
+
+		body.is-article-visible .article-logo:hover .logo-plate {
+			border-color: rgba(201, 161, 67, 0.85);
+			box-shadow:
+				0 10px 44px rgba(0, 0, 0, 0.7),
+				0 2px 8px rgba(0, 0, 0, 0.55),
+				0 0 0 5px rgba(201, 161, 67, 0.1),
+				0 0 26px rgba(201, 161, 67, 0.3),
+				inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+				inset 0 -10px 26px rgba(0, 0, 0, 0.5);
+		}
+
+		.article-logo::before {
+			content: "回到主页 · HOME";
+			position: absolute;
+			left: calc(100% - var(--ring-pad) + 14px);
+			top: 50%;
+			transform: translateY(-50%);
+			white-space: nowrap;
+			font-size: 0.62rem;
+			letter-spacing: 0.18rem;
+			color: rgba(255, 255, 255, 0.55);
+			text-transform: uppercase;
+			font-weight: 600;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			pointer-events: none;
+		}
+
+		.article-logo:hover::before {
+			opacity: 1;
+		}
+
+		@media screen and (max-width: 736px) {
+			.article-logo {
+				--ring-pad: 14px;
+				top: calc(1rem - var(--ring-pad));
+				left: calc(1rem - var(--ring-pad));
+				/* 76px plate + 14px gutter; the ring's outer ticks land ~1px inside the edge */
+				width: calc(76px + var(--ring-pad) * 2);
+				height: calc(76px + var(--ring-pad) * 2);
+			}
+			.article-logo::before { display: none; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.article-logo .mist { animation: none; }
+			.ring-shimmer.flare { animation-duration: 0.4s; }
+		}
+
+	/* Get Involved — QR section */
+
+		.qr-section {
+			margin-top: 2.4rem;
+			margin-bottom: 0;
+			padding-top: 1.8rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.12);
+		}
+
+		/* 烫金云纹分隔线：在二维码与社交角标之间留出呼吸空间 */
+		.cloud-divider {
+			margin: 2.6rem 0 2.4rem;
+			display: flex;
+			justify-content: center;
+			pointer-events: none;
+		}
+
+		.cloud-divider svg {
+			width: 100%;
+			max-width: 320px;
+			height: auto;
+			display: block;
+			opacity: 0.9;
+		}
+
+		.qr-section h3 {
+			margin: 0 0 0.4rem 0;
+			font-size: 1.05rem;
+			letter-spacing: 0.08rem;
+		}
+
+		.qr-section .qr-lead {
+			font-size: 0.85rem;
+			opacity: 0.75;
+			line-height: 1.6;
+			margin-bottom: 1.3rem;
+		}
+
+		.qr-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 1rem;
+		}
+
+		.qr-card {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			padding: 1.1rem 0.9rem 1rem;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 4px;
+			transition: border-color 0.25s ease, background 0.25s ease;
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.qr-card:hover {
+			border-color: rgba(255, 255, 255, 0.3);
+			background: rgba(255, 255, 255, 0.07);
+		}
+
+		.qr-card .qr-img {
+			width: 100%;
+			max-width: 200px;
+			aspect-ratio: 1 / 1;
+			background: #ffffff;
+			border-radius: 3px;
+			padding: 0.6rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.qr-card .qr-img img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+
+		.qr-card .qr-name {
+			margin-top: 0.85rem;
+			font-size: 0.82rem;
+			letter-spacing: 0.08rem;
+			opacity: 0.92;
+		}
+
+		.qr-card .qr-en {
+			margin-top: 0.2rem;
+			font-size: 0.66rem;
+			opacity: 0.55;
+			letter-spacing: 0.06rem;
+		}
+
+		.qr-card.is-link .qr-img {
+			max-width: 220px;
+		}
+
+		.qr-card .qr-link {
+			display: inline-block;
+			margin-top: 0.55rem;
+			font-size: 0.68rem;
+			letter-spacing: 0.1rem;
+			padding: 0.32rem 0.9rem;
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			border-radius: 999px;
+			color: rgba(255, 255, 255, 0.85);
+			text-decoration: none;
+			transition: all 0.25s ease;
+		}
+
+		.qr-card .qr-link:hover {
+			background: rgba(255, 255, 255, 0.92);
+			border-color: rgba(255, 255, 255, 0.92);
+			color: #1b1f22;
 		}
