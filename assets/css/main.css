@@ -2564,3 +2564,251 @@ input, select, textarea {
 			border-color: rgba(255, 255, 255, 0.92);
 			color: #1b1f22;
 		}
+
+/* ============================================================
+   Datong Society — Fall 2026 Recruitment Modal
+   ============================================================ */
+
+#recruit-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	padding: 1.5rem;
+}
+
+#recruit-modal.is-open {
+	display: flex;
+}
+
+#recruit-modal .recruit-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(8, 11, 16, 0.74);
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	animation: recruit-fade 0.35s ease-out both;
+}
+
+.recruit-card {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 30rem;
+	padding: 2.75rem 2.5rem 2.25rem;
+	border-radius: 8px;
+	background: linear-gradient(160deg, #18202f 0%, #0f141e 100%);
+	box-shadow:
+		0 0 0 1px rgba(201, 161, 67, 0.28),
+		0 30px 80px rgba(0, 0, 0, 0.6),
+		0 0 60px rgba(201, 161, 67, 0.12);
+	animation: recruit-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+	overflow: hidden;
+}
+
+/* gold-foil top accent */
+.recruit-card::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg,
+		#C9A143 0%, #F2DFA2 25%, #FFF3C9 50%, #F2DFA2 75%, #C9A143 100%);
+}
+
+.recruit-close {
+	position: absolute;
+	top: 0.85rem;
+	right: 1rem;
+	background: none;
+	border: 0;
+	color: rgba(243, 241, 234, 0.55);
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: color 0.2s ease-in-out;
+}
+
+.recruit-close:hover {
+	color: #F2DFA2;
+}
+
+.recruit-eyebrow {
+	font-size: 0.7rem;
+	letter-spacing: 0.32rem;
+	text-transform: uppercase;
+	color: #D8B45E;
+	font-weight: 600;
+	margin-bottom: 0.9rem;
+}
+
+.recruit-title {
+	font-size: 1.9rem;
+	line-height: 1.15;
+	letter-spacing: 0.04rem;
+	color: #f7f4ec;
+	font-weight: 600;
+	margin: 0 0 0.35rem;
+}
+
+.recruit-sub {
+	font-size: 0.78rem;
+	letter-spacing: 0.16rem;
+	text-transform: uppercase;
+	color: rgba(243, 241, 234, 0.6);
+	margin-bottom: 1.4rem;
+}
+
+.recruit-copy {
+	font-size: 0.95rem;
+	line-height: 1.7;
+	color: rgba(243, 241, 234, 0.85);
+	margin-bottom: 1.6rem;
+}
+
+.recruit-actions {
+	display: flex;
+	gap: 0.85rem;
+	margin-bottom: 1.4rem;
+}
+
+.recruit-cta {
+	flex: 1 1 auto;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.18rem;
+	text-transform: uppercase;
+	padding: 0.9rem 1rem;
+	border-radius: 4px;
+	transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.recruit-cta.primary {
+	background: linear-gradient(90deg, #C9A143, #E7C877);
+	color: #14181f;
+	box-shadow: 0 6px 20px rgba(201, 161, 67, 0.3);
+}
+
+.recruit-cta.primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 26px rgba(201, 161, 67, 0.42);
+}
+
+.recruit-cta.secondary {
+	background: transparent;
+	color: #E7C877;
+	box-shadow: inset 0 0 0 1px rgba(201, 161, 67, 0.6);
+}
+
+.recruit-cta.secondary:hover {
+	background: rgba(201, 161, 67, 0.12);
+	color: #F2DFA2;
+}
+
+.recruit-contact {
+	font-size: 0.82rem;
+	color: rgba(243, 241, 234, 0.62);
+	text-align: center;
+	border-top: 1px solid rgba(201, 161, 67, 0.18);
+	padding-top: 1.1rem;
+}
+
+.recruit-contact a {
+	color: #D8B45E;
+	text-decoration: none;
+	border-bottom: 1px solid rgba(216, 180, 94, 0.4);
+}
+
+.recruit-contact a:hover {
+	color: #F2DFA2;
+}
+
+.recruit-dontask {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	margin-top: 1rem;
+	font-size: 0.72rem;
+	color: rgba(243, 241, 234, 0.5);
+	cursor: pointer;
+}
+
+.recruit-dontask input {
+	accent-color: #C9A143;
+}
+
+/* Floating re-open pill */
+#recruit-fab {
+	position: fixed;
+	right: 1.1rem;
+	bottom: 1.1rem;
+	z-index: 90000;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.6rem 0.95rem;
+	border: 0;
+	border-radius: 999px;
+	background: linear-gradient(90deg, #C9A143, #E7C877);
+	color: #14181f;
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.12rem;
+	text-transform: uppercase;
+	box-shadow: 0 6px 20px rgba(201, 161, 67, 0.35);
+	cursor: pointer;
+	transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+#recruit-fab:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 26px rgba(201, 161, 67, 0.45);
+}
+
+#recruit-fab .fab-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #14181f;
+	box-shadow: 0 0 0 0 rgba(20, 24, 31, 0.6);
+	animation: recruit-pulse 2s infinite;
+}
+
+@keyframes recruit-fade {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@keyframes recruit-pop {
+	from { opacity: 0; transform: translateY(14px) scale(0.97); }
+	to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes recruit-pulse {
+	0%   { box-shadow: 0 0 0 0 rgba(20, 24, 31, 0.55); }
+	70%  { box-shadow: 0 0 0 7px rgba(20, 24, 31, 0); }
+	100% { box-shadow: 0 0 0 0 rgba(20, 24, 31, 0); }
+}
+
+@media screen and (max-width: 480px) {
+	.recruit-card { padding: 2.25rem 1.4rem 1.75rem; }
+	.recruit-title { font-size: 1.55rem; }
+	.recruit-actions { flex-direction: column; }
+	.recruit-cta { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#recruit-modal .recruit-backdrop,
+	.recruit-card,
+	#recruit-fab .fab-dot { animation: none !important; }
+	#recruit-fab { transition: none; }
+}
+		}

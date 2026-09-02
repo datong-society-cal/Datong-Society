@@ -107,8 +107,16 @@
 								<ul>
 									<li><strong>Discussion & Reading Groups:</strong> In-depth, text-based analytical discussions on classic literature and contemporary scholarship.</li>
 									<li><strong>Seminars & Methodological Exchanges:</strong> Peer research presentations, discussion of works-in-progress, and interdisciplinary dialogues.</li>
-									<li><strong>Scholar & Guest Exchanges:</strong> Occasional lectures and informal discussions with visiting scholars, writers, and artists.</li>
-								</ul>
+									<li><strong>Scholar & Guest Exchanges:</strong> Occasional lectures and informal discussions with visiting scholars, writers, and cultural activist in the Bay Area.</li>
+<li><strong>Student-Led DeCal Courses:</strong> Student-taught curriculum. Offering as Hist 198 (Through the Camera: 20th-Century China in Transition) in Fall 2026.</li>
+</ul>
+
+						<div style="text-align:center; margin: 1.75rem 0 0.5rem;">
+							<a href="images/events/2026-decal/flyer_Decal.jpg" target="_blank" rel="noopener noreferrer">
+								<img src="images/events/2026-decal/flyer_Decal.jpg" alt="DeCal — Contemporary China flyer (Fall 2026)" style="max-width: 360px; width: 100%; border-radius: 6px; box-shadow: 0 12px 34px rgba(0,0,0,0.4);" />
+							</a>
+							<p style="font-size: 0.72rem; letter-spacing: 0.16rem; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 0.85rem;">DeCal &middot; Contemporary China &middot; Fall 2026</p>
+						</div>
 								<div class="cloud-divider" aria-hidden="true">
 									<svg viewBox="0 0 240 34" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 										<g fill="none" stroke="url(#dtGoldFoil)" stroke-width="1.3" stroke-linecap="round">
@@ -808,6 +816,67 @@
 				paint();
 			})();
 			</script>
+
+		<!-- Fall 2026 Recruitment Modal -->
+		<div id="recruit-modal" role="dialog" aria-modal="true" aria-labelledby="recruit-title" aria-hidden="true">
+			<div class="recruit-backdrop" data-recruit-close></div>
+			<div class="recruit-card" role="document">
+				<button class="recruit-close" data-recruit-close aria-label="Close">&times;</button>
+				<div class="recruit-eyebrow">Fall 2026 &middot; 招新</div>
+				<h2 class="recruit-title" id="recruit-title">We're Recruiting</h2>
+				<div class="recruit-sub">大同学社 &middot; Datong Society of China Studies, UC Berkeley</div>
+				<p class="recruit-copy">Datong Society is now welcoming new members for Fall 2026. We're a student-led intellectual community for anyone curious about China and East Asia &mdash; across history, political economy, literature, and the social sciences. Join our reading groups, seminars, and salons to meet peers who love rigorous, open-minded discussion.</p>
+				<div class="recruit-actions">
+					<a class="recruit-cta primary" href="https://forms.gle/TTjN7qqSbj9Ebz4j7" target="_blank" rel="noopener noreferrer">Apply Now</a>
+					<a class="recruit-cta secondary" href="images/qr/qr-recruit-qa.jpg" target="_blank" rel="noopener noreferrer">Join Q&amp;A Group</a>
+				</div>
+				<p class="recruit-contact">Questions? Contact <a href="mailto:datongsociety@gmail.com">datongsociety@gmail.com</a></p>
+				<label class="recruit-dontask"><input type="checkbox" id="recruit-dontshow" /> Don't show this again</label>
+			</div>
+		</div>
+
+		<!-- Floating re-open pill -->
+		<button id="recruit-fab" aria-label="Open recruitment info">
+			<span class="fab-dot"></span> 招新 &middot; Recruiting
+		</button>
+
+		<script>
+		// Fall 2026 recruitment modal — auto-open once per browser, re-openable via FAB.
+		(function () {
+			var modal = document.getElementById('recruit-modal');
+			var fab   = document.getElementById('recruit-fab');
+			var dont  = document.getElementById('recruit-dontshow');
+			if (!modal) return;
+
+			var KEY = 'dt_recruit_dismissed';
+
+			function open() {
+				modal.classList.add('is-open');
+				modal.setAttribute('aria-hidden', 'false');
+			}
+			function close(persist) {
+				modal.classList.remove('is-open');
+				modal.setAttribute('aria-hidden', 'true');
+				if (persist && dont && dont.checked) {
+					try { localStorage.setItem(KEY, '1'); } catch (e) {}
+				}
+			}
+
+			modal.querySelectorAll('[data-recruit-close]').forEach(function (el) {
+				el.addEventListener('click', function () { close(true); });
+			});
+			document.addEventListener('keydown', function (e) {
+				if (e.key === 'Escape' && modal.classList.contains('is-open')) close(true);
+			});
+			if (fab) fab.addEventListener('click', open);
+
+			var dismissed = false;
+			try { dismissed = localStorage.getItem(KEY) === '1'; } catch (e) {}
+			if (!dismissed) {
+				setTimeout(open, 1200);
+			}
+		})();
+		</script>
 
 	</body>
 </html>
