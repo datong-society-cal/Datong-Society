@@ -95,7 +95,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #1b1f22;
+		background: #0d1420;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -142,7 +142,7 @@ input, select, textarea {
 	body, input, select, textarea {
 		color: #ffffff;
 		font-family: "Source Sans Pro", sans-serif;
-		font-weight: 300;
+		font-weight: 400;
 		font-size: 1rem;
 		line-height: 1.65;
 	}
@@ -152,7 +152,7 @@ input, select, textarea {
 		-webkit-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 		-ms-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 		transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
-		border-bottom: dotted 1px rgba(255, 255, 255, 0.5);
+		border-bottom: dotted 1px rgba(255, 255, 255, 0.7);
 		text-decoration: none;
 		color: inherit;
 	}
@@ -442,7 +442,7 @@ input, select, textarea {
 
 		select option {
 			color: #ffffff;
-			background: #1b1f22;
+			background: #0d1420;
 		}
 
 		select:focus::-ms-value {
@@ -529,7 +529,7 @@ input, select, textarea {
 		input[type="radio"]:checked + label:before {
 			background: #ffffff !important;
 			border-color: #ffffff !important;
-			color: #1b1f22;
+			color: #0d1420;
 			content: '\f00c';
 		}
 
@@ -549,27 +549,27 @@ input, select, textarea {
 	}
 
 	::-webkit-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(255, 255, 255, 0.72) !important;
 		opacity: 1.0;
 	}
 
 	:-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(255, 255, 255, 0.72) !important;
 		opacity: 1.0;
 	}
 
 	::-moz-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(255, 255, 255, 0.72) !important;
 		opacity: 1.0;
 	}
 
 	:-ms-input-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(255, 255, 255, 0.72) !important;
 		opacity: 1.0;
 	}
 
 	.formerize-placeholder {
-		color: rgba(255, 255, 255, 0.5) !important;
+		color: rgba(255, 255, 255, 0.72) !important;
 		opacity: 1.0;
 	}
 
@@ -627,7 +627,7 @@ input, select, textarea {
 		.image:before {
 			pointer-events: none;
 			background-image: url("../../images/background/overlay-texture.png");
-			background-color: rgba(19, 21, 25, 0.5);
+			background-color: rgba(7, 12, 24, 0.45);
 			border-radius: 4px;
 			content: '';
 			display: block;
@@ -1091,7 +1091,7 @@ input, select, textarea {
 		button.primary,
 		.button.primary {
 			background-color: #ffffff;
-			color: #1b1f22 !important;
+			color: #0d1420 !important;
 			font-weight: 600;
 		}
 
@@ -1163,10 +1163,21 @@ input, select, textarea {
 			-webkit-transition-delay: 0.75s;
 			-ms-transition-delay: 0.75s;
 			transition-delay: 0.75s;
-			background-image: linear-gradient(to top, rgba(19, 21, 25, 0.5), rgba(19, 21, 25, 0.5)), url("../../images/background/overlay-texture.png");
-			background-size: auto, 256px 256px;
-			background-position: center, center;
-			background-repeat: no-repeat, repeat;
+			/* Spatial lighting instead of the old flat navy veil: deeper navy
+			   pulled in from the sides and bottom, a cooler lighter band over
+			   the constellations up top, and a faint warm lift over the pigment
+			   centre — so the artwork's blue/gold separation survives. No
+			   single layer darkens the whole hero uniformly. (Design C: the
+			   synthetic micro-grain layer was removed — the source artwork
+			   already carries its own texture.) */
+			background-image:
+				radial-gradient(ellipse 95vmin 75vmin at 50% 44%, rgba(6, 10, 20, 0) 48%, rgba(6, 10, 20, 0.38) 100%),
+				linear-gradient(to top, rgba(4, 7, 14, 0.48) 0%, rgba(4, 7, 14, 0) 30vh),
+				linear-gradient(to bottom, rgba(74, 104, 146, 0.16) 0%, rgba(74, 104, 146, 0) 26vh),
+				radial-gradient(ellipse 46vmin 36vmin at 50% 45%, rgba(214, 178, 106, 0.10) 0%, rgba(214, 178, 106, 0) 64%);
+			background-size: auto, auto, auto, auto;
+			background-position: center, center, top, center;
+			background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
 			z-index: 2;
 		}
 
@@ -1179,32 +1190,41 @@ input, select, textarea {
 			left: 0;
 			width: 100%;
 			height: 100%;
-			-moz-transform: scale(1.125);
-			-webkit-transform: scale(1.125);
-			-ms-transform: scale(1.125);
-			transform: scale(1.125);
+			-moz-transform: scale(1.06);
+			-webkit-transform: scale(1.06);
+			-ms-transform: scale(1.06);
+			transform: scale(1.06);
 			-moz-transition: -moz-transform 0.325s ease-in-out, -moz-filter 0.325s ease-in-out;
 			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/background/bg-2.jpg");
-			background-position: center;
+			/* Design C: no global filter — the plate keeps its natural
+			   colours; depth comes from the spatial layers above. */
+			background-image: url("../../images/background/bg-2.png");
+			/* Slightly above centre so the upper brush sweep and the
+			   constellation band stay in frame under the cover crop. */
+			background-position: center 42%;
 			background-size: cover;
 			background-repeat: no-repeat;
 			z-index: 1;
 		}
 
 		#bg:after {
-			-moz-transform: scale(1.125);
-			-webkit-transform: scale(1.125);
-			-ms-transform: scale(1.125);
-			transform: scale(1.125);
+			-moz-transform: scale(1.06);
+			-webkit-transform: scale(1.06);
+			-ms-transform: scale(1.06);
+			transform: scale(1.06);
 			-moz-transition: -moz-transform 0.325s ease-in-out, -moz-filter 0.325s ease-in-out;
 			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/background/bg-1.jpg");
-			background-position: center;
+			/* Design C: no global filter — the source artwork keeps its
+			   natural colours and tonal range; depth comes from the spatial
+			   layers in #bg:before and the crop below. */
+			background-image: url("../../images/background/bg-1.png");
+			/* Slightly above centre so the outer brush sweep and the
+			   constellation band stay in frame under the cover crop. */
+			background-position: center 42%;
 			background-size: cover;
 			background-repeat: no-repeat;
 			z-index: 1;
@@ -1221,15 +1241,17 @@ input, select, textarea {
 		   peaks while the two plates are mid-swap. */
 		body.is-article-visible #bg:after,
 		body.is-article-visible #bg .bg-far {
-			-moz-transform: scale(1.0825);
-			-webkit-transform: scale(1.0825);
-			-ms-transform: scale(1.0825);
-			transform: scale(1.0825);
-			-moz-filter: blur(0.2rem);
-			-webkit-filter: blur(0.2rem);
-			-ms-filter: blur(0.2rem);
-			filter: blur(0.2rem);
-			filter: blur(calc(0.2rem + var(--bg-mid) * 0.55rem));
+			/* Same relative pull-back as before (1.125 -> 1.0825 is now
+			   1.06 -> 1.02), so the article transition keeps its character. */
+			-moz-transform: scale(1.02);
+			-webkit-transform: scale(1.02);
+			-ms-transform: scale(1.02);
+			transform: scale(1.02);
+			-moz-filter: blur(0.1rem);
+			-webkit-filter: blur(0.1rem);
+			-ms-filter: blur(0.1rem);
+			filter: blur(0.1rem);
+			filter: blur(calc(0.1rem + var(--bg-mid) * 0.28rem));
 		}
 
 		body.is-preload #bg:before {
@@ -1310,10 +1332,14 @@ input, select, textarea {
 		-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
 		-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
 		transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
-		background-image: -moz-radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
-		background-image: -webkit-radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
-		background-image: -ms-radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
-		background-image: radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
+		/* Design C: only the soft NAVY local plate behind the title block —
+		   keeps type legible without turning the warm centre muddy brown.
+		   The separate warm logo halo was removed; the emblem integrates via
+		   the tonal structure behind it, not a glow. */
+		background-image: -moz-radial-gradient(rgba(8, 13, 25, 0.20) 22%, rgba(8, 13, 25, 0) 58%);
+		background-image: -webkit-radial-gradient(rgba(8, 13, 25, 0.20) 22%, rgba(8, 13, 25, 0) 58%);
+		background-image: -ms-radial-gradient(rgba(8, 13, 25, 0.20) 22%, rgba(8, 13, 25, 0) 58%);
+		background-image: radial-gradient(rgba(8, 13, 25, 0.20) 22%, rgba(8, 13, 25, 0) 58%);
 		max-width: 100%;
 		text-align: center;
 	}
@@ -1602,7 +1628,7 @@ input, select, textarea {
 			position: relative;
 			width: 40rem;
 			max-width: 100%;
-			background-color: rgba(27, 31, 34, 0.85);
+			background-color: rgba(9, 14, 26, 0.92);
 			border-radius: 4px;
 			opacity: 0;
 		}
@@ -1692,10 +1718,56 @@ input, select, textarea {
 		text-align: center;
 	}
 
+		/* 机构信息块（footer institutional block） */
+		#footer .footer-institutional {
+			padding: 1.5rem 1.5rem 1.25rem;
+			margin-bottom: 1.1rem;
+			border-top: 1px solid rgba(201, 161, 67, 0.4);
+		}
+
+		#footer .footer-org {
+			font-size: 0.8rem;
+			letter-spacing: 0.24rem;
+			text-transform: uppercase;
+			color: #F2DFA2;
+			font-weight: 600;
+			margin: 0 0 0.6rem;
+		}
+
+		#footer .footer-addr {
+			font-size: 0.7rem;
+			letter-spacing: 0.05rem;
+			color: rgba(243, 241, 234, 0.88);
+			margin: 0 0 0.7rem;
+		}
+
+		#footer .footer-links {
+			font-size: 0.62rem;
+			letter-spacing: 0.14rem;
+			text-transform: uppercase;
+			color: rgba(243, 241, 234, 0.75);
+			margin: 0;
+		}
+
+		#footer .footer-links a {
+			color: #D8B45E;
+			border-bottom: 1px solid rgba(216, 180, 94, 0.45);
+		}
+
+		#footer .footer-links a:hover {
+			color: #F2DFA2;
+			border-bottom-color: rgba(242, 223, 162, 0.8);
+		}
+
+		#footer .footer-sep {
+			color: rgba(201, 161, 67, 0.6);
+			margin: 0 0.65rem;
+		}
+
 		#footer .copyright {
 			letter-spacing: 0.2rem;
 			font-size: 0.6rem;
-			opacity: 0.75;
+			opacity: 0.9;
 			margin-bottom: 0;
 			text-transform: uppercase;
 		}
@@ -1728,6 +1800,8 @@ input, select, textarea {
 		}
 
 		/* 1. 调整自定义 Logo 图片居中并适应圆形框 */
+		/* Design C: drop-shadow removed — the logo stays plain; integration
+		   comes from the tonal structure behind it. */
 		#header .logo img {
 			width: 100%;
 			height: 100%;
@@ -1884,7 +1958,7 @@ input, select, textarea {
 			border-top: 1px solid rgba(255, 255, 255, 0.08);
 			font-size: 0.78rem;
 			line-height: 1.6;
-			color: rgba(255, 255, 255, 0.6);
+			color: rgba(255, 255, 255, 0.82);
 		}
 
 		/* 文字层次优化 */
@@ -1940,10 +2014,14 @@ input, select, textarea {
 		}
 
 		.events-filter button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			line-height: 1;
 			background: transparent;
 			border: 1px solid rgba(255, 255, 255, 0.18);
-			color: rgba(255, 255, 255, 0.78);
-			padding: 0.4rem 1rem;
+			color: rgba(255, 255, 255, 0.9);
+			padding: 0.42rem 1rem;
 			font-family: inherit;
 			font-size: 0.72rem;
 			font-weight: 600;
@@ -1965,7 +2043,7 @@ input, select, textarea {
 		.events-filter button.is-active {
 			background: #ffffff !important;
 			border-color: #ffffff !important;
-			color: #1b1f22 !important;
+			color: #0d1420 !important;
 		}
 
 		.event-card {
@@ -2135,7 +2213,7 @@ input, select, textarea {
 			right: 0;
 			bottom: 16px;
 			text-align: center;
-			color: rgba(255, 255, 255, 0.7);
+			color: rgba(255, 255, 255, 0.9);
 			font-size: 0.78rem;
 			letter-spacing: 0.06rem;
 			pointer-events: none;
@@ -2203,7 +2281,7 @@ input, select, textarea {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: radial-gradient(circle at 34% 26%, #16386a 0%, #0a1c3e 46%, #04091a 100%);
+			background: radial-gradient(circle at 34% 26%, #1c4384 0%, #0e2a58 46%, #061023 100%);
 			border: 1px solid rgba(201, 161, 67, 0.5);
 			box-shadow:
 				0 8px 38px rgba(0, 0, 0, 0.62),
@@ -2418,7 +2496,7 @@ input, select, textarea {
 			white-space: nowrap;
 			font-size: 0.62rem;
 			letter-spacing: 0.18rem;
-			color: rgba(255, 255, 255, 0.55);
+			color: rgba(255, 255, 255, 0.8);
 			text-transform: uppercase;
 			font-weight: 600;
 			opacity: 0;
@@ -2554,7 +2632,7 @@ input, select, textarea {
 			padding: 0.32rem 0.9rem;
 			border: 1px solid rgba(255, 255, 255, 0.3);
 			border-radius: 999px;
-			color: rgba(255, 255, 255, 0.85);
+			color: rgba(255, 255, 255, 0.95);
 			text-decoration: none;
 			transition: all 0.25s ease;
 		}
@@ -2562,7 +2640,7 @@ input, select, textarea {
 		.qr-card .qr-link:hover {
 			background: rgba(255, 255, 255, 0.92);
 			border-color: rgba(255, 255, 255, 0.92);
-			color: #1b1f22;
+			color: #0d1420;
 		}
 
 /* ============================================================
@@ -2586,9 +2664,7 @@ input, select, textarea {
 #recruit-modal .recruit-backdrop {
 	position: absolute;
 	inset: 0;
-	background: rgba(8, 11, 16, 0.74);
-	-webkit-backdrop-filter: blur(6px);
-	backdrop-filter: blur(6px);
+	background: rgba(4, 8, 17, 0.84);
 	animation: recruit-fade 0.35s ease-out both;
 }
 
@@ -2598,12 +2674,12 @@ input, select, textarea {
 	width: 100%;
 	max-width: 30rem;
 	padding: 2.75rem 2.5rem 2.25rem;
-	border-radius: 8px;
-	background: linear-gradient(160deg, #18202f 0%, #0f141e 100%);
+	border-radius: 0;
+	border: 1px solid rgba(201, 161, 67, 0.55);
+	background: linear-gradient(175deg, #12203a 0%, #0a1322 68%);
 	box-shadow:
-		0 0 0 1px rgba(201, 161, 67, 0.28),
-		0 30px 80px rgba(0, 0, 0, 0.6),
-		0 0 60px rgba(201, 161, 67, 0.12);
+		0 24px 60px rgba(3, 6, 14, 0.72),
+		inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 	animation: recruit-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 	overflow: hidden;
 }
@@ -2615,7 +2691,7 @@ input, select, textarea {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 3px;
+	height: 2px;
 	background: linear-gradient(90deg,
 		#C9A143 0%, #F2DFA2 25%, #FFF3C9 50%, #F2DFA2 75%, #C9A143 100%);
 }
@@ -2626,7 +2702,7 @@ input, select, textarea {
 	right: 1rem;
 	background: none;
 	border: 0;
-	color: rgba(243, 241, 234, 0.55);
+	color: rgba(243, 241, 234, 0.8);
 	font-size: 1.5rem;
 	line-height: 1;
 	cursor: pointer;
@@ -2649,9 +2725,10 @@ input, select, textarea {
 .recruit-title {
 	font-size: 1.9rem;
 	line-height: 1.15;
-	letter-spacing: 0.04rem;
+	letter-spacing: 0.06rem;
 	color: #f7f4ec;
 	font-weight: 600;
+	font-family: 'Cinzel', 'Noto Serif SC', serif;
 	margin: 0 0 0.35rem;
 }
 
@@ -2659,14 +2736,14 @@ input, select, textarea {
 	font-size: 0.78rem;
 	letter-spacing: 0.16rem;
 	text-transform: uppercase;
-	color: rgba(243, 241, 234, 0.6);
+	color: rgba(243, 241, 234, 0.85);
 	margin-bottom: 1.4rem;
 }
 
 .recruit-copy {
 	font-size: 0.95rem;
 	line-height: 1.7;
-	color: rgba(243, 241, 234, 0.85);
+	color: rgba(243, 241, 234, 0.97);
 	margin-bottom: 1.6rem;
 }
 
@@ -2686,19 +2763,20 @@ input, select, textarea {
 	letter-spacing: 0.18rem;
 	text-transform: uppercase;
 	padding: 0.9rem 1rem;
-	border-radius: 4px;
-	transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+	border-radius: 0;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .recruit-cta.primary {
-	background: linear-gradient(90deg, #C9A143, #E7C877);
-	color: #14181f;
-	box-shadow: 0 6px 20px rgba(201, 161, 67, 0.3);
+	background: #C9A143;
+	border: 1px solid #C9A143;
+	color: #0a1322;
+	box-shadow: none;
 }
 
 .recruit-cta.primary:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 10px 26px rgba(201, 161, 67, 0.42);
+	background: #F2DFA2;
+	border-color: #F2DFA2;
 }
 
 .recruit-cta.secondary {
@@ -2714,7 +2792,7 @@ input, select, textarea {
 
 .recruit-contact {
 	font-size: 0.82rem;
-	color: rgba(243, 241, 234, 0.62);
+	color: rgba(243, 241, 234, 0.88);
 	text-align: center;
 	border-top: 1px solid rgba(201, 161, 67, 0.18);
 	padding-top: 1.1rem;
@@ -2737,7 +2815,7 @@ input, select, textarea {
 	gap: 0.5rem;
 	margin-top: 1rem;
 	font-size: 0.72rem;
-	color: rgba(243, 241, 234, 0.5);
+	color: rgba(243, 241, 234, 0.78);
 	cursor: pointer;
 }
 
@@ -2755,10 +2833,10 @@ input, select, textarea {
 	align-items: center;
 	gap: 0.45rem;
 	padding: 0.6rem 0.95rem;
-	border: 0;
-	border-radius: 999px;
-	background: linear-gradient(90deg, #C9A143, #E7C877);
-	color: #14181f;
+	border: 1px solid rgba(201, 161, 67, 0.7);
+	border-radius: 0;
+	background: #0d1830;
+	color: #F2DFA2;
 	font-size: 0.72rem;
 	font-weight: 600;
 	letter-spacing: 0.12rem;
@@ -2769,17 +2847,16 @@ input, select, textarea {
 }
 
 #recruit-fab:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 10px 26px rgba(201, 161, 67, 0.45);
+	background: #12203a;
+	border-color: rgba(201, 161, 67, 0.95);
 }
 
 #recruit-fab .fab-dot {
-	width: 8px;
-	height: 8px;
+	width: 7px;
+	height: 7px;
 	border-radius: 50%;
-	background: #14181f;
-	box-shadow: 0 0 0 0 rgba(20, 24, 31, 0.6);
-	animation: recruit-pulse 2s infinite;
+	background: #C9A143;
+	box-shadow: 0 0 6px rgba(201, 161, 67, 0.6);
 }
 
 @keyframes recruit-fade {
@@ -2811,4 +2888,3 @@ input, select, textarea {
 	#recruit-fab .fab-dot { animation: none !important; }
 	#recruit-fab { transition: none; }
 }
-		}
