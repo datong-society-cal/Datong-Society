@@ -1,0 +1,12 @@
+dist/
+site.tar.gz
+__pycache__/
+*.pyc
+.env
+.env.*
+*.pem
+*.key
+*.sql
+*.sql.gz
+.DS_Store
+Thumbs.db

@@ -28,5 +28,18 @@ We prioritize high-density intellectual exchange in an open, collaborative setti
 
 > [!NOTE]
 > We welcome non-members and prospective fellows to join our regular meetings! Please email our Primary Contact in advance to check for availability and location details.
-* 🌐 **Website:** [datong-society.github.io](https://datong-society.github.io)
+* 🌐 **Website:** [datong.studentorg.berkeley.edu](https://datong.studentorg.berkeley.edu/)
 * 📍 **Location:** UC Berkeley Campus
+
+## Website maintenance
+
+This repository is the source of truth. OCF serves a validated static copy; no
+Node, Ruby, database, or background application is needed for the current site.
+Changes to `main` are checked and automatically deployed by GitHub Actions.
+
+- Edit `index.html`, `assets/css/`, `assets/js/`, and `images/`.
+- `assets/css/main.css` is maintained by hand. The legacy Sass files are reference
+  material only; compiling them would remove the site's custom styles.
+- [Deployment, rollback, and maintainer handover](docs/deployment.md).
+- GitHub Pages is a preview mirror; the OCF URL above is the canonical public site.
+- The OCF hosting badge is provided by [OCF](https://www.ocf.berkeley.edu/docs/services/vhost/badges/).

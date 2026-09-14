@@ -1,0 +1,100 @@
+name: Deploy OCF
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      rollback_commit:
+        description: 'Optional: full 40-character SHA of a retained OCF release to restore'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate static site
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Test deployment safety boundaries
+        run: python3 -m unittest discover -s scripts/tests -v
+      - name: Validate and package static site
+        run: python3 scripts/package_site.py --commit "$GITHUB_SHA"
+      - name: Preserve the validated artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ocf-site
+          path: site.tar.gz
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+
+  deploy:
+    name: Publish to OCF
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: production
+      url: https://datong.studentorg.berkeley.edu/
+    concurrency:
+      group: ocf-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ocf-site
+      - name: Reject obsolete main builds
+        env:
+          ROLLBACK_COMMIT: ${{ inputs.rollback_commit }}
+        run: |
+          if [ -n "$ROLLBACK_COMMIT" ]; then
+            [[ "$ROLLBACK_COMMIT" =~ ^[0-9a-f]{40}$ ]] || exit 1
+          else
+            remote_sha="$(git ls-remote origin refs/heads/main | cut -f1)"
+            test "$remote_sha" = "$GITHUB_SHA"
+          fi
+      - name: Load deployment identity
+        env:
+          OCF_DEPLOY_KEY: ${{ secrets.OCF_DEPLOY_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          key = os.environ['OCF_DEPLOY_KEY']
+          if not key.startswith('-----BEGIN OPENSSH PRIVATE KEY-----'):
+              raise SystemExit('OCF_DEPLOY_KEY is missing or malformed')
+          path = Path(os.environ['RUNNER_TEMP']) / 'ocf-ci-key'
+          path.write_text(key.rstrip() + '\n')
+          path.chmod(0o600)
+          PY
+      - name: Publish and verify, or restore a retained release
+        env:
+          ROLLBACK_COMMIT: ${{ inputs.rollback_commit }}
+        run: |
+          if [ -n "$ROLLBACK_COMMIT" ]; then
+            mode=rollback
+            commit="$ROLLBACK_COMMIT"
+          else
+            mode=publish
+            commit="$GITHUB_SHA"
+          fi
+          python3 scripts/publish_ocf.py "$mode" --commit "$commit" \
+            --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" \
+            --key "$RUNNER_TEMP/ocf-ci-key"
+          printf 'Published `%s` to [OCF](https://datong.studentorg.berkeley.edu/).\n' "$commit" >> "$GITHUB_STEP_SUMMARY"
+      - name: Remove temporary identity
+        if: always()
+        run: rm -f -- "$RUNNER_TEMP/ocf-ci-key"
