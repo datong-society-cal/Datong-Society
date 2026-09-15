@@ -396,11 +396,6 @@
 									</div>
 								</section>
 
-								<!-- Lightbox container -->
-								<div class="lb-overlay" id="lb-overlay">
-									<img id="lb-img" src="" alt="" />
-									<div class="lb-cap" id="lb-cap"></div>
-								</div>
 								<div class="cloud-divider" aria-hidden="true">
 									<svg viewBox="0 0 240 34" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 										<g fill="none" stroke="url(#dtGoldFoil)" stroke-width="1.3" stroke-linecap="round">
@@ -582,6 +577,12 @@
 		<!-- BG — bg-1 on top, bg-2 settling in underneath (see assets/css/main.css) -->
 			<div id="bg"><i class="bg-far" aria-hidden="true"></i></div>
 
+		<!-- Keep the fixed lightbox outside transformed article containers. -->
+			<div class="lb-overlay" id="lb-overlay">
+				<img id="lb-img" alt="" />
+				<div class="lb-cap" id="lb-cap"></div>
+			</div>
+
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
@@ -641,8 +642,18 @@
 						ov.classList.add('is-open');
 					});
 				});
-				ov.addEventListener('click', function(){ ov.classList.remove('is-open'); ovImg.src=''; });
-				document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { ov.classList.remove('is-open'); ovImg.src=''; } });
+				function closeLightbox() {
+					ov.classList.remove('is-open');
+					ovImg.removeAttribute('src');
+				}
+				ov.addEventListener('click', function(e){ e.stopPropagation(); closeLightbox(); });
+				// Handle Escape before the template's window keyup closes the article.
+				document.addEventListener('keyup', function(e){
+					if (e.key === 'Escape' && ov.classList.contains('is-open') && !document.querySelector('#recruit-modal.is-open')) {
+						e.stopPropagation();
+						closeLightbox();
+					}
+				}, true);
 			})();
 			</script>
 
@@ -891,10 +902,14 @@
 			modal.querySelectorAll('[data-recruit-close]').forEach(function (el) {
 				el.addEventListener('click', function () { close(true); });
 			});
-			document.addEventListener('keydown', function (e) {
-				if (e.key === 'Escape' && modal.classList.contains('is-open')) close(true);
-			});
-			if (fab) fab.addEventListener('click', open);
+			modal.addEventListener('click', function (e) { e.stopPropagation(); });
+			document.addEventListener('keyup', function (e) {
+				if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+					e.stopPropagation();
+					close(true);
+				}
+			}, true);
+			if (fab) fab.addEventListener('click', function (e) { e.stopPropagation(); open(); });
 
 			var dismissed = false;
 			try { dismissed = localStorage.getItem(KEY) === '1'; } catch (e) {}

@@ -2191,7 +2191,7 @@ input, select, textarea {
 			display: none;
 			align-items: center;
 			justify-content: center;
-			z-index: 20000;
+			z-index: 95000; /* Above the recruitment button, below its modal. */
 			cursor: zoom-out;
 			padding: 2vh 2vw;
 		}
