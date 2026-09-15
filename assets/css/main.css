@@ -2900,3 +2900,6 @@ input, select, textarea {
 #footer .hosting-attribution p { margin: 0.6rem 0 0; }
 #footer .ocf-badge { display: inline-block; border: 0; }
 #footer .ocf-badge img { display: block; width: 128px; height: auto; }
+@media screen and (max-width: 480px) {
+	#footer .hosting-attribution { padding-bottom: 3rem; }
+}

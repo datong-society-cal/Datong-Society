@@ -1,7 +1,9 @@
 # Website deployment and handover
 
-Production: **https://datong.studentorg.berkeley.edu/**  
-Source: **https://github.com/datong-society-cal/Datong-Society**  
+Production: **https://datong.studentorg.berkeley.edu/**
+
+Source: **https://github.com/datong-society-cal/Datong-Society**
+
 GitHub Pages is a preview mirror, not the canonical site.
 
 ## Everyday updates

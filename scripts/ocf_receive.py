@@ -132,8 +132,6 @@ def run():
             if destination.exists():
                 if (destination / 'manifest.json').read_bytes() != (stage / 'manifest.json').read_bytes():
                     raise ValueError('Commit already has a different retained artifact')
-            else:
-                shutil.copytree(stage, destination)
             sync(stage, dry_run=True)
             # Capture the actual served tree before every mutation, including first migration.
             previous = incoming / 'previous'
@@ -142,6 +140,8 @@ def run():
                 sync(stage)
                 verify_disk(stage)
                 smoke(stage)
+                if not destination.exists():
+                    stage.rename(destination)
             except Exception:
                 print('Verification failed; restoring the pre-deployment website.', flush=True)
                 sync(previous, restore=True)
