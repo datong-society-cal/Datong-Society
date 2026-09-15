@@ -43,7 +43,7 @@ def unpack(archive, target):
             destination.chmod(0o644)
 
 def sync(source, dry_run=False, restore=False):
-    command = ['rsync', '-a' if restore else '-rlt', '--checksum', '--delete-delay', '--delay-updates']
+    command = ['rsync', '-a' if restore else '-rltp', '--checksum', '--delete-delay', '--delay-updates']
     if not restore:
         command += ['--chmod=D755,F644', '--exclude=/manifest.json', '--delete-excluded']
     if dry_run:
@@ -57,6 +57,8 @@ def verify_disk(source):
     if any(p.is_symlink() for p in WEB.rglob('*')) or set(actual_files) != set(expected):
         raise ValueError('Production file set differs from artifact')
     for name, path in actual_files.items():
+        if path.stat().st_mode & 0o777 != 0o644:
+            raise ValueError('Production file permission mismatch: ' + name)
         if hashlib.sha256(path.read_bytes()).hexdigest() != expected[name]:
             raise ValueError('Production hash mismatch: ' + name)
 
