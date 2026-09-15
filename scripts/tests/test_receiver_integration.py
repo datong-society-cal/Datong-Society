@@ -39,17 +39,24 @@ class ReceiverIntegration(unittest.TestCase):
         stage = self.root / ('build-' + commit)
         stage.mkdir()
         values = {
-            'index.html':f'<link rel="canonical" href="{SITE_URL}"> Hosted by the OCF; acting independently of the University of California ' + 'content ' * 200,
+            'index.html':f'<link rel="canonical" href="{SITE_URL}"><link rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png"> Hosted by the OCF; acting independently of the University of California ' + 'content ' * 200,
             '.htaccess':APACHE, 'LICENSE.txt':'license',
             'deploy-version.json':json.dumps({'commit':commit})
         }
         for name, data in values.items():
             (stage / name).write_text(data)
-        (stage / 'manifest.json').write_text(json.dumps({p.name:digest(p) for p in stage.iterdir()}))
+        favicon = stage / 'images/brand/datong-logo-emblem.png'
+        favicon.parent.mkdir(parents=True)
+        favicon.write_bytes(b'logo')
+        (stage / 'manifest.json').write_text(json.dumps({
+            p.relative_to(stage).as_posix():digest(p)
+            for p in stage.rglob('*') if p.is_file()
+        }))
         output = io.BytesIO()
         with tarfile.open(fileobj=output, mode='w:gz') as tar:
-            for file in stage.iterdir():
-                tar.add(file, arcname=file.name)
+            for file in stage.rglob('*'):
+                if file.is_file():
+                    tar.add(file, arcname=file.relative_to(stage).as_posix())
         return output.getvalue()
     def invoke(self, mode, commit, run, payload=b'', fail_http=False):
         with patch.multiple(receiver, HOME=self.home, BASE=self.base, WEB=self.web), \
