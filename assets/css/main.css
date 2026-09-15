@@ -2888,3 +2888,18 @@ input, select, textarea {
 	#recruit-fab .fab-dot { animation: none !important; }
 	#recruit-fab { transition: none; }
 }
+
+/* OCF virtual-host attribution, shared by the home and article views. */
+#footer .hosting-attribution {
+	max-width: 42rem;
+	margin: 1.1rem auto 0;
+	font-size: 0.7rem;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.78);
+}
+#footer .hosting-attribution p { margin: 0.6rem 0 0; }
+#footer .ocf-badge { display: inline-block; border: 0; }
+#footer .ocf-badge img { display: block; width: 128px; height: auto; }
+@media screen and (max-width: 480px) {
+	#footer .hosting-attribution { padding-bottom: 3rem; }
+}
