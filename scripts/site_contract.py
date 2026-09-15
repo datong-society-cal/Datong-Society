@@ -7,15 +7,21 @@ import re
 from urllib.parse import unquote, urlsplit
 
 SITE_URL = 'https://datong.studentorg.berkeley.edu/'
-MAX_FILE = 64 * 1024 * 1024
-MAX_TOTAL = 400 * 1024 * 1024
+MAX_FILE = 8 * 1024 * 1024
+MAX_TOTAL = 32 * 1024 * 1024
 APACHE = '''# Managed static website. Do not restore legacy WordPress rewrite rules.
 DirectoryIndex index.html
 Options -Indexes
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
-    <FilesMatch "\\.(html|css|js|json)$">
+    <FilesMatch "\\.(html|json)$">
         Header set Cache-Control "no-cache"
+    </FilesMatch>
+    <FilesMatch "\\.(css|js)$">
+        Header set Cache-Control "public, max-age=3600"
+    </FilesMatch>
+    <FilesMatch "\\.(jpg|jpeg|png|svg|webp|gif|ico|otf|woff2?|ttf|eot)$">
+        Header set Cache-Control "public, max-age=86400"
     </FilesMatch>
 </IfModule>
 '''
@@ -51,6 +57,11 @@ class References(HTMLParser):
             if values.get(attr):
                 self.refs.append(values[attr])
 
+        source = values.get('src', '')
+        if tag == 'img' and (source.startswith('images/events/') or source.startswith('images/qr/')):
+            if values.get('loading') != 'lazy' or values.get('decoding') != 'async':
+                raise ValueError('Noncritical event and QR images must use lazy loading: ' + source)
+
 def validate_tree(root, expected_commit=None):
     root = Path(root)
     files = {p.relative_to(root).as_posix(): p for p in root.rglob('*') if p.is_file()}
@@ -69,6 +80,8 @@ def validate_tree(root, expected_commit=None):
         raise ValueError('Missing site content or required hosting attribution')
     if f'rel="canonical" href="{SITE_URL}"' not in html:
         raise ValueError('Production canonical URL missing')
+    if 'rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png"' not in html:
+        raise ValueError('Datong logo favicon missing')
     parsed = References()
     parsed.feed(html)
     missing = []

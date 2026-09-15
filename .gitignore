@@ -10,3 +10,4 @@ __pycache__/
 *.sql.gz
 .DS_Store
 Thumbs.db
+.agents/

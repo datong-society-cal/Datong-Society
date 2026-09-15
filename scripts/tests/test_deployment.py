@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from site_contract import APACHE, MAX_FILE, SITE_URL, allowed, digest, validate_tree
+from site_contract import APACHE, MAX_FILE, MAX_TOTAL, SITE_URL, allowed, digest, validate_tree
 from ocf_receive import unpack
 
 COMMIT = 'a' * 40
@@ -55,15 +55,21 @@ class ManifestSecurity(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        html = f'<html><head><link rel="canonical" href="{SITE_URL}"></head><body>Hosted by the OCF; acting independently of the University of California' + ' ' * 1000 + '</body></html>'
+        html = f'<html><head><link rel="canonical" href="{SITE_URL}"><link rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png"></head><body>Hosted by the OCF; acting independently of the University of California' + ' ' * 1000 + '</body></html>'
         for name, value in {'index.html':html, '.htaccess':APACHE, 'LICENSE.txt':'License',
                 'deploy-version.json':json.dumps({'commit':COMMIT})}.items():
             (self.root / name).write_text(value)
+        favicon = self.root / 'images/brand/datong-logo-emblem.png'
+        favicon.parent.mkdir(parents=True)
+        favicon.write_bytes(b'logo')
         self.manifest()
     def tearDown(self):
         self.temp.cleanup()
     def manifest(self):
-        (self.root / 'manifest.json').write_text(json.dumps({p.name:digest(p) for p in self.root.iterdir() if p.name != 'manifest.json'}))
+        (self.root / 'manifest.json').write_text(json.dumps({
+            p.relative_to(self.root).as_posix():digest(p)
+            for p in self.root.rglob('*') if p.is_file() and p.name != 'manifest.json'
+        }))
     def test_valid_manifest(self):
         validate_tree(self.root, COMMIT)
     def test_tampered_file(self):
@@ -89,6 +95,10 @@ class ManifestSecurity(unittest.TestCase):
         (self.root / 'debug.php').write_text('unexpected')
         with self.assertRaisesRegex(ValueError, 'Unexpected file'):
             validate_tree(self.root, COMMIT)
+
+    def test_performance_budget(self):
+        self.assertEqual(MAX_FILE, 8 * 1024 * 1024)
+        self.assertEqual(MAX_TOTAL, 32 * 1024 * 1024)
 
 if __name__ == '__main__':
     unittest.main()

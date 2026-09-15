@@ -1200,7 +1200,7 @@ input, select, textarea {
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
 			/* Design C: no global filter — the plate keeps its natural
 			   colours; depth comes from the spatial layers above. */
-			background-image: url("../../images/background/bg-2.png");
+			background-image: url("../../images/background/bg-2.webp");
 			/* Slightly above centre so the upper brush sweep and the
 			   constellation band stay in frame under the cover crop. */
 			background-position: center 42%;
@@ -1221,7 +1221,7 @@ input, select, textarea {
 			/* Design C: no global filter — the source artwork keeps its
 			   natural colours and tonal range; depth comes from the spatial
 			   layers in #bg:before and the crop below. */
-			background-image: url("../../images/background/bg-1.png");
+			background-image: url("../../images/background/bg-1.webp");
 			/* Slightly above centre so the outer brush sweep and the
 			   constellation band stay in frame under the cover crop. */
 			background-position: center 42%;
