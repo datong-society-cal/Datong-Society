@@ -63,7 +63,7 @@ def verify_disk(source):
             raise ValueError('Production hash mismatch: ' + name)
 
 def smoke(source):
-    names = ['index.html', 'deploy-version.json', 'assets/css/main.css',
+    names = ['index.html', 'collaboration.html', 'deploy-version.json', 'assets/css/main.css',
              'assets/js/main.js', 'images/brand/datong-logo-emblem.png',
              'images/qr/qr-wechat-official.jpg']
     for attempt in range(4):

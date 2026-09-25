@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" data-mode="subtle">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Datong Society — 宣纸视觉样稿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --navy: #0b1830;
+      --night: #071124;
+      --gold: #d4b16b;
+      --gold-light: #f3dfa8;
+      --paper: #eee8db;
+      --ink: #172946;
+      --muted: #4b5360;
+      --paper-border: rgba(123, 91, 46, .26);
+      --fiber: .15;
+      font-family: Inter, Arial, sans-serif;
+    }
+    :root[data-mode="plain"] {
+      --paper: #111e36;
+      --ink: #f5f1e7;
+      --muted: #c1c6d0;
+      --paper-border: rgba(243, 223, 168, .23);
+      --fiber: 0;
+    }
+    :root[data-mode="warm"] {
+      --paper: #e8d8ba;
+      --ink: #1e3046;
+      --muted: #46505a;
+      --paper-border: rgba(103, 72, 37, .34);
+      --fiber: .25;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--night); color: #f7f2e7; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid #ffe39b; outline-offset: 4px; }
+    .study-bar {
+      position: relative; z-index: 4; display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      padding: .8rem max(1rem, calc((100vw - 1200px)/2));
+      background: #091426; border-bottom: 1px solid rgba(243, 223, 168, .23);
+      font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+    }
+    .study-bar strong { color: var(--gold-light); font-weight: 600; }
+    .choices { display: flex; gap: .35rem; flex-wrap: wrap; }
+    .choices button {
+      padding: .48rem .75rem; border: 1px solid rgba(243, 223, 168, .34);
+      background: transparent; color: #eee4ce; cursor: pointer;
+      font: inherit; letter-spacing: .02em; text-transform: none;
+    }
+    .choices button[aria-pressed="true"] { background: var(--gold); color: #0e1b2e; border-color: var(--gold); }
+    .hero {
+      min-height: 620px; position: relative; isolation: isolate;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 4rem 1.5rem 7rem; text-align: center;
+      background: center 43% / cover no-repeat url('../images/background/bg-1.webp');
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; z-index: -1;
+      background: radial-gradient(ellipse at 50% 44%, rgba(8, 14, 28, .12) 10%, rgba(4, 10, 24, .58) 100%),
+        linear-gradient(0deg, rgba(4, 10, 24, .80), transparent 34%);
+    }
+    .emblem { width: 112px; height: 112px; object-fit: cover; border-radius: 50%; border: 1px solid rgba(243, 223, 168, .9); box-shadow: 0 6px 24px rgba(0,0,0,.25); }
+    .hero-rule { width: min(80vw, 790px); height: 1px; margin: 2.3rem 0 2.4rem; background: rgba(243, 223, 168, .58); }
+    .hero h1 { display: grid; gap: .48rem; margin: 0; line-height: 1.16; font-weight: 600; }
+    .hero h1 .en { font: 600 clamp(2.2rem, 4.6vw, 4.4rem)/1.15 Cinzel, Georgia, serif; letter-spacing: .14em; text-transform: uppercase; }
+    .hero h1 .zh { font: 600 clamp(2rem, 4.2vw, 3.85rem)/1.2 'Noto Serif SC', 'Songti SC', serif; letter-spacing: .16em; color: #fff2c9; }
+    .hero-sub { margin: 1.7rem 0 0; font-size: .82rem; letter-spacing: .23em; text-transform: uppercase; }
+    .identity {
+      display: inline-flex; align-items: center; gap: .65rem; margin-top: 2.3rem;
+      padding: .65rem .9rem; border: 1px solid rgba(243, 223, 168, .48);
+      background: rgba(8, 20, 39, .55); backdrop-filter: blur(8px);
+      font-size: .78rem; letter-spacing: .03em;
+    }
+    .identity::before { content: ''; width: .35rem; height: .35rem; border-radius: 50%; background: var(--gold-light); }
+    .identity a { color: #f4dda1; text-underline-offset: .2em; }
+    .hero-nav { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem; border: 1px solid rgba(243, 223, 168, .56); }
+    .hero-nav a { padding: .82rem 1.1rem; border-right: 1px solid rgba(243, 223, 168, .48); text-decoration: none; font-size: .73rem; letter-spacing: .13em; text-transform: uppercase; background: rgba(7, 17, 36, .2); }
+    .hero-nav a:last-child { border-right: 0; }
+    .hero-nav a:hover { background: rgba(243, 223, 168, .14); }
+    .content-wrap { width: min(1180px, calc(100% - 2rem)); margin: -4.7rem auto 0; position: relative; z-index: 2; }
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin: 0 0 1rem; }
+    .section-head h2 { margin: 0; color: var(--gold-light); font: 600 1rem/1.4 Inter, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+    .section-head small { color: rgba(245, 241, 231, .72); font-size: .76rem; }
+    .sample-grid { display: grid; grid-template-columns: 1.4fr .9fr; gap: 1.4rem; align-items: stretch; }
+    .paper-surface {
+      position: relative; isolation: isolate; overflow: hidden;
+      background: var(--paper); color: var(--ink);
+      border: 1px solid var(--paper-border);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, .32);
+      transition: background-color .2s ease, color .2s ease;
+    }
+    .paper-surface::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: url('../images/background/overlay-texture.png') repeat;
+      opacity: var(--fiber); mix-blend-mode: multiply;
+    }
+    .paper-surface > * { position: relative; z-index: 1; }
+    .feature { padding: clamp(1.5rem, 4vw, 3rem); }
+    .eyebrow { margin: 0 0 .8rem; color: #947039; font-size: .7rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+    :root[data-mode="plain"] .eyebrow { color: var(--gold-light); }
+    .feature h3 { margin: 0 0 1.4rem; font: 600 clamp(1.7rem, 3vw, 2.55rem)/1.35 'Source Serif 4', Georgia, serif; }
+    .feature h3 span { display: block; margin-top: .25rem; font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: .82em; letter-spacing: .04em; }
+    .feature p:not(.eyebrow) { max-width: 60ch; margin: 0 0 1.1rem; font-size: .97rem; line-height: 1.82; color: var(--muted); }
+    .feature .separator { display: block; width: 5rem; height: 1px; margin: 1.8rem 0; background: #a7824a; }
+    .feature .note { font-family: 'Noto Serif SC', 'Songti SC', serif; }
+    .feature img { width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block; margin-top: 2rem; filter: saturate(.82); }
+    .event { display: flex; flex-direction: column; }
+    .event img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .event-body { padding: 1.5rem; flex: 1; }
+    .event time { color: var(--muted); font-size: .73rem; letter-spacing: .1em; text-transform: uppercase; }
+    .event h3 { margin: .9rem 0 .65rem; font: 600 1.35rem/1.45 'Noto Serif SC', 'Songti SC', serif; }
+    .event p { margin: 0; color: var(--muted); line-height: 1.7; font-size: .87rem; }
+    .event-link { margin-top: auto; display: block; border-top: 1px solid var(--paper-border); padding: 1rem 1.5rem; text-decoration: none; color: var(--ink); font-size: .76rem; font-weight: 600; letter-spacing: .08em; }
+    .event-link:hover { text-decoration: underline; text-underline-offset: .25em; }
+    .study-note { margin: 2rem 0 3.5rem; color: rgba(247, 242, 231, .78); line-height: 1.7; font-size: .83rem; }
+    .study-footer { padding: 1.8rem 1rem 2.5rem; border-top: 1px solid rgba(243, 223, 168, .3); text-align: center; color: rgba(247, 242, 231, .7); font-size: .72rem; line-height: 1.7; }
+    @media (max-width: 760px) {
+      .hero { min-height: 590px; padding-bottom: 6rem; }
+      .hero-nav a { flex: 1 1 33%; border-top: 1px solid rgba(243, 223, 168, .3); }
+      .hero-nav a:nth-child(-n+3) { border-top: 0; }
+      .sample-grid { grid-template-columns: 1fr; }
+      .event { max-width: 650px; }
+    }
+    @media (max-width: 480px) {
+      .study-bar { justify-content: center; text-align: center; }
+      .hero h1 .en { letter-spacing: .07em; font-size: 1.75rem; }
+      .hero h1 .zh { font-size: 1.85rem; }
+      .hero-sub { letter-spacing: .1em; font-size: .68rem; }
+      .identity { flex-wrap: wrap; justify-content: center; }
+      .hero-nav a { flex-basis: 50%; }
+      .hero-nav a:nth-child(3) { border-top: 1px solid rgba(243, 223, 168, .3); }
+      .section-head { display: block; }
+      .section-head small { display: block; margin-top: .35rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="study-bar" aria-label="Design study controls">
+    <div><strong>Datong visual study</strong> · 宣纸阅读区样稿</div>
+    <div class="choices" role="group" aria-label="Choose paper treatment">
+      <button type="button" data-mode="plain" aria-pressed="false">无纸纹</button>
+      <button type="button" data-mode="subtle" aria-pressed="true">轻宣纸 · 推荐</button>
+      <button type="button" data-mode="warm" aria-pressed="false">暖宣纸</button>
+    </div>
+  </div>
+  <header class="hero">
+    <img class="emblem" src="../images/brand/datong-logo-emblem.png" alt="Datong Society emblem" width="112" height="112" />
+    <div class="hero-rule" aria-hidden="true"></div>
+    <h1><span class="en">Datong Society</span><span class="zh" lang="zh-Hans">大同学社</span></h1>
+    <p class="hero-sub">Student-led Organization at UC Berkeley</p>
+    <div class="identity">A registered student organization at UC Berkeley <a href="https://callink.berkeley.edu/organization/datongsocietyofchinastudies" target="_blank" rel="noopener noreferrer">View CalLink listing ↗</a></div>
+    <nav class="hero-nav" aria-label="Preview navigation">
+      <a href="#sample">Intro</a><a href="#sample">Activities</a><a href="#sample">Past Events</a><a href="#sample">About Us</a><a href="#sample">Get Involved</a>
+    </nav>
+  </header>
+  <main class="content-wrap" id="sample">
+    <div class="section-head"><h2>Reading surfaces <span lang="zh-Hans">／阅读区</span></h2><small>同一排版，点击上方切换材质</small></div>
+    <div class="sample-grid">
+      <article class="paper-surface feature">
+        <p class="eyebrow">01 / About the society</p>
+        <h3>Where inquiry meets community <span lang="zh-Hans">让研究与社群相遇</span></h3>
+        <p>Datong Society is a student-led intellectual community connecting different ways of studying China and East Asia. We bring students and scholars together through reading, discussion, and public events.</p>
+        <span class="separator" aria-hidden="true"></span>
+        <p class="note" lang="zh-Hans">大同学社以跨学科交流为起点，让研究中国与东亚的不同视角相遇。我们通过阅读、讨论与公共活动，连接学生、学者与更广泛的社群。</p>
+        <img src="../images/sections/banner-intro.jpg" alt="Datong Society gathering" loading="lazy" decoding="async" />
+      </article>
+      <article class="paper-surface event">
+        <img src="../images/events/2023-lecture-zhukeliang-wechat-lawsuit/cover.jpg" alt="Past Datong Society lecture" loading="lazy" decoding="async" />
+        <div class="event-body">
+          <time datetime="2023">From the archive · 2023</time>
+          <h3 lang="zh-Hans">一场对话，一种新的视角</h3>
+          <p>活动信息采用稳定的日期、标题、摘要层级。照片是证据与记忆，宣纸只为内容提供安静的阅读底色。</p>
+        </div>
+        <a class="event-link" href="../index.html#events">Explore past events <span lang="zh-Hans">· 浏览往期活动</span> ↗</a>
+      </article>
+    </div>
+    <p class="study-note">此页保留为三种材质的对照样稿。正式网站采用“轻宣纸”：首页保留深蓝与金色，阅读区使用低对比度纸纹，并以学生组织身份说明和 CalLink 链接呈现 Berkeley 关联。</p>
+  </main>
+  <footer class="study-footer">We are a student group acting independently of the University of California. We take full responsibility for our organization and this web site.</footer>
+  <script>
+    const choices = document.querySelector('.choices');
+    choices.addEventListener('click', event => {
+      const button = event.target.closest('button[data-mode]');
+      if (!button || !choices.contains(button)) return;
+      document.documentElement.dataset.mode = button.dataset.mode;
+      choices.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    });
+  </script>
+</body>
+</html>

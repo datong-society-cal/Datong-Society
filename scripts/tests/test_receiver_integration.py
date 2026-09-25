@@ -40,6 +40,7 @@ class ReceiverIntegration(unittest.TestCase):
         stage.mkdir()
         values = {
             'index.html':f'<link rel="canonical" href="{SITE_URL}"><link rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png"> Hosted by the OCF; acting independently of the University of California ' + 'content ' * 200,
+            'collaboration.html':'<a href="index.html">Home</a>',
             '.htaccess':APACHE, 'LICENSE.txt':'license',
             'deploy-version.json':json.dumps({'commit':commit})
         }

@@ -56,7 +56,7 @@ class ManifestSecurity(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
         html = f'<html><head><link rel="canonical" href="{SITE_URL}"><link rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png"></head><body>Hosted by the OCF; acting independently of the University of California' + ' ' * 1000 + '</body></html>'
-        for name, value in {'index.html':html, '.htaccess':APACHE, 'LICENSE.txt':'License',
+        for name, value in {'index.html':html, 'collaboration.html':'<a href="index.html">Home</a>', '.htaccess':APACHE, 'LICENSE.txt':'License',
                 'deploy-version.json':json.dumps({'commit':COMMIT})}.items():
             (self.root / name).write_text(value)
         favicon = self.root / 'images/brand/datong-logo-emblem.png'
@@ -72,6 +72,11 @@ class ManifestSecurity(unittest.TestCase):
         }))
     def test_valid_manifest(self):
         validate_tree(self.root, COMMIT)
+    def test_collaboration_page_required(self):
+        (self.root / 'collaboration.html').unlink()
+        self.manifest()
+        with self.assertRaisesRegex(ValueError, 'Missing required public files'):
+            validate_tree(self.root, COMMIT)
     def test_tampered_file(self):
         (self.root / 'LICENSE.txt').write_text('tampered')
         with self.assertRaisesRegex(ValueError, 'manifest mismatch'):

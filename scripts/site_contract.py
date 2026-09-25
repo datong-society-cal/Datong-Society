@@ -25,7 +25,7 @@ Options -Indexes
     </FilesMatch>
 </IfModule>
 '''
-ROOT_FILES = {'index.html', 'LICENSE.txt', '.htaccess', 'deploy-version.json'}
+ROOT_FILES = {'index.html', 'collaboration.html', 'LICENSE.txt', '.htaccess', 'deploy-version.json'}
 EXTENSIONS = {
     'assets/css': {'.css'}, 'assets/js': {'.js'},
     'assets/fonts': {'.otf', '.woff2', '.woff', '.ttf', '.svg', '.eot'},
@@ -84,6 +84,7 @@ def validate_tree(root, expected_commit=None):
         raise ValueError('Datong logo favicon missing')
     parsed = References()
     parsed.feed(html)
+    parsed.feed(files['collaboration.html'].read_text(encoding='utf-8'))
     missing = []
     def check(ref, parent):
         url = urlsplit(ref)

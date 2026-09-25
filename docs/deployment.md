@@ -27,7 +27,7 @@ This is a static site with no package manager or application server dependency.
 Python 3.11+ is used only for checks and deployment tooling. OCF serves the files
 with its managed Apache server.
 
-- `index.html`, published CSS/JS/fonts, images, and `LICENSE.txt` are packaged.
+- `index.html`, `collaboration.html`, published CSS/JS/fonts, images, and `LICENSE.txt` are packaged.
 - The packager generates reviewed `.htaccess`, a version marker, and a SHA-256
   manifest. The manifest stays private on OCF; it is not served by Apache.
 - Git metadata, workflows, scripts, documentation, legacy Sass, backups, and keys

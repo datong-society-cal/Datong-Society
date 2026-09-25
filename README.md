@@ -37,7 +37,7 @@ This repository is the source of truth. OCF serves a validated static copy; no
 Node, Ruby, database, or background application is needed for the current site.
 Changes to `main` are checked and automatically deployed by GitHub Actions.
 
-- Edit `index.html`, `assets/css/`, `assets/js/`, and `images/`.
+- Edit `index.html`, `collaboration.html`, `assets/css/main.css`, `assets/js/main.js`, `assets/js/effects.js`, and `images/`. The navigation and progressive effects use browser-native JavaScript without jQuery.
 - `assets/css/main.css` is maintained by hand. The legacy Sass files are reference
   material only; compiling them would remove the site's custom styles.
 - [Deployment, rollback, and maintainer handover](docs/deployment.md).

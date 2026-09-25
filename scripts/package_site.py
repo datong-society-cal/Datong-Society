@@ -21,7 +21,7 @@ def package(commit, output):
     output.mkdir()
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=repo).decode().split('\0')
     for name in tracked:
-        if name in ('index.html', 'LICENSE.txt') or any(name.startswith(p + '/') for p in EXTENSIONS):
+        if name in ('index.html', 'collaboration.html', 'LICENSE.txt') or any(name.startswith(p + '/') for p in EXTENSIONS):
             if not allowed(name):
                 continue  # e.g. images/README.md and CSS build notes are maintenance files.
             source = repo / name
