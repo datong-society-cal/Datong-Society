@@ -36,6 +36,7 @@ images/
 │   └── banner-about-us-grad-2025sp.jpg
 ├── qr/                  scannable codes
 │   ├── qr-wechat-official.jpg
+│   ├── qr-activity-group.jpg
 │   ├── qr-recruit-qa.jpg
 │   └── qr-recruit-form.png
 └── events/              Past Events gallery, one folder per event
@@ -64,6 +65,7 @@ images/
 | `sections/banner-activities.jpg` | 9 KB | 960x320 (JPEG) | Wide banner at the top of the "Activities" section<br><span style="opacity:.6">「Activities」版块顶部横幅图</span> |
 | `sections/banner-about-us-grad-2025sp.jpg` | 627 KB | 1920x1080 (JPEG) | Group photo of the Spring 2025 graduating cohort (Hearst Memorial Mining Building); the "About Us" banner. Displayed full-frame via the `.bleed` class — never cropped<br><span style="opacity:.6">2025 春季毕业班合影（Hearst Memorial Mining Building），用作「About Us」横幅；通过 `.bleed` 类完整显示，不做裁切</span> |
 | `qr/qr-wechat-official.jpg` | 30 KB | 275x276 (JPEG) | QR code — Datong Society WeChat official account<br><span style="opacity:.6">大同学社微信公众号二维码</span> |
+| `qr/qr-activity-group.jpg` | 322 KB | 1125x1940 (JPEG) | Datong 2026Fall activity WeCom group; updated 2026-09-30, valid before October 7. Source archived as `Organization/Assets/QR Codes/qr-activity-group-2026-09-30.jpg` in the parent workspace. The homepage image and full-size link use `?v=20260930` to refresh cached copies.<br><span style="opacity:.6">2026 秋季活动群企业微信二维码；保留原图及白边，更新时同步有效期与缓存版本。</span> |
 | `qr/qr-recruit-qa.jpg` | 192 KB | 1080x1632 (JPEG) | QR code — Fall 2026 recruitment Q&A WeChat group<br><span style="opacity:.6">2026 秋季招新答疑微信群二维码</span> |
 | `qr/qr-recruit-form.png` | 7 KB | 275x276 (PNG) | QR code — Fall 2026 recruitment sign-up form<br><span style="opacity:.6">2026 秋季招新报名表二维码</span> |
 
