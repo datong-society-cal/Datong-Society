@@ -4,7 +4,10 @@ Production: **https://datong.studentorg.berkeley.edu/**
 
 Source: **https://github.com/datong-society-cal/Datong-Society**
 
-GitHub Pages is a preview mirror, not the canonical site.
+GitHub Pages was disabled on October 2, 2026. In repository Settings → Pages,
+the publishing branch is **None**. Keep it disabled; OCF deployment uses the
+independent **Deploy OCF** workflow and does not depend on GitHub Pages.
+Use a local HTTP server for previews.
 
 ## Everyday updates
 

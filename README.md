@@ -41,5 +41,5 @@ Changes to `main` are checked and automatically deployed by GitHub Actions.
 - `assets/css/main.css` is maintained by hand. The legacy Sass files are reference
   material only; compiling them would remove the site's custom styles.
 - [Deployment, rollback, and maintainer handover](docs/deployment.md).
-- GitHub Pages is a preview mirror; the OCF URL above is the canonical public site.
+- GitHub Pages is disabled; use local previews. The OCF URL above is the public site.
 - The OCF hosting badge is provided by [OCF](https://www.ocf.berkeley.edu/docs/services/vhost/badges/).

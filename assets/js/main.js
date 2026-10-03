@@ -6,7 +6,12 @@
   const main = document.querySelector('#main');
   const articles = [...main.querySelectorAll(':scope > article')];
   const sections = new Map(articles.map(article => [article.id, article]));
-  const links = [...header.querySelectorAll('nav a[href^="#"]')];
+  const sectionNav = header.querySelector('nav').cloneNode(true);
+  sectionNav.id = 'section-navigation';
+  sectionNav.className = 'section-navigation';
+  sectionNav.setAttribute('aria-label', 'Section navigation');
+  document.body.append(sectionNav);
+  const links = [...document.querySelectorAll('nav a[href^="#"]')];
   let previousFocus = null;
 
   articles.forEach(article => {
@@ -15,6 +20,7 @@
     affiliation.className = 'article-affiliation';
     affiliation.innerHTML = 'A registered student organization at UC Berkeley · <a href="https://callink.berkeley.edu/organization/datongsocietyofchinastudies" target="_blank" rel="noopener noreferrer">CalLink listing</a><br>We are a student group acting independently of the University of California. We take full responsibility for our organization and this web site.';
     article.append(affiliation);
+    if (article.id === 'home') return;
     const close = document.createElement('button');
     close.type = 'button';
     close.className = 'close';
@@ -26,7 +32,10 @@
   main.hidden = true;
 
   function route({ initial = false } = {}) {
-    const id = decodeURIComponent(location.hash.slice(1));
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { id = ''; }
+    id = ({ intro: 'about', work: 'workshops' })[id] || id;
+    if (!sections.has(id)) id = 'home';
     const current = sections.get(id);
     const wasOpen = body.classList.contains('is-article-visible');
 
@@ -36,8 +45,11 @@
     });
     main.hidden = !current;
     header.hidden = Boolean(current);
-    footer.hidden = Boolean(current);
+    sectionNav.hidden = !current;
+    footer.hidden = id !== 'home';
+    document.querySelector('.skip-link').href = '#section-navigation';
     body.classList.toggle('is-article-visible', Boolean(current));
+    body.classList.toggle('is-home-visible', id === 'home');
     links.forEach(link => {
       if (link.hash === `#${id}` && current) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
@@ -46,7 +58,11 @@
     if (current) {
       if (!wasOpen) previousFocus = document.activeElement;
       window.scrollTo(0, 0);
-      if (!initial) current.querySelector('.close')?.focus({ preventScroll: true });
+      if (!initial) {
+        const focusTarget = current.querySelector('h1, h2');
+        focusTarget?.setAttribute('tabindex', '-1');
+        focusTarget?.focus({ preventScroll: true });
+      }
     } else if (wasOpen) {
       window.scrollTo(0, 0);
       const target = previousFocus?.isConnected ? previousFocus : header.querySelector('nav a');
