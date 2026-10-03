@@ -2876,7 +2876,6 @@ body.is-article-visible #main { padding-top: 5rem; }
 .home-connect p:last-child { margin-bottom: 0; }
 .home-connect-actions { display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; }
 #main #home .article-affiliation { margin: 0; padding: 1.5rem 3rem; }
-body.is-home-visible .article-logo { display: none; }
 @media (max-width: 850px) {
  body.is-home-visible #main { padding-top: 6rem; }
  .home-feature { gap: 1.5rem; padding: 2rem; }
@@ -2888,6 +2887,5 @@ body.is-home-visible .article-logo { display: none; }
  .home-workshops, .home-connect { padding: 2rem 1.5rem; }
  .home-connect { grid-template-columns: 1fr; gap: 1rem; }
  #main #home .article-affiliation { padding: 1.5rem; }
- body.is-home-visible .section-navigation { left: .6rem; right: .6rem; max-width: none; width: auto; }
 }
 body.is-home-visible #footer { display: block; opacity: 1; transform: none; margin-top: 2rem; }

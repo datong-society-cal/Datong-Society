@@ -35,7 +35,6 @@
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch { id = ''; }
     id = ({ intro: 'about', work: 'workshops' })[id] || id;
-    if (!sections.has(id)) id = 'home';
     const current = sections.get(id);
     const wasOpen = body.classList.contains('is-article-visible');
 
@@ -46,8 +45,8 @@
     main.hidden = !current;
     header.hidden = Boolean(current);
     sectionNav.hidden = !current;
-    footer.hidden = id !== 'home';
-    document.querySelector('.skip-link').href = '#section-navigation';
+    footer.hidden = Boolean(current) && id !== 'home';
+    document.querySelector('.skip-link').href = current ? '#section-navigation' : '#site-navigation';
     body.classList.toggle('is-article-visible', Boolean(current));
     body.classList.toggle('is-home-visible', id === 'home');
     links.forEach(link => {
