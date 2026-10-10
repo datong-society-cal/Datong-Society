@@ -1,7 +1,7 @@
 # CSS build status — Datong-Society
 
 **`assets/css/main.css` is the source of truth. It is maintained directly by hand;
-it is NOT generated from `assets/sass/`.**
+it is NOT generated from `docs/archive/sass/`.**
 
 Verified 2026-09-09. Evidence:
 

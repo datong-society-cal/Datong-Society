@@ -1,6 +1,5 @@
 @import url(font-awesome.min.css);
 
-
 /*
 	Dimension by HTML5 UP
 	html5up.net | @ajlkn
@@ -1717,60 +1716,7 @@ input, select, textarea {
 		margin-top: 2rem;
 		text-align: center;
 	}
-
-		/* 机构信息块（footer institutional block） */
-		#footer .footer-institutional {
-			padding: 1.5rem 1.5rem 1.25rem;
-			margin-bottom: 1.1rem;
-			border-top: 1px solid rgba(201, 161, 67, 0.4);
-		}
-
-		#footer .footer-org {
-			font-size: 0.8rem;
-			letter-spacing: 0.24rem;
-			text-transform: uppercase;
-			color: #F2DFA2;
-			font-weight: 600;
-			margin: 0 0 0.6rem;
-		}
-
-		#footer .footer-addr {
-			font-size: 0.7rem;
-			letter-spacing: 0.05rem;
-			color: rgba(243, 241, 234, 0.88);
-			margin: 0 0 0.7rem;
-		}
-
-		#footer .footer-links {
-			font-size: 0.62rem;
-			letter-spacing: 0.14rem;
-			text-transform: uppercase;
-			color: rgba(243, 241, 234, 0.75);
-			margin: 0;
-		}
-
-		#footer .footer-links a {
-			color: #D8B45E;
-			border-bottom: 1px solid rgba(216, 180, 94, 0.45);
-		}
-
-		#footer .footer-links a:hover {
-			color: #F2DFA2;
-			border-bottom-color: rgba(242, 223, 162, 0.8);
-		}
-
-		#footer .footer-sep {
-			color: rgba(201, 161, 67, 0.6);
-			margin: 0 0.65rem;
-		}
-
-		#footer .copyright {
-			letter-spacing: 0.2rem;
-			font-size: 0.6rem;
-			opacity: 0.9;
-			margin-bottom: 0;
-			text-transform: uppercase;
-		}
+/* 机构信息块（footer institutional block） */
 
 		body.is-article-visible #footer {
 			-moz-transform: scale(0.95);
@@ -1789,7 +1735,6 @@ input, select, textarea {
 		}
 
 		/* 在 CSS 文件顶部引入字体 */
-
 
 		.site-title .en {
   			font-family: 'Cinzel', serif; /* 经典罗马/学术风格英文 */
@@ -2548,11 +2493,9 @@ input, select, textarea {
 	line-height: 1.6;
 	color: rgba(255, 255, 255, 0.78);
 }
-#footer .hosting-attribution p { margin: 0.6rem 0 0; }
-#footer .ocf-badge { display: inline-block; border: 0; }
-#footer .ocf-badge img { display: block; width: 128px; height: auto; }
+
 @media screen and (max-width: 480px) {
-	#footer .hosting-attribution { padding-bottom: 3rem; }
+
 }
 
 /* 2026 design system and interaction layer. Keep the legacy template rules above
@@ -2593,24 +2536,7 @@ body { font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif; }
   letter-spacing: .16em; padding-left: .16em;
   color: var(--gold-soft); white-space: nowrap;
 }
-.home-collab-link {
-  position: fixed; right: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vw, 2rem);
-  z-index: 10; display: grid; gap: .15rem;
-  min-width: 14.5rem; padding: .8rem 1.1rem;
-  border: 1px solid rgba(241, 223, 174, .68);
-  border-radius: 3px; background: rgba(10, 20, 38, .86);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, .24);
-  color: #fff7e7; text-decoration: none;
-  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
-}
-.home-collab-link:hover, .home-collab-link:focus-visible {
-  background: rgba(24, 43, 71, .96); border-color: var(--gold-soft);
-  transform: translateY(-2px);
-}
-.home-collab-title { font-size: .79rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-.home-collab-title [lang], .home-collab-detail [lang] { font-family: 'Noto Serif SC', 'Songti SC', serif; letter-spacing: .04em; }
-.home-collab-detail { display: flex; justify-content: space-between; gap: .5rem; color: var(--gold-soft); font-size: .7rem; letter-spacing: .04em; }
-body.is-article-visible .home-collab-link, body.is-preload .home-collab-link { display: none; }
+
 #header nav { width: min(52rem, calc(100vw - 2rem)); }
 #header nav ul { width: 100%; }
 #header nav ul li { flex: 1 1 0; }
@@ -2627,7 +2553,7 @@ body.is-article-visible .home-collab-link, body.is-preload .home-collab-link { d
   font-size: 0; padding: 0;
 }
 #main article .close:focus-visible { outline-offset: -8px; }
-#footer .footer-institutional { border-top-color: rgba(215, 183, 111, .34); }
+
 .collaboration-page h3, .collab-crosslink h3, .mailing-list h3 { color: var(--gold-soft); }
 .collaboration-page h3 span, .collab-crosslink h3 span, .mailing-list h3 span { font-family: 'Noto Serif SC', 'Songti SC', serif; }
 .mailing-list {
@@ -2662,9 +2588,7 @@ body.is-article-visible .home-collab-link, body.is-preload .home-collab-link { d
   #header .site-title .zh { font-size: clamp(1.8rem, 6vw, 2.6rem); letter-spacing: .13em; padding-left: .13em; }
 }
 @media (max-width: 480px) {
-  .home-collab-link { min-width: 0; width: min(13.5rem, calc(100vw - 7rem)); padding: .65rem .8rem; }
-  .home-collab-title { font-size: .7rem; }
-  .home-collab-detail { font-size: .64rem; }
+
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -2857,14 +2781,9 @@ body.is-article-visible #main { padding-top: 5rem; }
 }
 /* Editorial home: identity, one featured event, workshops, and participation. */
 #main #home { width: 66rem; padding: 0; overflow: hidden; background: #f5f0e6; }
-.home-hero { padding: 3.5rem 3rem; text-align: center; background: #101e35; color: #f5f0e6; }
-.home-emblem { width: 88px; height: 88px; margin-bottom: 1.25rem; }
-#main .home-hero h1 { font-family: 'Source Serif 4', serif; font-size: clamp(2rem,5vw,3.5rem); letter-spacing: .035em; text-transform: none; color: #f2dfa2; margin-bottom: 1rem; }
-.home-hero h1 span { display: block; font-family: 'Noto Serif SC',serif; font-size: .6em; letter-spacing: .2em; margin-top: .5rem; }
+
 #main .home-eyebrow { font-size: .67rem; text-transform: uppercase; letter-spacing: .14em; color: #765428; margin-bottom: .8rem; }
-#main .home-hero .home-eyebrow { color: #d7b76f; }
-.home-intro { max-width: 38rem; margin: 0 auto 1.25rem; }
-#main .home-hero a { color: #f2dfa2; border-color: #d7b76f; }
+
 .home-feature { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 2.5rem; padding: 3rem; align-items: center; }
 .home-poster { display: block; border: 0 !important; }
 .home-poster img { display: block; width: 100%; border-radius: 3px; }
@@ -2881,7 +2800,7 @@ body.is-article-visible #main { padding-top: 5rem; }
  .home-feature { gap: 1.5rem; padding: 2rem; }
 }
 @media (max-width: 600px) {
- .home-hero { padding: 2.5rem 1.5rem; }
+
  .home-feature { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
  .home-poster { max-width: 22rem; margin: auto; }
  .home-workshops, .home-connect { padding: 2rem 1.5rem; }
@@ -2921,13 +2840,11 @@ body.is-home-visible #header { min-height: 88vh; justify-content: center; paddin
 body.is-home-visible #main { display: block; width: 100%; padding-top: 0; }
 body.is-home-visible #main #home { display: block; opacity: 1; transform: none; margin: 0 auto; max-width: 100%; }
 body.is-home-visible #footer.site-footer { margin-top: 0; max-width: 66rem; }
-.home-about { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 3rem; border-top: 1px solid rgba(117,84,43,.25); align-items: center; }
+.home-about { display: grid; grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem; border-top: 1px solid rgba(117,84,43,.25); align-items: center; }
 .home-about img { display: block; width: 100%; height: 18rem; object-fit: cover; border-radius: 3px; }
-.home-qr-valid { font-size: .7rem; color: #56606e; }
-body.is-home-visible .home-collab-link { display: none; }
+
 @media(max-width:600px) { body.is-home-visible #header { min-height: 95vh; padding: 2.5rem 0; } .home-about { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 1.5rem; } .home-about img { height: 16rem; } #header .landing-actions { gap: .8rem; } }
 /* Text-only About Datong on Home. */
-.home-about { grid-template-columns: 1fr; }
 .home-about > div { max-width: 48rem; }
 
 /* Language control shared by both editions, independent of section routing. */

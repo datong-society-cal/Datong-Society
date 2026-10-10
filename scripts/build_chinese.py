@@ -1,97 +1,91 @@
-"""Regenerate the Chinese static page while retaining the shared layout."""
+"""Generate both Chinese editions from English markup and content/zh.json."""
+from html import escape, unescape
+from html.parser import HTMLParser
+import json
 from pathlib import Path
-import re
 
 ROOT = Path(__file__).resolve().parent.parent
-TRANSLATIONS = {
-'Student-led Organization at UC Berkeley':'加州大学伯克利分校 · 学生自主学术社群',
-'Exploring China and East Asia through reading, research, and conversation.':'阅读、研究、对话，探索中国与东亚。',
-'Home':'首页', 'Workshops':'工作坊', 'Public Events':'公共活动', 'Resources':'资源', 'About Us':'关于我们', 'Contact Us':'联系我们',
-'Upcoming Events':'近期活动', 'Featured event · Film &amp; conversation':'精选活动 · Film &amp; Conversation',
-'A journey across the sea, a conversation across cultures. Join our documentary screening and an online discussion with director Yue Ye.':'渡海之行，跨文化之谈。纪录片放映后，与导演岳野在线对谈。',
-'Monday, October 12 · 6:30–9:00 PM':'10 月 12 日（周一）· 晚上 6:30–9:00',
-'Monday, October 12, 2026 · 6:30–9:00 PM':'2026 年 10 月 12 日（周一）· 晚上 6:30–9:00',
-'AAPB 160 · UC Berkeley':'伯克利 AAPB · 160 教室',
-'Event details':'活动详情', 'This semester · Fall 2026':'本学期 · Fall 2026',
-'Reading, research, and public exchange.':'阅读、研究、公共交流。',
-'Read together, share work in progress, and explore different approaches to studying China and East Asia. Workshop topics develop around participants’ interests.':'共同阅读，分享进行中的研究，探索中国与东亚的不同路径。工作坊主题依参与者兴趣而定。',
-'Workshops →':'工作坊 →', 'Public Events →':'公共活动 →', 'Courses &amp; DeCal →':'课程与 DeCal →',
-'About Datong':'关于大同 · About Datong', 'Different perspectives. Shared curiosity.':'多元视角，共同求知。',
-'We welcome undergraduates, graduate students, and researchers across disciplines, united by an interest in China and East Asia.':'欢迎本科生、研究生与研究者。学科各异，志趣相同：中国与东亚。',
-'Our activities grow around members’ interests, creating space for critical inquiry and interdisciplinary learning.':'活动随社友兴趣而生，为批判性探究与跨学科学习留出空间。',
-'About the society →':'了解学社 →', 'Stay connected':'保持联系', 'Join the conversation.':'加入对话。',
-'Receive event announcements and society updates by email.':'通过邮件接收活动通知与学社动态。',
-'Join the mailing list':'订阅邮件 · Mailing List', 'Activity group · 活动群 ↗':'活动群 · Activity Group ↗', 'Contact Us →':'联系我们 →',
-'Courses &amp; DeCal':'课程与 DeCal',
-'Our student-led DeCal, ':'我们的学生主导 DeCal 课程',
-'Through the Camera: 20th-Century China in Transition':'镜头之下：转型中的二十世纪中国',
-', is offered as Hist 198 in Fall 2026.':'于 2026 年秋季开设，课程编号为 Hist 198。',
-'Our workshops bring students and researchers together for sustained, interdisciplinary inquiry into China and East Asia. Topics develop around the interests of participants.':'工作坊汇聚学生与研究者，持续开展关于中国与东亚的跨学科探讨。主题围绕参与者的兴趣展开。',
-'Reading &amp; Discussion':'阅读与讨论 · Reading &amp; Discussion',
-'Text-based discussions of classic literature and contemporary scholarship across history, cultural studies, political economy, and the social sciences.':'以文本为基础，讨论历史、文化研究、政治经济学与社会科学领域的经典文献及当代研究。',
-'Research &amp; Methods':'研究与方法 · Research &amp; Methods',
-'Peer research presentations, works in progress, and exchanges on qualitative and quantitative approaches.':'同伴报告研究，分享进行中的工作，交流定性与定量方法。',
-'Workshop Briefs':'工作坊纪要', 'Briefs from our discussions will be added here as they become available.':'讨论纪要将陆续在此发布。',
-'Participate in a workshop':'参加工作坊',
-'Datong Society of China Studies at UC Berkeley':'加州大学伯克利分校大同学社',
-' is a student-led intellectual community bridging diverse academic perspectives on China and East Asia.':'，由学生自主运营的学术社群，汇聚关于中国与东亚的多元视角。',
-'We welcome undergraduates, graduate students, and researchers across disciplines—ranging from history and cultural studies to political economy and empirical social science (both qualitative and quantitative).':'我们欢迎不同学科的本科生、研究生与研究者，涵盖历史、文化研究、政治经济学及实证社会科学（定性与定量研究）。',
-'Read Society Constitution (PDF)':'阅读学社章程（PDF）', 'Our Ethos':'学社理念 · Our Ethos',
-'We prioritize high-density intellectual exchange in an open, collaborative setting.':'我们重视高密度思想交流，在开放、协作的氛围中进行。',
-'Whether you are pursuing formal China studies or applying social science methods to East Asian issues, Datong provides a space for critical inquiry and interdisciplinary learning.':'无论专攻中国研究，还是以社会科学方法探讨东亚议题，大同都提供批判性探究与跨学科学习的空间。',
-'Lectures, film screenings, conversations, and other public programs connecting our community with scholars, writers, artists, and audiences.':'讲座、放映、对谈及其他公共活动——连接学社与学者、作家、艺术家、公众。',
-'Browse the gallery by clicking any image. Use the category buttons to filter.':'点击图片浏览相册，使用分类按钮筛选活动。',
-' — Screening &amp; Discussion':' — 放映与对谈',
-'Anthropology &amp; Art Practice Building, Room 160 · UC Berkeley':'加州大学伯克利分校 Anthropology &amp; Art Practice Building · 160 教室',
-'A documentary on Kūkai’s journey from Japan to Tang China, followed by an online conversation with director Yue Ye. Co-hosted with C. V. Starr East Asian Library and Deep Value. Classical Chinese narration with English subtitles; film runtime: 97 minutes.':'纪录片讲述空海从日本赴唐求学的旅程，放映后与导演岳野在线对谈。活动由大同学社、C. V. Starr East Asian Library 与 Deep Value 联合举办。文言文旁白、英文字幕；片长 97 分钟。',
-'View event poster':'查看活动海报', 'For announcements, ':'获取活动通知，请', 'join our mailing list or activity group':'订阅邮件或加入活动群',
-'Past Events':'往期活动', 'Our archive includes public programs and other society activities since 2012.':'档案收录了自 2012 年以来的公共项目及其他学社活动。',
-'All':'全部', 'Film &amp; Panel':'电影与讨论', 'Author Talk':'作家对谈', 'Lecture':'讲座', 'Exhibition':'展览', 'Salon':'沙龙', 'Field Trip':'参访', 'Community':'社群', 'Retreat':'社群出游',
-'We welcome students, researchers, and interested community members to participate in Datong. Explore our ':'欢迎学生、研究者与感兴趣的社群成员参与大同。你可以了解我们的',
-'workshops':'工作坊', ' and ':'与', 'public events':'公共活动',
-', or help organize future programs. Please contact us in advance for workshop availability and location details.':'，或参与筹办未来的活动。工作坊名额与地点请提前联系我们确认。',
-'Primary Contact: Green Wang (He/Him),':'主要联系人：Green Wang（He/Him），',
-'Name':'姓名', 'Email':'电子邮箱', 'Subject':'主题', 'Message':'留言',
-'e.g., Membership Inquiry / Research Collaboration':'例如：入社咨询 / 学术合作', 'Send Message':'发送留言', 'Reset':'重置',
-'Scan with WeCom to join the ':'使用企业微信扫码加入 ',
-' for event announcements and discussions. This QR code is valid before October 17; please return for an updated code from October 17.':'，获取活动通知并参与交流。二维码在 10 月 17 日前有效，之后请返回查看更新。',
-'Datong 2026Fall Activity Group':'Datong 2026Fall 活动群', 'WeCom · Activity Group':'企业微信 · Activity Group',
-'Mailing List ':'邮件订阅 · Mailing List ',
-'Sign up to receive Datong Society event announcements and updates by email. ':'登记邮箱，接收大同学社的活动通知与最新消息。',
-'Collaboration ':'合作 · Collaboration ',
-'For joint events, speaker invitations, or organizational partnerships, please see our collaboration page and contact the society inbox. ':'如希望合办活动、邀请讲者或开展机构合作，请查看合作说明并联系学社邮箱。',
-'Collaboration details ':'合作说明 ',
-'Datong Society of China Studies is a registered student organization at UC Berkeley. Find our official listing, constitution, and roster on ':'大同学社是加州大学伯克利分校注册学生组织。官方登记、章程及成员名单请见 ',
-'Society of China Studies':'中国研究学社 · Society of China Studies',
-'University of California, Berkeley':'加州大学伯克利分校 · UC Berkeley',
-'Explore':'探索大同', 'About the society':'关于学社', 'Workshops &amp; programs':'工作坊与项目', 'Public events':'公共活动', 'Courses &amp; resources':'课程与资源', 'Collaboration':'合作',
-'Mailing list ↗':'邮件订阅 ↗', 'WeChat · 微信公众号 ↗':'微信公众号 · WeChat ↗',
-'© Datong Society of China Studies. All Rights Reserved. · Updated Oct 10, 2026':'© 大同学社 · Datong Society. 保留所有权利。· 更新于 2026 年 10 月 10 日',
-'We are a student group acting independently of the University of California. We take full responsibility for our organization and this web site.':'我们是独立于加州大学运营的学生组织，对本组织及本网站承担全部责任。',
-'Skip to navigation':'跳转至导航', 'Back to home':'返回首页', 'Main navigation':'主导航',
-}
+CONTENT = json.loads((ROOT / 'content/zh.json').read_text(encoding='utf-8'))
+TRANSLATIONS = {unescape(key): unescape(value) for key, value in CONTENT['text'].items()}
+VOID = {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}
+PAGES = {'index.html':'zh.html', 'collaboration.html':'collaboration-zh.html'}
+
+class ChinesePage(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.output = []
+        self.stack = []
+        self.suppressed = 0
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        blocked = self.suppressed > 0 or values.get('data-zh-omit') == 'true'
+        replacement = CONTENT['blocks'].get(values.get('data-zh'))
+        if tag not in VOID:
+            self.stack.append((tag, blocked or replacement is not None, not blocked, values))
+        if blocked:
+            if tag not in VOID: self.suppressed += 1
+            return
+        converted = []
+        for key,value in attrs:
+            if key.startswith('data-zh'): continue
+            if value is not None:
+                if key == 'lang' and (tag == 'html' or values.get('aria-current') == 'true'): value = 'zh-Hans'
+                elif key == 'lang' and tag == 'a' and value == 'zh-Hans': value = 'en'
+                elif key == 'href':
+                    path, sep, fragment = value.partition('#')
+                    if path == 'zh.html': path = 'index.html'
+                    elif path == 'collaboration-zh.html': path = 'collaboration.html'
+                    else: path = PAGES.get(path, path)
+                    value = path + sep + fragment
+                    if value.startswith('https://datong.studentorg.berkeley.edu/'):
+                        value = value.replace('/collaboration.html','/collaboration-zh.html')
+                        if value == 'https://datong.studentorg.berkeley.edu/': value += 'zh.html'
+                elif key in ('alt','aria-label','placeholder','value','content'):
+                    value = TRANSLATIONS.get(value, value)
+                    if value == 'Language': value = '语言切换'
+            converted.append(key if value is None else key+'="'+escape(value,quote=True)+'"')
+        self.output.append('<'+tag+(' '+' '.join(converted) if converted else '')+'>')
+        if replacement is not None:
+            self.output.append(replacement)
+            if tag not in VOID: self.suppressed += 1
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in VOID: self.handle_endtag(tag)
+
+    def handle_endtag(self, tag):
+        if not self.stack: return
+        _, blocked, emit, _ = self.stack.pop()
+        if blocked:
+            self.suppressed -= 1
+            if self.suppressed: return
+        if emit:
+            self.output.append('</'+tag+'>')
+
+    def handle_data(self, text):
+        if self.suppressed: return
+        if any(item[0] in ('script','style') for item in self.stack): self.output.append(text); return
+        core = text.strip()
+        if core == 'EN' and self.stack and self.stack[-1][3].get('aria-current') == 'true': core_translation = '中文'
+        elif core == '中文' and self.stack and self.stack[-1][3].get('lang') == 'zh-Hans' and self.stack[-1][0] == 'a': core_translation = 'EN'
+        else: core_translation = TRANSLATIONS.get(core, core)
+        result = text.replace(core,core_translation) if core else text
+        self.output.append(escape(result, quote=False))
+
+    def handle_comment(self, text):
+        if not self.suppressed: self.output.append('<!--'+text+'-->')
+    def handle_decl(self, text): self.output.append('<!'+text+'>')
+    def handle_entityref(self, name):
+        if not self.suppressed: self.output.append('&'+name+';')
+    def handle_charref(self, name):
+        if not self.suppressed: self.output.append('&#'+name+';')
 
 def translate(source):
-    translations = {key.strip(): value for key, value in TRANSLATIONS.items()}
-    # Replace only text nodes; category values and URLs must remain unchanged.
-    parts = re.split(r'(<[^>]+>)', source)
-    for i in range(0, len(parts), 2):
-        text = parts[i]
-        core = text.strip()
-        if core in translations:
-            parts[i] = text.replace(core, translations[core])
-    text = ''.join(parts)
-    text = text.replace('合作交流', '合作')
-    text = text.replace('</strong> ，由学生', '</strong>，由学生')
-    text = text.replace('<html lang="en">', '<html lang="zh-Hans">')
-    text = text.replace('href="collaboration.html"', 'href="collaboration-zh.html"')
-    text = text.replace('href="zh.html" lang="zh-Hans">中文', 'href="index.html" lang="en">EN')
-    text = text.replace('aria-label="Language"', 'aria-label="语言切换"')
-    for old,new in [('Back to home','返回首页'),('Main navigation','主导航'),('e.g., Membership Inquiry / Research Collaboration','例如：入社咨询 / 学术合作'),('Send Message','发送留言'),('Reset','重置')]:
-        text = text.replace('"'+old+'"', '"'+new+'"')
-    text = text.replace('<title>Datong Society of China Studies | UC Berkeley</title>', '<title>大同学社 · Datong Society | UC Berkeley</title>')
-    text = text.replace('href="https://datong.studentorg.berkeley.edu/"', 'href="https://datong.studentorg.berkeley.edu/zh.html"')
-    return text
+    parser = ChinesePage()
+    parser.feed(source)
+    return ''.join(parser.output)
 
 if __name__ == '__main__':
-    (ROOT/'zh.html').write_text(translate((ROOT/'index.html').read_text(encoding='utf-8')),encoding='utf-8')
+    for source,destination in PAGES.items():
+        (ROOT/destination).write_text(translate((ROOT/source).read_text(encoding='utf-8')),encoding='utf-8')

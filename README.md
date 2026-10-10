@@ -43,3 +43,19 @@ Changes to `main` are checked and automatically deployed by GitHub Actions.
 - [Deployment, rollback, and maintainer handover](docs/deployment.md).
 - GitHub Pages is disabled; use local previews. The OCF URL above is the public site.
 - The OCF hosting badge is provided by [OCF](https://www.ocf.berkeley.edu/docs/services/vhost/badges/).
+
+## Bilingual editing
+
+English sources: `index.html` and `collaboration.html`. Chinese wording: `content/zh.json`.
+Run `python scripts/build_chinese.py` after editing either source or translations;
+this regenerates `zh.html` and `collaboration-zh.html`. Do not edit generated pages.
+`data-zh` identifies complete Chinese content blocks; `data-zh-omit` suppresses
+secondary translated paragraphs in the Chinese edition. Text and accessible
+attributes are translated without altering category IDs, scripts or comments.
+
+Active assets live in `assets/css`, `assets/js`, `assets/fonts`, and `images`.
+Historical Sass and hidden member placeholders are preserved in `docs/archive/`.
+Design experiments stay in `docs/` and are excluded from production.
+
+Before committing, add new public files and run `python scripts/check_site.py`.
+GitHub Actions runs the same command on the committed tree.

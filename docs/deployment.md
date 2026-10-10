@@ -30,7 +30,7 @@ This is a static site with no package manager or application server dependency.
 Python 3.11+ is used only for checks and deployment tooling. OCF serves the files
 with its managed Apache server.
 
-- `index.html`, `collaboration.html`, published CSS/JS/fonts, images, and `LICENSE.txt` are packaged.
+- English and Chinese home/collaboration pages, published CSS/JS/fonts, images, and `LICENSE.txt` are packaged.
 - The packager generates reviewed `.htaccess`, a version marker, and a SHA-256
   manifest. The manifest stays private on OCF; it is not served by Apache.
 - Git metadata, workflows, scripts, documentation, legacy Sass, backups, and keys
@@ -45,8 +45,7 @@ with its managed Apache server.
 Local validation from the repository root:
 
 ```sh
-python3 -m unittest discover -s scripts/tests -v
-python3 scripts/package_site.py --commit "$(git rev-parse HEAD)"
+python3 scripts/check_site.py
 ```
 
 The packager uses tracked file names. Add new website files to Git before
@@ -177,3 +176,8 @@ They are required for the Berkeley virtual host; do not remove them when editing
 the design. References: [OCF hosting](https://www.ocf.berkeley.edu/docs/services/web/),
 [virtual-host requirements](https://www.ocf.berkeley.edu/docs/services/vhost/),
 [official badges](https://www.ocf.berkeley.edu/docs/services/vhost/badges/).
+
+The unified `scripts/check_site.py` entrypoint runs deployment and bilingual
+regression tests, JavaScript syntax checks, Git whitespace checks, and artifact
+validation. It requires Python 3.11+, Node.js (syntax checks only), and Git.
+Add new public files to Git before running it, since packaging uses tracked paths.

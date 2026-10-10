@@ -13,7 +13,6 @@
   sectionNav.setAttribute('aria-label', 'Section navigation');
   document.body.append(sectionNav);
   const links = [...document.querySelectorAll('nav a[href^="#"]')];
-  let previousFocus = null;
 
   articles.forEach(article => {
     article.hidden = true;
@@ -58,18 +57,11 @@
       else link.removeAttribute('aria-current');
     });
 
-    if (current) {
-      if (!wasOpen) previousFocus = document.activeElement;
-      window.scrollTo(0, 0);
-      if (!initial) {
-        const focusTarget = isHome ? header.querySelector('h1') : current.querySelector('h1, h2');
+    window.scrollTo(0, 0);
+    if (!initial) {
+        const focusTarget = isHome && wasOpen ? header.querySelector('nav a') : isHome ? header.querySelector('h1') : current.querySelector('h1, h2');
         focusTarget?.setAttribute('tabindex', '-1');
         focusTarget?.focus({ preventScroll: true });
-      }
-    } else if (wasOpen) {
-      window.scrollTo(0, 0);
-      const target = previousFocus?.isConnected ? previousFocus : header.querySelector('nav a');
-      target?.focus({ preventScroll: true });
     }
     window.dispatchEvent(new Event('datong:route'));
   }
