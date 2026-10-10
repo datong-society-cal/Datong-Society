@@ -2889,3 +2889,54 @@ body.is-article-visible #main { padding-top: 5rem; }
  #main #home .article-affiliation { padding: 1.5rem; }
 }
 body.is-home-visible #footer { display: block; opacity: 1; transform: none; margin-top: 2rem; }
+
+/* Shared homepage footer: retain the existing landing and section layouts. */
+#footer.site-footer { padding: 3rem 2.5rem 1.5rem; background: #eae6dc; color: #4b5663; border-top: 1px solid #d5cbb8; text-align: left; font: .75rem/1.8 Inter, Arial, sans-serif; letter-spacing: normal; }
+#footer .wrap { max-width: 75rem; margin: auto; }
+#footer .footer-grid { display: grid; grid-template-columns: 1.7fr 1fr 1fr; gap: 3.5rem; }
+#footer p { margin: 0; }
+#footer .footer-title { font: 1.25rem/1.5 'Source Serif 4', Georgia, serif; letter-spacing: .08em; color: #17263a; margin-bottom: 1rem; }
+#footer .footer-title span { margin-left: .6rem; }
+#footer a { color: #17263a; border-bottom: 0; }
+#footer a:hover { color: #8d6a30; }
+#footer a:focus-visible { outline: 2px solid #8d6a30; outline-offset: 4px; }
+#footer .footer-email { display: inline-block; margin-top: 1rem; border-bottom: 1px solid #b7a47f; overflow-wrap: anywhere; }
+#footer .footer-heading { font: 600 .7rem/1.5 Inter, Arial, sans-serif; letter-spacing: .13em; text-transform: uppercase; margin: 0 0 1rem; color: #17263a; }
+#footer .footer-list { list-style: none; margin: 0; padding: 0; }
+#footer .footer-list li { margin: 0 0 .35rem; padding: 0; }
+#footer .footer-list a { display: inline-block; padding: .2rem 0; }
+#footer .footer-bottom { display: flex; justify-content: space-between; gap: 2rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #d5cbb8; align-items: center; font-size: .65rem; }
+#footer .disclaimer { max-width: 43rem; margin-top: .75rem; font-size: .65rem; }
+#footer .footer-bottom img { display: block; width: 100px; max-width: none; }
+body.is-home-visible #footer.site-footer { filter: none; }
+@media (max-width: 850px) { #footer.site-footer { padding: 2rem 1.5rem 1.5rem; } #footer .footer-grid { grid-template-columns: 1fr 1fr; gap: 1.8rem; } #footer .footer-identity { grid-column: 1 / -1; } #footer .footer-bottom { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 420px) { #footer .footer-grid { grid-template-columns: 1fr; } #footer .footer-identity { grid-column: auto; } }
+/* Unified Home: original identity hero followed by the editorial content. */
+body.is-home-visible #wrapper { justify-content: flex-start; padding-top: 0; padding-bottom: 0; }
+body.is-home-visible #wrapper:before { display: none; }
+body.is-home-visible #header { min-height: 88vh; justify-content: center; padding: 4rem 0; flex-shrink: 0; }
+#header .landing-intro { max-width: 36rem; margin: 1.25rem auto 0; font-size: .85rem; letter-spacing: .025em; text-transform: none; }
+#header .landing-actions { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 1.75rem; flex-wrap: wrap; }
+#header .landing-actions .home-text-link { margin: 0; }
+body.is-home-visible #main { display: block; width: 100%; padding-top: 0; }
+body.is-home-visible #main #home { display: block; opacity: 1; transform: none; margin: 0 auto; max-width: 100%; }
+body.is-home-visible #footer.site-footer { margin-top: 0; max-width: 66rem; }
+.home-about { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding: 3rem; border-top: 1px solid rgba(117,84,43,.25); align-items: center; }
+.home-about img { display: block; width: 100%; height: 18rem; object-fit: cover; border-radius: 3px; }
+.home-qr-valid { font-size: .7rem; color: #56606e; }
+body.is-home-visible .home-collab-link { display: none; }
+@media(max-width:600px) { body.is-home-visible #header { min-height: 95vh; padding: 2.5rem 0; } .home-about { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 1.5rem; } .home-about img { height: 16rem; } #header .landing-actions { gap: .8rem; } }
+/* Text-only About Datong on Home. */
+.home-about { grid-template-columns: 1fr; }
+.home-about > div { max-width: 48rem; }
+
+/* Language control shared by both editions, independent of section routing. */
+.language-switch { position: fixed; top: .75rem; right: 1rem; z-index: 1100; display: flex; align-items: center; gap: .6rem; padding: .45rem .8rem; background: #101e32; border: 1px solid rgba(215,183,111,.45); border-radius: 4px; color: #d7b76f; font: .75rem/1.5 Inter, Arial, sans-serif; }
+.language-switch a { color: #fff; border: 0; }
+.language-switch a:hover { color: #f2dfa2; }
+.language-switch a:focus-visible { outline: 2px solid #d7b76f; outline-offset: 3px; }
+html[lang="zh-Hans"] #main article { line-height: 1.9; }
+html[lang="zh-Hans"] #header .landing-intro { font-family: 'Noto Serif SC', serif; }
+html[lang="zh-Hans"] #header .site-title .en { font-size: .55em; }
+html[lang="zh-Hans"] #header .site-title .zh { font-size: 1em; }
+@media(max-width:850px) { body.is-article-visible .section-navigation { top: 3.1rem; } body.is-article-visible #main { padding-top: 8rem; } }

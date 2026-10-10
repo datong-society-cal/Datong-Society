@@ -1,5 +1,6 @@
 /* Progressive enhancements. The content and links remain available without JavaScript. */
 (() => {
+  const chinese = document.documentElement.lang.startsWith('zh');
   const filter = document.querySelector('#events-filter');
   const cards = [...document.querySelectorAll('.event-card')];
   filter?.addEventListener('click', event => {
@@ -26,11 +27,11 @@
   if (overlay) {
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Event image');
+    overlay.setAttribute('aria-label', chinese ? '活动图片' : 'Event image');
     const close = document.createElement('button');
     close.type = 'button';
     close.className = 'lb-close';
-    close.setAttribute('aria-label', 'Close image');
+    close.setAttribute('aria-label', chinese ? '关闭图片' : 'Close image');
     close.textContent = '×';
     overlay.append(close);
 
@@ -60,7 +61,7 @@
       if (trigger.matches('img')) {
         trigger.tabIndex = 0;
         trigger.setAttribute('role', 'button');
-        trigger.setAttribute('aria-label', `Enlarge ${trigger.alt || 'event image'}`);
+        trigger.setAttribute('aria-label', chinese ? `放大：${trigger.alt || '活动图片'}` : `Enlarge ${trigger.alt || 'event image'}`);
         trigger.addEventListener('keydown', event => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();

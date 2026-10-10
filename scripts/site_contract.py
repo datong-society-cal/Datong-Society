@@ -26,6 +26,7 @@ Options -Indexes
 </IfModule>
 '''
 ROOT_FILES = {'index.html', 'collaboration.html', 'LICENSE.txt', '.htaccess', 'deploy-version.json'}
+LANGUAGE_FILES = {'zh.html', 'collaboration-zh.html'}
 EXTENSIONS = {
     'assets/css': {'.css'}, 'assets/js': {'.js'},
     'assets/fonts': {'.otf', '.woff2', '.woff', '.ttf', '.svg', '.eot'},
@@ -38,7 +39,7 @@ def allowed(name):
         return name == '.htaccess'
     if str(path) != name or not re.fullmatch(r'[A-Za-z0-9_./-]+', name):
         return False
-    return name in ROOT_FILES or any(name.startswith(prefix + '/') and path.suffix.lower() in exts
+    return name in ROOT_FILES | LANGUAGE_FILES or any(name.startswith(prefix + '/') and path.suffix.lower() in exts
         for prefix, exts in EXTENSIONS.items())
 
 def digest(path):
@@ -85,6 +86,8 @@ def validate_tree(root, expected_commit=None):
     parsed = References()
     parsed.feed(html)
     parsed.feed(files['collaboration.html'].read_text(encoding='utf-8'))
+    for name in LANGUAGE_FILES & files.keys():
+        parsed.feed(files[name].read_text(encoding='utf-8'))
     missing = []
     def check(ref, parent):
         url = urlsplit(ref)
