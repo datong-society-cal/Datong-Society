@@ -64,5 +64,5 @@ class ContentInfrastructure(unittest.TestCase):
     def test_contact_uses_society_inbox(self):
         for filename in ('contact.html', 'contact-zh.html'):
             html = (ROOT / filename).read_text(encoding='utf-8')
-            self.assertIn('mailto:datongsociety@gmail.com', html)
+            self.assertIn('mailto:contact@datong.studentorg.berkeley.edu', html)
             self.assertNotIn('formsubmit.co', html)

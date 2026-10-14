@@ -57,4 +57,4 @@ class LanguageRegression(unittest.TestCase):
         for name in ('contact.html', 'contact-zh.html'):
             text = (ROOT / name).read_text(encoding='utf-8')
             self.assertNotIn('He/Him', text)
-            self.assertIn('mailto:greenw@berkeley.edu', text)
+            self.assertIn('mailto:president@datong.studentorg.berkeley.edu', text)
