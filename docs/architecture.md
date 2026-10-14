@@ -64,7 +64,9 @@ Generated files are committed so local preview and GitHub diffs stay inspectable
 
 ## Analytics
 
-Analytics is disabled (`provider: "none"`). The build supports opt-in GoatCounter:
+GoatCounter hosted analytics is enabled for `https://datong.goatcounter.com/count`.
+View statistics by signing in at https://datong.goatcounter.com/.
+To disable it, set `provider` to `none`. The build supports opt-in GoatCounter:
 set `provider` to `goatcounter` and provide the account's HTTPS `/count` endpoint
 after the society has selected a service and created its account. No credentials
 belong in these public settings. The hosted integration sends visit information

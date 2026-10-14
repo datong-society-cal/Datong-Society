@@ -45,5 +45,6 @@ Before publishing, add new files to Git and run `python scripts/check_site.py`.
 The OCF workflow builds and validates the same artifact on Linux. GitHub Pages
 remains disabled. Preview locally with `python -m http.server 8766 --bind 127.0.0.1`.
 
-Analytics is disabled by default. `content/site.json` has an optional GoatCounter
-integration; selecting or provisioning a statistics service is a separate step.
+GoatCounter analytics is configured in `content/site.json` for the society-owned
+`datong.goatcounter.com` account. View statistics there after signing in.
+Set its provider to `none` to disable tracking.
