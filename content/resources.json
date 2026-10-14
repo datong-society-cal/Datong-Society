@@ -1,0 +1,42 @@
+[
+  {
+    "id": "eal",
+    "url": "https://www.lib.berkeley.edu/visit/east-asian",
+    "title": {
+      "en": "C. V. Starr East Asian Library",
+      "zh": "C. V. Starr 东亚图书馆"
+    }
+  },
+  {
+    "id": "databases",
+    "url": "https://guides.lib.berkeley.edu/az/databases",
+    "title": {
+      "en": "Berkeley Library Databases",
+      "zh": "伯克利图书馆数据库"
+    }
+  },
+  {
+    "id": "ieas",
+    "url": "https://ieas.berkeley.edu/",
+    "title": {
+      "en": "Institute of East Asian Studies",
+      "zh": "东亚研究所（IEAS）"
+    }
+  },
+  {
+    "id": "ccs",
+    "url": "https://ieas.berkeley.edu/centers/center-chinese-studies-ccs/useful-links-ccs",
+    "title": {
+      "en": "Center for Chinese Studies — Useful Links",
+      "zh": "中国研究中心 — 资源链接"
+    }
+  },
+  {
+    "id": "grants",
+    "url": "https://ieas.berkeley.edu/ieas-home/fellowships-grants/undergraduate-students",
+    "title": {
+      "en": "IEAS Undergraduate Fellowships & Grants",
+      "zh": "IEAS 本科研究奖项与资助"
+    }
+  }
+]

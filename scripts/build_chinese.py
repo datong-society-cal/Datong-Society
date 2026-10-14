@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT = json.loads((ROOT / 'content/zh.json').read_text(encoding='utf-8'))
 TRANSLATIONS = {unescape(key): unescape(value) for key, value in CONTENT['text'].items()}
 VOID = {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}
-PAGES = {'index.html':'zh.html', 'collaboration.html':'collaboration-zh.html'}
+PAGES = {'index.html':'zh.html', 'collaboration.html':'collaboration-zh.html', **{name+'.html':name+'-zh.html' for name in ('about','contact','events','resources','workshops')}}
 
 class ChinesePage(HTMLParser):
     def __init__(self):
@@ -34,12 +34,13 @@ class ChinesePage(HTMLParser):
                 elif key == 'lang' and tag == 'a' and value == 'zh-Hans': value = 'en'
                 elif key == 'href':
                     path, sep, fragment = value.partition('#')
-                    if path == 'zh.html': path = 'index.html'
+                    if path in PAGES.values(): path = next(en for en, zh in PAGES.items() if zh == path)
                     elif path == 'collaboration-zh.html': path = 'collaboration.html'
                     else: path = PAGES.get(path, path)
                     value = path + sep + fragment
                     if value.startswith('https://datong.studentorg.berkeley.edu/'):
-                        value = value.replace('/collaboration.html','/collaboration-zh.html')
+                        for source, destination in PAGES.items():
+                            value = value.replace('/'+source, '/'+destination)
                         if value == 'https://datong.studentorg.berkeley.edu/': value += 'zh.html'
                 elif key in ('alt','aria-label','placeholder','value','content'):
                     value = TRANSLATIONS.get(value, value)

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "2026-kukai",
+    "start": "2026-10-12T18:30:00-07:00",
+    "end": "2026-10-12T21:00:00-07:00",
+    "poster": "images/events/2026-kukai/poster.jpg",
+    "title": {
+      "en": "KŪKAI 空海 — Screening & Discussion",
+      "zh": "KŪKAI 空海 — 放映与对谈"
+    },
+    "location": {
+      "en": "Anthropology & Art Practice Building, Room 160 · UC Berkeley",
+      "zh": "伯克利 Anthropology & Art Practice Building · 160 教室"
+    },
+    "description": {
+      "en": "A documentary on Kūkai’s journey from Japan to Tang China, followed by an online conversation with director Yue Ye. Co-hosted with C. V. Starr East Asian Library and Deep Value. Classical Chinese narration with English subtitles; film runtime: 97 minutes.",
+      "zh": "纪录片讲述空海自日本赴唐的旅程，并与导演岳野在线对谈。由 C. V. Starr 东亚图书馆、大同学社与 Deep Value 合办。文言旁白，英文字幕，片长 97 分钟。"
+    }
+  }
+]

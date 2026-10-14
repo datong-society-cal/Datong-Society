@@ -11,6 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--commit', help='Artifact version; defaults to HEAD')
     args = parser.parse_args()
+    subprocess.run([sys.executable, 'scripts/build_site.py'], cwd=ROOT, check=True)
     node = shutil.which('node') or str(Path(sys.executable).parents[1] / 'node/bin/node.exe')
     if not Path(node).is_file():
         raise SystemExit('Node.js is required for JavaScript syntax checks; supply it on PATH.')

@@ -33,29 +33,17 @@ We prioritize high-density intellectual exchange in an open, collaborative setti
 
 ## Website maintenance
 
-This repository is the source of truth. OCF serves a validated static copy; no
-Node, Ruby, database, or background application is needed for the current site.
-Changes to `main` are checked and automatically deployed by GitHub Actions.
+The site is a bilingual static website served by OCF. Edit `content/pages/`,
+`content/events.json`, `content/resources.json`, and shared `templates/`.
+Run `python scripts/build_site.py` to generate the root HTML pages; do not edit
+those generated pages directly. Shared styles live in `assets/css/main.css`.
 
-- Edit `index.html`, `collaboration.html`, `assets/css/main.css`, `assets/js/main.js`, `assets/js/effects.js`, and `images/`. The navigation and progressive effects use browser-native JavaScript without jQuery.
-- `assets/css/main.css` is maintained by hand. The legacy Sass files are reference
-  material only; compiling them would remove the site's custom styles.
-- [Deployment, rollback, and maintainer handover](docs/deployment.md).
-- GitHub Pages is disabled; use local previews. The OCF URL above is the public site.
-- The OCF hosting badge is provided by [OCF](https://www.ocf.berkeley.edu/docs/services/vhost/badges/).
+See [architecture and editing guide](docs/architecture.md) and
+[deployment, rollback, and handover](docs/deployment.md).
 
-## Bilingual editing
+Before publishing, add new files to Git and run `python scripts/check_site.py`.
+The OCF workflow builds and validates the same artifact on Linux. GitHub Pages
+remains disabled. Preview locally with `python -m http.server 8766 --bind 127.0.0.1`.
 
-English sources: `index.html` and `collaboration.html`. Chinese wording: `content/zh.json`.
-Run `python scripts/build_chinese.py` after editing either source or translations;
-this regenerates `zh.html` and `collaboration-zh.html`. Do not edit generated pages.
-`data-zh` identifies complete Chinese content blocks; `data-zh-omit` suppresses
-secondary translated paragraphs in the Chinese edition. Text and accessible
-attributes are translated without altering category IDs, scripts or comments.
-
-Active assets live in `assets/css`, `assets/js`, `assets/fonts`, and `images`.
-Historical Sass and hidden member placeholders are preserved in `docs/archive/`.
-Design experiments stay in `docs/` and are excluded from production.
-
-Before committing, add new public files and run `python scripts/check_site.py`.
-GitHub Actions runs the same command on the committed tree.
+Analytics is disabled by default. `content/site.json` has an optional GoatCounter
+integration; selecting or provisioning a statistics service is a separate step.

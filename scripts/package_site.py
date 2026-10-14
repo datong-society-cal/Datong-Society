@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tarfile
-from site_contract import APACHE, EXTENSIONS, allowed, digest, validate_tree
+from site_contract import APACHE, EXTENSIONS, ROOT_FILES, LANGUAGE_FILES, CONTENT_FILES, allowed, digest, validate_tree
 
 def package(commit, output):
     repo = Path(__file__).resolve().parent.parent
@@ -21,7 +21,7 @@ def package(commit, output):
     output.mkdir()
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=repo).decode().split('\0')
     for name in tracked:
-        if name in ('index.html', 'zh.html', 'collaboration.html', 'collaboration-zh.html', 'LICENSE.txt') or any(name.startswith(p + '/') for p in EXTENSIONS):
+        if name in ROOT_FILES | LANGUAGE_FILES | CONTENT_FILES or any(name.startswith(p + '/') for p in EXTENSIONS):
             if not allowed(name):
                 continue  # e.g. images/README.md and CSS build notes are maintenance files.
             source = repo / name

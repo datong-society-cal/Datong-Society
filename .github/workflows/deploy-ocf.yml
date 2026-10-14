@@ -26,6 +26,8 @@ jobs:
           persist-credentials: false
       - name: Check source and package static site
         run: python3 scripts/check_site.py --commit "$GITHUB_SHA"
+      - name: Require committed generated pages
+        run: git diff --exit-code -- '*.html' content/zh.json
       - name: Preserve the validated artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:

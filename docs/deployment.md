@@ -11,7 +11,7 @@ Use a local HTTP server for previews.
 
 ## Everyday updates
 
-Edit the HTML, CSS, JavaScript, or images and open a pull request. The
+Edit the content sources and templates documented in architecture.md, build the generated HTML, and open a pull request. The
 **Validate static site** check must pass. Merge into `main`; **Deploy OCF**
 packages the site, transfers it over SSH, verifies it, and records a successful
 GitHub deployment. A push to `main` uses the same workflow.
@@ -30,7 +30,7 @@ This is a static site with no package manager or application server dependency.
 Python 3.11+ is used only for checks and deployment tooling. OCF serves the files
 with its managed Apache server.
 
-- English and Chinese home/collaboration pages, published CSS/JS/fonts, images, and `LICENSE.txt` are packaged.
+- Fourteen English and Chinese pages, published CSS/JS/fonts, images, and `LICENSE.txt` are packaged.
 - The packager generates reviewed `.htaccess`, a version marker, and a SHA-256
   manifest. The manifest stays private on OCF; it is not served by Apache.
 - Git metadata, workflows, scripts, documentation, legacy Sass, backups, and keys

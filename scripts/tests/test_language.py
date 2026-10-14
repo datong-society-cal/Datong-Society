@@ -48,12 +48,12 @@ class LanguageRegression(unittest.TestCase):
         self.assertIn('data-filter="Lecture">讲座', result)
 
     def test_bilingual_blocks_have_one_description(self):
-        page = (ROOT / 'zh.html').read_text(encoding='utf-8')
+        page = (ROOT / 'contact-zh.html').read_text(encoding='utf-8')
         self.assertEqual(page.count('登记邮箱，接收大同学社的活动通知与最新消息。'), 1)
         self.assertNotIn('&amp;amp;', page)
 
     def test_contact_has_no_pronoun_annotation(self):
-        for name in ('index.html', 'zh.html'):
+        for name in ('contact.html', 'contact-zh.html'):
             text = (ROOT / name).read_text(encoding='utf-8')
             self.assertNotIn('He/Him', text)
             self.assertIn('mailto:greenw@berkeley.edu', text)
