@@ -10,7 +10,7 @@ from urllib.request import build_opener, HTTPRedirectHandler, urlopen
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from serve_site import ROOT, SiteHandler
-from site_contract import PUBLIC_PATHS, ROUTE_FILES
+from site_contract import PUBLIC_PATHS, ROUTE_FILES, REWRITES, SITE_URL
 
 class NoRedirect(HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs):
@@ -21,6 +21,12 @@ class QuietHandler(SiteHandler):
         pass
 
 class CleanRoutes(unittest.TestCase):
+    def test_production_redirects_use_absolute_https_targets(self):
+        redirects = [line for line in REWRITES.splitlines() if '[R=301' in line]
+        self.assertTrue(redirects)
+        for rule in redirects:
+            self.assertTrue(rule.split()[2].startswith(SITE_URL), rule)
+
     @classmethod
     def setUpClass(cls):
         cls.server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(ROOT)))

@@ -27,9 +27,12 @@ REDIRECTS = {'': 'home', **PUBLIC_PATHS,
 REWRITES = 'RewriteEngine On\n'
 for filename, path in PUBLIC_PATHS.items():
     REWRITES += r'RewriteCond %{THE_REQUEST} \s/+[^\s?]*' + re.escape(filename) + r'(?:[?\s])' + '\n'
-    REWRITES += 'RewriteRule ^' + re.escape(filename) + '$ ' + path + ' [R=301,L,NE]\n'
-REWRITES += 'RewriteRule ^$ home [R=301,L]\n'
-REWRITES += 'RewriteRule ^((?:zh/)?(?:' + '|'.join(PAGE_ROUTES) + '))/$ $1 [R=301,L]\n'
+    REWRITES += 'RewriteRule ^' + re.escape(filename) + '$ ' + SITE_URL + path + ' [R=301,L,NE]\n'
+# OCF's virtual host aliases a filesystem directory outside DocumentRoot.
+# Absolute canonical targets avoid exposing that filesystem prefix and ensure
+# HTTPS even when Apache sees the reverse proxy's internal HTTP connection.
+REWRITES += 'RewriteRule ^$ ' + SITE_URL + 'home [R=301,L]\n'
+REWRITES += 'RewriteRule ^((?:zh/)?(?:' + '|'.join(PAGE_ROUTES) + '))/$ ' + SITE_URL + '$1 [R=301,L]\n'
 for path, filename in ROUTE_FILES.items():
     REWRITES += 'RewriteRule ^' + path + '$ ' + filename + ' [END]\n'
 APACHE = '''# Managed static website. Do not restore legacy WordPress rewrite rules.
