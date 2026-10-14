@@ -84,7 +84,7 @@
     "Send Message": "发送留言",
     "Reset": "重置",
     "Scan with WeCom to join the": "使用企业微信扫码加入 ",
-    "for event announcements and discussions. This QR code is valid before October 17; please return for an updated code from October 17.": "，获取活动通知并参与交流。二维码在 10 月 17 日前有效，之后请返回查看更新。",
+    "for event announcements and discussions. This QR code is valid before October 21; please return for an updated code from October 21.": "，获取活动通知并参与交流。二维码在 10 月 21 日前有效，之后请返回查看更新。",
     "Datong 2026Fall Activity Group": "Datong 2026Fall 活动群",
     "WeCom · Activity Group": "企业微信 · Activity Group",
     "Mailing List": "邮件订阅 · Mailing List ",
@@ -102,7 +102,7 @@
     "Courses &amp; resources": "课程与资源",
     "Mailing list ↗": "邮件订阅 ↗",
     "WeChat · 微信公众号 ↗": "微信公众号 · WeChat ↗",
-    "© Datong Society of China Studies. All Rights Reserved. · Updated Oct 10, 2026": "© 大同学社 · Datong Society. 保留所有权利。· 更新于 2026 年 10 月 10 日",
+    "© Datong Society of China Studies. All Rights Reserved. · Updated Oct 14, 2026": "© 大同学社 · Datong Society. 保留所有权利。· 更新于 2026 年 10 月 14 日",
     "We are a student group acting independently of the University of California. We take full responsibility for our organization and this web site.": "我们是独立于加州大学运营的学生组织，对本组织及本网站承担全部责任。",
     "Skip to navigation": "跳转至导航",
     "Back to home": "返回首页",
@@ -121,7 +121,7 @@
     "Collaboration, 合作交流：了解合作方式": "合作：了解合作方式"
   },
   "blocks": {
-    "activity-intro": "使用企业微信扫码加入 <strong>Datong 2026Fall 活动群</strong>，获取活动通知并参与交流。二维码在 10 月 17 日前有效；之后请返回本页查看更新。",
+    "activity-intro": "使用企业微信扫码加入 <strong>Datong 2026Fall 活动群</strong>，获取活动通知并参与交流。二维码在 10 月 21 日前有效；之后请返回本页查看更新。",
     "mailing-title": "邮件订阅 <span lang=\"en\">· Mailing List</span>",
     "mailing-intro": "登记邮箱，接收大同学社的活动通知与最新消息。",
     "mailing-button": "订阅邮件 <span lang=\"en\">· Mailing List</span>",
