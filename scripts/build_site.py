@@ -105,7 +105,12 @@ def render(as_of):
         def fingerprint(match):
             path = match[2]
             asset = ROOT / path
-            version = hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
+            data = asset.read_bytes()
+            # Git checks text out as CRLF on Windows and LF on Linux. Version
+            # equivalent text identically so generated pages remain reproducible.
+            if asset.suffix in ('.css', '.js'):
+                data = data.replace(b'\r\n', b'\n')
+            version = hashlib.sha256(data).hexdigest()[:12]
             return match[1] + path + '?v=' + version + '"'
         html = re.sub(r'((?:src|href)=")((?:assets/(?:css|js)/[^"?]+|images/qr/[^"?]+))(?:\?[^" ]*)?"', fingerprint, html)
         (ROOT / en_name).write_text(html + '\n', encoding='utf-8')
