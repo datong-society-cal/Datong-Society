@@ -16,7 +16,7 @@ import tarfile
 import tempfile
 import time
 from urllib.request import Request, urlopen
-from site_contract import MAX_FILE, MAX_TOTAL, SITE_URL, allowed, validate_tree
+from site_contract import MAX_FILE, MAX_TOTAL, SITE_URL, PUBLIC_PATHS, allowed, validate_tree
 
 HOME = Path('/home/d/da/datong')
 BASE = HOME / 'deploy'
@@ -69,7 +69,9 @@ def smoke(source):
     for attempt in range(4):
         try:
             for name in names:
-                request = Request(SITE_URL + name + '?deployment-check=' + str(time.time_ns()),
+                clean = 'rel="canonical" href="' + SITE_URL + 'home"' in (source / 'index.html').read_text(encoding='utf-8')
+                path = PUBLIC_PATHS.get(name, name) if clean else name
+                request = Request(SITE_URL + path + '?deployment-check=' + str(time.time_ns()),
                     headers={'Cache-Control': 'no-cache', 'User-Agent': 'Datong-deployment-check'})
                 with urlopen(request, timeout=20) as response:
                     if response.status != 200 or response.read() != (source / name).read_bytes():

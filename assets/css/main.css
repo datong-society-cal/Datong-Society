@@ -570,3 +570,17 @@ section {
     transition:none!important
   }
 }
+
+/* Workshop schedule */
+.workshop-session { border-top: 1px solid var(--line); padding-top: 1.5rem; }
+.workshop-meta { font-size: .85rem; color: #586174; }
+.workshop-session summary { cursor: pointer; color: var(--link); }
+.workshop-session details ul { margin-bottom: 0; }
+
+.workshop-speaker { font-size: .9rem; margin-bottom: .7rem; }
+
+.workshop-participation {
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+  padding-top: 2rem;
+}

@@ -7,7 +7,7 @@ Source: **https://github.com/datong-society-cal/Datong-Society**
 GitHub Pages was disabled on October 2, 2026. In repository Settings → Pages,
 the publishing branch is **None**. Keep it disabled; OCF deployment uses the
 independent **Deploy OCF** workflow and does not depend on GitHub Pages.
-Use a local HTTP server for previews.
+Use `python scripts/serve_site.py --port 8766` for previews with production routes.
 
 ## Everyday updates
 
@@ -181,3 +181,16 @@ The unified `scripts/check_site.py` entrypoint runs deployment and bilingual
 regression tests, JavaScript syntax checks, Git whitespace checks, and artifact
 validation. It requires Python 3.11+, Node.js (syntax checks only), and Git.
 Add new public files to Git before running it, since packaging uses tracked paths.
+
+## Clean URL release
+
+Apache serves the fourteen static HTML files through the shared explicit route
+registry. `/` redirects to `/home`; Chinese URLs live under `/zh/`. Legacy HTML
+requests redirect to canonical routes and preserve query parameters. Existing
+files and unknown paths are not rewritten by a catch-all. MultiViews is disabled
+to avoid implicit content negotiation conflicting with the explicit routes.
+
+Receiver smoke checks request canonical paths for clean-URL releases, while
+older retained artifacts still use their historical filenames during rollback.
+Update both the installed contract and receiver under the publish lock before
+publishing this configuration change.

@@ -10,6 +10,8 @@ or application process is required to operate the website.
 - `content/events.json`: recent and future events, with stable IDs, timezone-aware
   start/end timestamps, bilingual titles/descriptions/locations, and a poster path.
 - `content/resources.json`: curated bilingual resource names and HTTPS links.
+- `content/workshops.json`: dated discussion sessions, bilingual summaries, optional
+  speaker/affiliation/time/location/reading text, and expandable discussion questions.
 - `content/site.json`: release date, classification timestamp, and optional analytics.
 - `content/zh.json`: shared translations and explicitly identified Chinese blocks.
 - `templates/hero.html`, `templates/footer.html`: shared identity and footer.
@@ -18,9 +20,14 @@ or application process is required to operate the website.
 - `scripts/build_site.py`: generates seven pages in each language. Edit sources,
   not the fourteen generated root HTML files.
 
-Navigation links point to real HTML pages and work without JavaScript. The small
+Public URLs use `/home`, `/workshops`, and the other slugs; Chinese pages use
+`/zh/home`, `/zh/workshops`, etc. Apache maps these paths to static HTML files.
+The single route registry is `PAGE_ROUTES` in `scripts/site_contract.py`.
+Old `.html` URLs, root `/`, and trailing slashes receive permanent redirects.
+Navigation works without JavaScript. The small
 `main.js` maps bookmarked home hash URLs (`#resources`, `#events`, etc.) to the
-new pages. `effects.js` provides optional gallery filtering and an accessible
+clean paths. Relative base URLs keep images, CSS, and links working at both the
+virtual host and the OCF `/~datong/` subpath, including nested Chinese URLs. `effects.js` provides optional gallery filtering and an accessible
 image viewer. Language switching preserves the equivalent page.
 
 ## Add an event
@@ -52,7 +59,7 @@ to arbitrary HTML, scripts, or server-side files.
 
 ```sh
 python scripts/build_site.py
-python -m http.server 8766 --bind 127.0.0.1
+python scripts/serve_site.py --port 8766
 python scripts/check_site.py
 ```
 
@@ -84,3 +91,10 @@ before merging. The existing OCF workflow deploys and verifies hashes, assets,
 and the version marker, and retains releases for rollback. Check the deployed
 version and representative pages after release. Hand over the GitHub repository,
 OCF recovery access, and any separately owned analytics account together.
+
+Workshop speaker bylines use `Speaker: Name, Affiliation` (Chinese: `主讲人：姓名, 所属机构`). Store names and affiliations separately. Leave unconfirmed affiliations blank; do not infer departments, degrees, or titles. Times and locations appear on separate lines.
+
+For local preview use `serve_site.py`, which implements the same route table,
+redirects and 404 behavior. The standard `http.server` does not implement these
+routes. GoatCounter receives each page’s clean canonical URL; prior `.html`
+statistics remain historical records.

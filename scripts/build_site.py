@@ -11,13 +11,9 @@ from urllib.parse import urlsplit
 from build_chinese import translate
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = {'home': ('index.html', 'zh.html', 'Home'),
-         'workshops': ('workshops.html', 'workshops-zh.html', 'Workshops'),
-         'events': ('events.html', 'events-zh.html', 'Public Events'),
-         'resources': ('resources.html', 'resources-zh.html', 'Resources'),
-         'about': ('about.html', 'about-zh.html', 'About Us'),
-         'contact': ('contact.html', 'contact-zh.html', 'Contact Us'),
-         'collaboration': ('collaboration.html', 'collaboration-zh.html', 'Collaboration')}
+from site_contract import PAGE_ROUTES, PUBLIC_PATHS
+
+PAGES = PAGE_ROUTES
 
 def read_json(name):
     return json.loads((ROOT / 'content' / name).read_text(encoding='utf-8'))
@@ -54,6 +50,32 @@ def event_html(event, language, featured=False, past=False):
     text = f'<div><p class="home-eyebrow">{heading}</p><h2>{title}</h2><p>{escape(event["description"][language])}</p><p><time datetime="{event["start"]}">{date} · Pacific Time</time><br>{escape(event["location"][language])}</p><a class="button" href="{event["poster"]}" target="_blank" rel="noopener">{details} ↗</a></div>'
     return f'<section class="home-feature">{image if featured else ""}{text}</section>'
 
+def workshops_html(sessions, language, as_of):
+    rows = []
+    for session in sorted(sessions, key=lambda item: item['date']):
+        date = datetime.fromisoformat(session['date']).date()
+        past = date < as_of.date()
+        status = ('Past session' if past else 'Upcoming session') if language == 'en' else ('往期讨论' if past else '近期安排')
+        row = f'<section class="workshop-session"><p class="home-eyebrow"><time datetime="{session["date"]}">{session["date"]}</time> · {status}</p><h3>{escape(session["title"][language])}</h3>'
+        speaker = session.get('speaker', {}).get(language, '')
+        affiliation = session.get('affiliation', {}).get(language, '')
+        if speaker:
+            label = 'Speaker' if language == 'en' else '主讲人'
+            byline = escape(speaker) + (', ' + escape(affiliation) if affiliation else '')
+            row += f'<p class="workshop-speaker">{label}: {byline}</p>'
+        metadata = [session.get(key, {}).get(language, '') for key in ('time', 'location')]
+        if any(metadata):
+            row += '<p class="workshop-meta">' + '<br>'.join(escape(value) for value in metadata if value) + '</p>'
+        row += f'<p>{escape(session["summary"][language])}</p>'
+        if session.get('reading'):
+            row += f'<p class="workshop-meta">{escape(session["reading"][language])}</p>'
+        if session.get('questions'):
+            label = 'Discussion questions' if language == 'en' else '讨论问题'
+            row += '<details><summary>' + label + '</summary><ul>' + ''.join('<li>' + escape(question) + '</li>' for question in session['questions'][language]) + '</ul></details>'
+        rows.append(row + '</section>')
+    heading = 'Fall 2026' if language == 'en' else '2026 年秋季'
+    return f'<h2>{heading}</h2>' + ''.join(rows)
+
 def render(as_of):
     config, events, resources = read_json('site.json'), read_json('events.json'), read_json('resources.json')
     validate_content(events, resources)
@@ -79,18 +101,21 @@ def render(as_of):
         rows = ''.join(f'<li><a href="{escape(r["url"])}" target="_blank" rel="noopener noreferrer">{escape(r["title"][language])} ↗</a></li>' for r in resources)
         return f'<section class="resource-directory"><h3>{title}</h3><ul>{rows}</ul></section>'
     resource_block = localized_block('campus-links', links('en'), links('zh'), blocks)
+    workshops = read_json('workshops.json')
+    workshop_block = localized_block('workshop-schedule', workshops_html(workshops, 'en', as_of), workshops_html(workshops, 'zh', as_of), blocks)
     footer = (ROOT / 'templates/footer.html').read_text(encoding='utf-8')
     for page, (en_name, zh_name, title) in PAGES.items():
         nav = '<nav id="site-navigation" aria-label="Main navigation"><ul>' + ''.join(f'<li><a href="{en}"'+ (' aria-current="page"' if key == page else '') + f'>{label}</a></li>' for key,(en,zh,label) in PAGES.items() if key != 'collaboration') + '</ul></nav>'
         body = (ROOT / 'content/pages' / (page + '.html')).read_text(encoding='utf-8')
         body = body.replace('{{ featured_event }}', feature).replace('{{ event_programs }}', program).replace('{{ resources }}', resource_block)
+        body = body.replace('{{ workshop_schedule }}', workshop_block)
         hero = (ROOT / 'templates/hero.html').read_text(encoding='utf-8') if page == 'home' else ''
         brand = '<a class="site-brand" href="index.html"><img src="images/brand/datong-logo-emblem.png" alt="Datong Society emblem" width="52" height="52"><span>DATONG <span lang="zh-Hans">大同</span></span></a>'
         article_title = title if page != 'home' else 'Home'
         html = f'''<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101a30">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101a30"><base href="./">
 <title>{article_title} | Datong Society · UC Berkeley</title><meta name="description" content="Datong Society of China Studies at UC Berkeley — {title}.">
-<link rel="canonical" href="{config['url'] + (en_name if page != 'home' else '')}"><link rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png">
+<link rel="canonical" href="{config['url'] + PUBLIC_PATHS[en_name]}"><link rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&amp;family=Inter:wght@400;600&amp;family=Noto+Serif+SC:wght@400;600&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css"></head>
@@ -113,11 +138,11 @@ def render(as_of):
             version = hashlib.sha256(data).hexdigest()[:12]
             return match[1] + path + '?v=' + version + '"'
         html = re.sub(r'((?:src|href)=")((?:assets/(?:css|js)/[^"?]+|images/qr/[^"?]+))(?:\?[^" ]*)?"', fingerprint, html)
+        for filename, path in PUBLIC_PATHS.items():
+            html = html.replace('href="' + filename + '"', 'href="' + path + '"')
+        html = html.replace('href="#main"', 'href="' + PUBLIC_PATHS[en_name] + '#main"')
         (ROOT / en_name).write_text(html + '\n', encoding='utf-8')
         translated = translate(html)
-        translated = translated.replace(config['url'] + en_name, config['url'] + zh_name)
-        if page == 'home':
-            translated = translated.replace('rel="canonical" href="' + config['url'] + '"', 'rel="canonical" href="' + config['url'] + zh_name + '"')
         (ROOT / zh_name).write_text(translated + '\n', encoding='utf-8')
     # Persist generated localized blocks so the translation check uses the same content IDs.
     (ROOT / 'content/zh.json').write_text(json.dumps(build_chinese.CONTENT, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

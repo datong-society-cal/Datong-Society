@@ -5,8 +5,8 @@
   const redirect = () => {
     const page = pages[location.hash.slice(1)];
     if (page && document.body.classList.contains('page-home')) {
-      const filename = page === 'index' ? (chinese ? 'zh.html' : 'index.html') : page + (chinese ? '-zh' : '') + '.html';
-      location.replace(filename);
+      const slug = page === 'index' ? 'home' : page;
+      location.replace(new URL((chinese ? 'zh/' : '') + slug, document.baseURI));
     }
   };
   redirect();

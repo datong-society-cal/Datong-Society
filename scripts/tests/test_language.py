@@ -7,6 +7,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from build_chinese import translate
+from site_contract import PUBLIC_PATHS
 
 class LanguageControl(HTMLParser):
     def __init__(self):
@@ -17,7 +18,7 @@ class LanguageControl(HTMLParser):
         values = dict(attrs)
         if tag == 'span' and values.get('aria-current') == 'true':
             self.current = values.get('lang')
-        if tag == 'a' and values.get('href') in ('index.html', 'zh.html', 'collaboration.html', 'collaboration-zh.html') and values.get('lang'):
+        if tag == 'a' and values.get('href') in PUBLIC_PATHS.values() and values.get('lang'):
             self.destination = (values['href'], values['lang'])
 
 class LanguageRegression(unittest.TestCase):
@@ -32,7 +33,7 @@ class LanguageRegression(unittest.TestCase):
                 parser = LanguageControl()
                 parser.feed((ROOT / name).read_text(encoding='utf-8'))
                 self.assertEqual(parser.current, current)
-                self.assertEqual(parser.destination, destination)
+                self.assertEqual(parser.destination, (PUBLIC_PATHS[destination[0]], destination[1]))
 
     def test_chinese_page_matches_generator(self):
         for source, destination in (('index.html','zh.html'), ('collaboration.html','collaboration-zh.html')):

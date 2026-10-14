@@ -3,12 +3,14 @@ from html import escape, unescape
 from html.parser import HTMLParser
 import json
 from pathlib import Path
+from site_contract import PAGE_ROUTES, PUBLIC_PATHS
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT = json.loads((ROOT / 'content/zh.json').read_text(encoding='utf-8'))
 TRANSLATIONS = {unescape(key): unescape(value) for key, value in CONTENT['text'].items()}
 VOID = {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}
-PAGES = {'index.html':'zh.html', 'collaboration.html':'collaboration-zh.html', **{name+'.html':name+'-zh.html' for name in ('about','contact','events','resources','workshops')}}
+PAGES = {en: zh for en, zh, title in PAGE_ROUTES.values()}
+CLEAN_PAGES = {PUBLIC_PATHS[en]: PUBLIC_PATHS[zh] for en, zh in PAGES.items()}
 
 class ChinesePage(HTMLParser):
     def __init__(self):
@@ -34,14 +36,18 @@ class ChinesePage(HTMLParser):
                 elif key == 'lang' and tag == 'a' and value == 'zh-Hans': value = 'en'
                 elif key == 'href':
                     path, sep, fragment = value.partition('#')
-                    if path in PAGES.values(): path = next(en for en, zh in PAGES.items() if zh == path)
-                    elif path == 'collaboration-zh.html': path = 'collaboration.html'
-                    else: path = PAGES.get(path, path)
-                    value = path + sep + fragment
-                    if value.startswith('https://datong.studentorg.berkeley.edu/'):
-                        for source, destination in PAGES.items():
-                            value = value.replace('/'+source, '/'+destination)
-                        if value == 'https://datong.studentorg.berkeley.edu/': value += 'zh.html'
+                    if tag == 'base':
+                        value = '../'
+                    else:
+                        mapping = {**PAGES, **CLEAN_PAGES}
+                        if path in mapping.values():
+                            path = next(en for en, zh in mapping.items() if zh == path)
+                        else:
+                            path = mapping.get(path, path)
+                        value = path + sep + fragment
+                        for en, zh in CLEAN_PAGES.items():
+                            if value == 'https://datong.studentorg.berkeley.edu/' + en:
+                                value = 'https://datong.studentorg.berkeley.edu/' + zh
                 elif key in ('alt','aria-label','placeholder','value','content'):
                     value = TRANSLATIONS.get(value, value)
                     if value == 'Language': value = '语言切换'

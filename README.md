@@ -43,7 +43,7 @@ See [architecture and editing guide](docs/architecture.md) and
 
 Before publishing, add new files to Git and run `python scripts/check_site.py`.
 The OCF workflow builds and validates the same artifact on Linux. GitHub Pages
-remains disabled. Preview locally with `python -m http.server 8766 --bind 127.0.0.1`.
+remains disabled. Preview locally with `python scripts/serve_site.py --port 8766`.
 
 GoatCounter analytics is configured in `content/site.json` for the society-owned
 `datong.goatcounter.com` account. View statistics there after signing in.

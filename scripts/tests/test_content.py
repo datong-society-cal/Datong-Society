@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from build_site import PAGES, read_json, validate_content
 from build_chinese import translate
+from site_contract import PUBLIC_PATHS
 
 class Links(HTMLParser):
     def __init__(self):
@@ -53,10 +54,12 @@ class ContentInfrastructure(unittest.TestCase):
                 parser.feed(html)
                 self.assertEqual(parser.language, language)
                 expected = [row[0 if language == 'en' else 1] for key, row in PAGES.items() if key != 'collaboration']
+                expected = [PUBLIC_PATHS[name] for name in expected]
                 self.assertTrue(set(expected).issubset(parser.destinations), filename)
                 self.assertNotIn('href="#resources"', html)
+                self.assertIn('href="' + PUBLIC_PATHS[filename] + '#main"', html)
                 if page != 'collaboration':
-                    self.assertEqual(parser.current, [filename])
+                    self.assertEqual(parser.current, [PUBLIC_PATHS[filename]])
 
     def test_contact_uses_society_inbox(self):
         for filename in ('contact.html', 'contact-zh.html'):

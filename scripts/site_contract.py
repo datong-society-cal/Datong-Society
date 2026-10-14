@@ -9,9 +9,33 @@ from urllib.parse import unquote, urlsplit
 SITE_URL = 'https://datong.studentorg.berkeley.edu/'
 MAX_FILE = 8 * 1024 * 1024
 MAX_TOTAL = 32 * 1024 * 1024
+PAGE_ROUTES = {
+    'home': ('index.html', 'zh.html', 'Home'),
+    'workshops': ('workshops.html', 'workshops-zh.html', 'Workshops'),
+    'events': ('events.html', 'events-zh.html', 'Public Events'),
+    'resources': ('resources.html', 'resources-zh.html', 'Resources'),
+    'about': ('about.html', 'about-zh.html', 'About Us'),
+    'contact': ('contact.html', 'contact-zh.html', 'Contact Us'),
+    'collaboration': ('collaboration.html', 'collaboration-zh.html', 'Collaboration'),
+}
+PUBLIC_PATHS = {filename: ('zh/' if language else '') + slug
+                for slug, row in PAGE_ROUTES.items()
+                for language, filename in enumerate(row[:2])}
+ROUTE_FILES = {path: filename for filename, path in PUBLIC_PATHS.items()}
+REDIRECTS = {'': 'home', **PUBLIC_PATHS,
+             **{path + '/': path for path in ROUTE_FILES}}
+REWRITES = 'RewriteEngine On\n'
+for filename, path in PUBLIC_PATHS.items():
+    REWRITES += r'RewriteCond %{THE_REQUEST} \s/+[^\s?]*' + re.escape(filename) + r'(?:[?\s])' + '\n'
+    REWRITES += 'RewriteRule ^' + re.escape(filename) + '$ ' + path + ' [R=301,L,NE]\n'
+REWRITES += 'RewriteRule ^$ home [R=301,L]\n'
+REWRITES += 'RewriteRule ^((?:zh/)?(?:' + '|'.join(PAGE_ROUTES) + '))/$ $1 [R=301,L]\n'
+for path, filename in ROUTE_FILES.items():
+    REWRITES += 'RewriteRule ^' + path + '$ ' + filename + ' [END]\n'
 APACHE = '''# Managed static website. Do not restore legacy WordPress rewrite rules.
 DirectoryIndex index.html
-Options -Indexes
+Options -Indexes -MultiViews
+''' + REWRITES + '''
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     <FilesMatch "\\.(html|json)$">
@@ -25,6 +49,9 @@ Options -Indexes
     </FilesMatch>
 </IfModule>
 '''
+# Retained releases used this previously reviewed static configuration. Accept
+# its exact bytes as well so rollback remains possible after the URL migration.
+LEGACY_APACHE = APACHE[:APACHE.index('Options')] + 'Options -Indexes\n' + APACHE[APACHE.index('<IfModule'):]
 ROOT_FILES = {'index.html', 'collaboration.html', 'LICENSE.txt', '.htaccess', 'deploy-version.json'}
 LANGUAGE_FILES = {'zh.html', 'collaboration-zh.html'}
 CONTENT_FILES = {name + suffix + '.html' for name in ('about', 'contact', 'events', 'resources', 'workshops') for suffix in ('', '-zh')}
@@ -53,6 +80,8 @@ class References(HTMLParser):
         self.ids = set()
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
+        if tag == 'base':
+            return
         if 'id' in values:
             self.ids.add(values['id'])
         for attr in ('src', 'href', 'poster'):
@@ -75,12 +104,12 @@ def validate_tree(root, expected_commit=None):
         raise ValueError('Missing required public files')
     if sum(p.stat().st_size for p in files.values()) > MAX_TOTAL or any(p.stat().st_size > MAX_FILE for p in files.values()):
         raise ValueError('Artifact exceeds size limit')
-    if files['.htaccess'].read_text() != APACHE:
+    if files['.htaccess'].read_text() not in (APACHE, LEGACY_APACHE):
         raise ValueError('Apache configuration differs from the reviewed static configuration')
     html = files['index.html'].read_text(encoding='utf-8')
     if len(html) < 1000 or 'Hosted by the OCF' not in html or 'acting independently of the University of California' not in html:
         raise ValueError('Missing site content or required hosting attribution')
-    if f'rel="canonical" href="{SITE_URL}"' not in html:
+    if not any(f'rel="canonical" href="{url}"' in html for url in (SITE_URL, SITE_URL + 'home')):
         raise ValueError('Production canonical URL missing')
     if 'rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png"' not in html:
         raise ValueError('Datong logo favicon missing')
@@ -101,6 +130,7 @@ def validate_tree(root, expected_commit=None):
         # resolve() is case-insensitive on Windows; compare normalized names instead.
         import posixpath
         name = posixpath.normpath(posixpath.join(parent, unquote(url.path)))
+        name = ROUTE_FILES.get(name, name)
         if name not in files:
             missing.append(name)
     for ref in parsed.refs:
