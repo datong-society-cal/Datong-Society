@@ -16,5 +16,23 @@
       "en": "A documentary on Kūkai’s journey from Japan to Tang China, followed by an online conversation with director Yue Ye. Co-hosted with C. V. Starr East Asian Library and Deep Value. Classical Chinese narration with English subtitles; film runtime: 97 minutes.",
       "zh": "纪录片讲述空海自日本赴唐的旅程，并与导演岳野在线对谈。由 C. V. Starr 东亚图书馆、大同学社与 Deep Value 合办。文言旁白，英文字幕，片长 97 分钟。"
     }
+  },
+  {
+    "id": "2026-laura-young",
+    "start": "2026-10-21T19:00:00-07:00",
+    "end": "2026-10-21T20:00:00-07:00",
+    "poster": "images/events/2026-laura-young/poster.jpg",
+    "title": {
+      "en": "A Conversation with Laura Wen-yu Young",
+      "zh": "与 Laura Wen-yu Young 对谈"
+    },
+    "location": {
+      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
+      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+    },
+    "description": {
+      "en": "Datong Society and the East Asian Library hosted Laura Wen-yu Young of Wang and Wang, LLP for an evening of remarks and open discussion.",
+      "zh": "大同学社与东亚图书馆共同举办 Laura Wen-yu Young（Wang and Wang, LLP）对谈，活动包含嘉宾分享与开放讨论。"
+    }
   }
 ]

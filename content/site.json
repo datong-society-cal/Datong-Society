@@ -1,10 +1,10 @@
 {
   "url": "https://datong.studentorg.berkeley.edu/",
   "email": "contact@datong.studentorg.berkeley.edu",
-  "updated": "2026-10-14",
+  "updated": "2026-10-22",
   "analytics": {
     "provider": "goatcounter",
     "endpoint": "https://datong.goatcounter.com/count"
   },
-  "as_of": "2026-10-14T12:00:00-07:00"
+  "as_of": "2026-10-22T23:00:00-07:00"
 }

@@ -39,12 +39,8 @@
       "zh": "中国宪法：制度形成与政治实践"
     },
     "summary": {
-      "en": "An introductory discussion of what China’s constitution does, approached through the formation of political institutions. The Dual State model will provide a starting point for discussion.",
+      "en": "An introductory discussion of what China’s constitution does, approached through the formation of political institutions. The Dual State model provided a starting point for discussion.",
       "zh": "从政治发生学的视角，初步理解中国宪法在做什么，并以 Dual State 模型作为讨论的起点。"
-    },
-    "reading": {
-      "en": "Suggested reading details forthcoming.",
-      "zh": "预读材料信息待补充。"
     },
     "speaker": {
       "en": "Xin Wen",
@@ -67,8 +63,8 @@
     "id": "2026-10-21-young",
     "date": "2026-10-21",
     "title": {
-      "en": "Careers in Law: A Conversation with Laura Wen-yu Young",
-      "zh": "法律职业之路：与 Laura Wen-yu Young 对谈"
+      "en": "A Conversation with Laura Wen-yu Young",
+      "zh": "与 Laura Wen-yu Young 对谈"
     },
     "speaker": {
       "en": "Laura Wen-yu Young",
@@ -79,8 +75,8 @@
       "zh": "晚 7–8 点 · 太平洋时间"
     },
     "location": {
-      "en": "C. V. Starr East Asian Library · Room to be announced",
-      "zh": "C. V. Starr 东亚图书馆 · 具体房间待公布"
+      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
+      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
     },
     "summary": {
       "en": "An informal conversation about legal education and careers in law, with guest remarks followed by open discussion.",
@@ -89,6 +85,26 @@
     "affiliation": {
       "en": "Wang and Wang, LLP",
       "zh": "Wang and Wang, LLP"
+    }
+  },
+  {
+    "id": "2026-10-29-zhang",
+    "date": "2026-10-29",
+    "title": {
+      "en": "Topic to be announced",
+      "zh": "主题待定"
+    },
+    "speaker": {
+      "en": "Odradek Zhang",
+      "zh": "Odradek Zhang"
+    },
+    "affiliation": {
+      "en": "UC Berkeley",
+      "zh": "UC Berkeley"
+    },
+    "summary": {
+      "en": "Session details will be announced.",
+      "zh": "具体安排将后续公布。"
     }
   }
 ]
