@@ -46,6 +46,12 @@ Older gallery entries remain in `content/pages/events.html`.
 
 ## Add a resource or page
 
+English source fragments must use English prose. Short Chinese organization
+names and work titles may remain, but do not embed parallel Chinese paragraphs
+in English pages. Store Chinese prose in `content/zh.json`, using a matching
+`data-zh` block for markup-rich content. Language checks reject long Chinese
+text in every generated English page; review both editions after editing.
+
 Resources need only `id`, `url`, and bilingual `title`; no client-side JSON fetch
 or runtime dependency is introduced. Keep the list curated and check links each term.
 

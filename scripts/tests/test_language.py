@@ -2,12 +2,24 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import sys
+import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from build_chinese import translate
 from site_contract import PUBLIC_PATHS
+from site_contract import PAGE_ROUTES
+
+class EnglishProse(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.long_chinese = []
+    def handle_data(self, text):
+        # Permit short names and work titles, but reject Chinese prose even
+        # when punctuation or English words interrupt its character runs.
+        if len(re.findall(r'[\u4e00-\u9fff]', text)) > 16:
+            self.long_chinese.append(text.strip())
 
 class LanguageControl(HTMLParser):
     def __init__(self):
@@ -22,6 +34,13 @@ class LanguageControl(HTMLParser):
             self.destination = (values['href'], values['lang'])
 
 class LanguageRegression(unittest.TestCase):
+    def test_english_editions_have_no_long_chinese_prose(self):
+        for source, _, _ in PAGE_ROUTES.values():
+            with self.subTest(page=source):
+                parser = EnglishProse()
+                parser.feed((ROOT / source).read_text(encoding='utf-8'))
+                self.assertEqual(parser.long_chinese, [])
+
     def test_language_controls_point_to_opposite_edition(self):
         for name, current, destination in (
             ('index.html', 'en', ('zh.html', 'zh-Hans')),
