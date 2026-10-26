@@ -1,8 +1,25 @@
 /* Progressive enhancements. The content and links remain available without JavaScript. */
 (() => {
   const chinese = document.documentElement.lang.startsWith('zh');
-  const filter = document.querySelector('#events-filter');
-  const cards = [...document.querySelectorAll('.event-card')];
+  const filter = document.querySelector('#public-events-filter');
+  const cards = [...document.querySelectorAll('#public-programs .public-event')];
+  const year = document.querySelector('#event-year');
+  const count = document.querySelector('#event-count');
+  const empty = document.querySelector('#events-empty');
+  let category = 'all';
+  function applyFilters() {
+    let visible = 0;
+    cards.forEach(card => {
+      card.hidden = (category !== 'all' && card.dataset.cat !== category) ||
+        (year && year.value !== 'all' && card.dataset.year !== year.value);
+      if (!card.hidden) visible++;
+    });
+    document.querySelectorAll('.archive-year').forEach(group => {
+      group.hidden = ![...group.querySelectorAll('.public-event')].some(card => !card.hidden);
+    });
+    if (count) count.textContent = chinese ? `${visible} 场活动` : `${visible} events`;
+    if (empty) empty.hidden = visible !== 0;
+  }
   filter?.addEventListener('click', event => {
     const button = event.target.closest('button[data-filter]');
     if (!button || !filter.contains(button)) return;
@@ -11,15 +28,27 @@
       item.classList.toggle('is-active', selected);
       item.setAttribute('aria-pressed', String(selected));
     });
-    const category = button.dataset.filter;
-    cards.forEach(card => {
-      card.hidden = category !== 'all' && card.dataset.cat !== category;
-    });
+    category = button.dataset.filter;
+    applyFilters();
   });
+  year?.addEventListener('change', applyFilters);
   filter?.querySelectorAll('button').forEach(button => {
     button.setAttribute('aria-pressed', String(button.classList.contains('is-active')));
   });
 
+  const originalFilter = document.querySelector('#events-filter');
+  const originalCards = [...document.querySelectorAll('.event-card:not(.public-event)')];
+  originalFilter?.addEventListener('click', event => {
+    const button = event.target.closest('button[data-filter]');
+    if (!button || !originalFilter.contains(button)) return;
+    originalFilter.querySelectorAll('button').forEach(item => {
+      item.classList.toggle('is-active', item === button);
+      item.setAttribute('aria-pressed', String(item === button));
+    });
+    originalCards.forEach(card => {
+      card.hidden = button.dataset.filter !== 'all' && card.dataset.cat !== button.dataset.filter;
+    });
+  });
   const overlay = document.querySelector('#lb-overlay');
   const overlayImage = document.querySelector('#lb-img');
   const overlayCaption = document.querySelector('#lb-cap');

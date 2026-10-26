@@ -1,0 +1,532 @@
+[
+  {
+    "id": "2024-geling-yan",
+    "date": "2024-04-12",
+    "category": "Author Talk",
+    "title": {
+      "en": "Geling Yan: Milati",
+      "zh": "与严歌苓面对面：《米拉蒂》新书分享会"
+    },
+    "time": {
+      "en": "3:30–6:00 PM · Pacific Time",
+      "zh": "15:30–18:00 · 太平洋时间"
+    },
+    "location": {
+      "en": "2040 Valley Life Sciences Building · UC Berkeley",
+      "zh": "伯克利 Valley Life Sciences Building · 2040 教室"
+    },
+    "people": {
+      "en": "Guest: Geling Yan",
+      "zh": "嘉宾：严歌苓"
+    },
+    "summary": {
+      "en": "Writer Geling Yan joined Datong for a conversation about Milati, followed by audience questions and a book signing.",
+      "zh": "严歌苓来到伯克利，与同学及湾区中文读者分享新作《米拉蒂》，并在问答与签售中继续交流。"
+    },
+    "paragraphs": {
+      "en": [
+        "Set against the cultural and intellectual changes of the 1980s, Milati follows a young woman’s passage from performing in a military arts troupe to writing and thinking independently. The conversation introduced the novel and Yan’s experience of writing and publishing it overseas.",
+        "The afternoon brought together an author presentation, audience Q&A, and a book signing. The event was conducted in Mandarin and organized by Datong Society."
+      ],
+      "zh": [
+        "《米拉蒂》以八十年代的文化与思想变动为背景，书写一位年轻女性从文工团舞者走向独立写作的经历。分享围绕小说中的人物与时代展开，也介绍了严歌苓在海外创作、出版这部作品的过程。",
+        "活动分为作家分享、观众问答与新书签售三个环节，以普通话进行，由大同学社组织，为校园与湾区读者提供了与作者面对面交流的机会。"
+      ]
+    },
+    "cover": "images/events/2023-author-talk-geling-yan/cover.jpg",
+    "cover_caption": {
+      "en": "Geling Yan in conversation at Berkeley",
+      "zh": "严歌苓在伯克利与读者交流"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2023-author-talk-geling-yan/01.jpg",
+        "caption": {
+          "en": "Group photograph after the conversation",
+          "zh": "分享会后合影"
+        }
+      },
+      {
+        "src": "images/events/2023-author-talk-geling-yan/02.jpg",
+        "caption": {
+          "en": "Audience at the book talk",
+          "zh": "新书分享会观众"
+        }
+      },
+      {
+        "src": "images/events/2023-author-talk-geling-yan/03.jpg",
+        "caption": {
+          "en": "Publicity portrait from the original archive",
+          "zh": "原档案中的作家宣传照"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2023-piano-in-a-factory",
+    "date": "2023-11-16",
+    "category": "Film & Panel",
+    "title": {
+      "en": "The Piano in a Factory: Screening & Discussion",
+      "zh": "《钢的琴》：电影展映与学者讨论"
+    },
+    "time": {
+      "en": "6:30–9:30 PM · Pacific Time",
+      "zh": "18:30–21:30 · 太平洋时间"
+    },
+    "location": {
+      "en": "2030 Valley Life Sciences Building · UC Berkeley",
+      "zh": "伯克利 Valley Life Sciences Building · 2030 教室"
+    },
+    "people": {
+      "en": "Guests: Kevin O’Brien and Lillian Xiying Lin",
+      "zh": "嘉宾：Kevin O’Brien（欧博文）、林溪瀛（Lillian）"
+    },
+    "summary": {
+      "en": "A screening of Zhang Meng’s film opened a conversation about industrial change, memory, and the lives of workers in Northeast China.",
+      "zh": "从张猛导演的《钢的琴》出发，讨论东北的工业转型、下岗工人的生活，以及个体如何面对时代变动。"
+    },
+    "paragraphs": {
+      "en": [
+        "Set in a Northeast Chinese industrial city during the layoffs of the 1990s, the film follows a former steelworker who tries to build a piano for his daughter. Its story of family and friendship also offers a view of the changing place of industrial labor in everyday life.",
+        "The post-screening conversation featured Berkeley political scientist Kevin O’Brien and history PhD student Lillian Xiying Lin. Both guests brought connections to Northeast China to the discussion. The film was shown in Chinese with English subtitles, followed by discussion in English."
+      ],
+      "zh": [
+        "影片以上世纪九十年代下岗潮中的东北为背景，讲述原钢厂工人陈桂林为女儿制作钢琴的故事。亲情、友谊与旧工厂交织在一起，呈现工人生活在经济与社会转型中的变化。",
+        "映后讨论邀请伯克利政治学者欧博文与历史系博士生林溪瀛参加。两位嘉宾都与东北有着个人或任教经历上的联系，围绕影片及其所处的社会背景与观众交流。影片为中文、英文字幕，映后讨论使用英语。"
+      ]
+    },
+    "cover": "images/events/2023-piano-in-a-factory/film.jpg",
+    "cover_caption": {
+      "en": "Film publicity image preserved in the original event announcement",
+      "zh": "原活动推文中保存的影片宣传图"
+    },
+    "gallery": []
+  },
+  {
+    "id": "2023-keliang-zhu",
+    "date": "2023-04-09",
+    "category": "Lecture",
+    "title": {
+      "en": "The WeChat Lawsuit: A Conversation with Keliang Zhu",
+      "zh": "在美华人诉美国总统：朱可亮谈微信诉讼"
+    },
+    "time": {
+      "en": "4:00–6:00 PM · Pacific Time",
+      "zh": "16:00–18:00 · 太平洋时间"
+    },
+    "location": {
+      "en": "Social Sciences Building, Room 60 · UC Berkeley",
+      "zh": "伯克利 Social Sciences Building · 60 教室"
+    },
+    "people": {
+      "en": "Guest: Keliang Zhu, attorney",
+      "zh": "嘉宾：朱可亮律师"
+    },
+    "summary": {
+      "en": "Attorney Keliang Zhu discussed the origins, course, and legal strategy of the challenge to the 2020 WeChat ban, and its implications for Chinese American civic participation.",
+      "zh": "朱可亮律师分享美国微信用户挑战2020年微信禁令的来龙去脉、诉讼策略，以及这一案件对华人社群维权的启示。"
+    },
+    "paragraphs": {
+      "en": [
+        "Drawing on his involvement in the litigation, Zhu introduced how the case was organized and pursued. The lecture connected the history of the dispute with broader questions about legal advocacy and the ways a community can use the courts to defend its interests.",
+        "Held in Mandarin as part of Datong’s Chinese-language lecture series, the event brought students and members of the wider community together for a lecture and questions."
+      ],
+      "zh": [
+        "朱可亮结合参与诉讼的经历，介绍案件如何发起、推进，以及律师团队采取的法律策略。讲座从一个具体案件延伸至法律行动与公共参与，讨论华人社群如何通过司法途径维护自身权益。",
+        "本场活动是大同中文讲座系列的一部分，以普通话进行，包含嘉宾分享与观众问答。学生与社区观众在现场交流，共同讨论法律行动与公共参与。"
+      ]
+    },
+    "cover": "images/events/2023-lecture-zhukeliang-wechat-lawsuit/01.jpg",
+    "cover_caption": {
+      "en": "The lecture at UC Berkeley",
+      "zh": "伯克利讲座现场"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2023-lecture-zhukeliang-wechat-lawsuit/02.jpg",
+        "caption": {
+          "en": "Audience discussion",
+          "zh": "观众交流"
+        }
+      },
+      {
+        "src": "images/events/2023-lecture-zhukeliang-wechat-lawsuit/03.jpg",
+        "caption": {
+          "en": "Questions from the audience",
+          "zh": "现场提问"
+        }
+      },
+      {
+        "src": "images/events/2023-lecture-zhukeliang-wechat-lawsuit/04.jpg",
+        "caption": {
+          "en": "At the event",
+          "zh": "活动现场"
+        }
+      },
+      {
+        "src": "images/events/2023-lecture-zhukeliang-wechat-lawsuit/06.jpg",
+        "caption": {
+          "en": "At the event",
+          "zh": "活动现场"
+        }
+      },
+      {
+        "src": "images/events/2023-lecture-zhukeliang-wechat-lawsuit/cover.jpg",
+        "caption": {
+          "en": "Keliang Zhu speaking",
+          "zh": "朱可亮律师分享"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2023-still-life",
+    "date": "2023-02-28",
+    "category": "Film & Panel",
+    "title": {
+      "en": "Still Life: Screening with Peter Hessler & Andrew F. Jones",
+      "zh": "《三峡好人》：与何伟、Andrew F. Jones 映后交流"
+    },
+    "time": {
+      "en": "From 6:30 PM · Pacific Time",
+      "zh": "18:30 开始 · 太平洋时间"
+    },
+    "location": {
+      "en": "Moffitt Library, Room 102 · UC Berkeley",
+      "zh": "伯克利 Moffitt Library · 102 教室"
+    },
+    "people": {
+      "en": "Peter Hessler (online) · Andrew F. Jones (in person)",
+      "zh": "何伟（线上）· Andrew F. Jones（现场）"
+    },
+    "summary": {
+      "en": "Jia Zhangke’s film brought a Bay Area audience together for a conversation with writer Peter Hessler and Berkeley scholar Andrew F. Jones.",
+      "zh": "贾樟柯的《三峡好人》将校园与湾区观众聚在一起，放映后与作家何伟、伯克利学者 Andrew F. Jones 交流。"
+    },
+    "paragraphs": {
+      "en": [
+        "Set amid the transformations of the Three Gorges region, Still Life follows people looking for family members as familiar landscapes are dismantled and rebuilt. Datong’s screening created space to consider these changes through film and conversation.",
+        "Peter Hessler joined the post-screening discussion over Zoom, while Andrew F. Jones attended in person. In a thank-you email the following morning, organizer Marshall Li recorded an audience of more than 160 people from across the Bay Area and the team’s wish to send Hessler a signed thank-you card.",
+        "The society’s earlier archive also records a screening of this film in 2015."
+      ],
+      "zh": [
+        "《三峡好人》以三峡地区的变迁为背景，跟随寻找亲人的人物，呈现拆迁与重建中的日常生活。大同通过放映和映后对谈，为观众提供从影像与写作经验思考这些变化的空间。",
+        "何伟通过 Zoom 参加映后讨论，Andrew F. Jones 在现场交流。组织者李沛航在次日的感谢邮件中记录，活动吸引了来自湾区的160余位观众，团队还准备向何伟寄送全体签名的感谢卡。",
+        "学社早期档案还记录了2015年对这部影片的一次放映。"
+      ]
+    },
+    "cover": "images/events/film-still-life-screening/cover.jpg",
+    "cover_caption": {
+      "en": "Peter Hessler joins the discussion over Zoom",
+      "zh": "何伟通过 Zoom 参加映后讨论"
+    },
+    "gallery": [
+      {
+        "src": "images/events/film-still-life-screening/01.jpg",
+        "caption": {
+          "en": "Screening and discussion at Moffitt 102",
+          "zh": "Moffitt 102 放映与交流现场"
+        }
+      },
+      {
+        "src": "images/events/film-still-life-screening/02.jpg",
+        "caption": {
+          "en": "Post-screening discussion",
+          "zh": "映后讨论"
+        }
+      },
+      {
+        "src": "images/events/film-still-life-screening/03.jpg",
+        "caption": {
+          "en": "The Berkeley event",
+          "zh": "伯克利活动现场"
+        }
+      },
+      {
+        "src": "images/events/film-still-life-screening/04.jpg",
+        "caption": {
+          "en": "At the event",
+          "zh": "活动现场"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2021-chinese-mayor",
+    "date": "2021-10-29",
+    "category": "Film & Panel",
+    "title": {
+      "en": "The Chinese Mayor: Screening & Panel",
+      "zh": "《中国市长》：纪录片放映与圆桌讨论"
+    },
+    "time": {
+      "en": "6:30–9:30 PM · Pacific Time",
+      "zh": "18:30–21:30 · 太平洋时间"
+    },
+    "location": {
+      "en": "Goldman School of Public Policy, Room 250 · UC Berkeley",
+      "zh": "伯克利 Goldman School of Public Policy · 250 教室"
+    },
+    "people": {
+      "en": "Jean Quan · Thomas Gold · Junius Brown (moderator)",
+      "zh": "Jean Quan（关丽珍）· Thomas Gold（高棣民）· 主持：Junius Brown"
+    },
+    "summary": {
+      "en": "A documentary screening and panel on urban redevelopment, local governance, and the relationship between citizens and the state.",
+      "zh": "从纪录片《中国市长》出发，讨论城市重建、地方治理，以及公民与政府之间的关系。"
+    },
+    "paragraphs": {
+      "en": [
+        "Zhou Hao’s documentary follows urban redevelopment in Datong, Shanxi, and the tensions surrounding the transformation of the city. Datong Society paired the film with perspectives from public service and research on Chinese politics and society.",
+        "The event program lists former Oakland mayor Jean Quan and Berkeley sociologist Thomas Gold as panelists, with Junius Brown moderating and Luxi Peng hosting. The screening was followed by a panel and audience Q&A. The original program acknowledges support from Andrew F. Jones, Annie Campbell Washington, and Jianye He.",
+        "The society’s earlier archive also records a screening of this film in 2015."
+      ],
+      "zh": [
+        "周浩执导的纪录片记录山西大同的城市改造及其引发的矛盾。大同学社将影片与公共服务、中国政治及社会研究的视角联系起来，邀请嘉宾与观众展开讨论。",
+        "原活动流程列出前奥克兰市长关丽珍、伯克利社会学者高棣民参加圆桌，Junius Brown 主持讨论，Luxi负责开场与现场主持。放映后安排圆桌及观众问答。原主持稿还向 Andrew F. Jones、Annie Campbell Washington 与何老师致谢。",
+        "学社早期档案还记录了2015年对这部影片的一次放映。"
+      ]
+    },
+    "cover": "images/events/film-the-chinese-mayor-screening/cover.jpg",
+    "cover_caption": {
+      "en": "Original event poster · October 29, 2021",
+      "zh": "原活动海报 · 2021年10月29日"
+    },
+    "gallery": [
+      {
+        "src": "images/events/film-the-chinese-mayor-screening/01.jpg",
+        "caption": {
+          "en": "Related screening archive photograph · date unconfirmed",
+          "zh": "相关放映档案照片 · 拍摄年份待考"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2019-embroidery",
+    "date": "2019",
+    "category": "Exhibition",
+    "title": {
+      "en": "Modern Chinese Embroidery on Pillow Covers",
+      "zh": "韩国淑明女子大学汉字刺绣枕顶展Modern Chinese Embroidery on Pillow Covers"
+    },
+    "summary": {
+      "en": "Co-organized with the Sookmyung Women’s University Museum, this exhibition presented modern Chinese embroidered pillow covers to an overseas audience for the first time. Datong organized the exhibition checklist, volunteer schedules, loan agreements, and lecture posters; it was the society’s largest external program.",
+      "zh": "与淑明女子大学博物馆联合办展——近代中国刺绣枕顶首次公开展出。配套展品清单、志愿者排班、借展协议与讲座海报均由大同学社独立执行，是社团史上规模最大的对外活动。"
+    },
+    "paragraphs": {
+      "en": [
+        "Co-organized with the Sookmyung Women’s University Museum, this exhibition presented modern Chinese embroidered pillow covers to an overseas audience for the first time. Datong organized the exhibition checklist, volunteer schedules, loan agreements, and lecture posters; it was the society’s largest external program."
+      ],
+      "zh": [
+        "与淑明女子大学博物馆联合办展——近代中国刺绣枕顶首次公开展出。配套展品清单、志愿者排班、借展协议与讲座海报均由大同学社独立执行，是社团史上规模最大的对外活动。"
+      ]
+    },
+    "time": {
+      "en": "",
+      "zh": ""
+    },
+    "location": {
+      "en": "",
+      "zh": ""
+    },
+    "people": {
+      "en": "",
+      "zh": ""
+    },
+    "cover": "images/events/2019-exhibition-sookmyung-embroidery/cover.jpg",
+    "cover_caption": {
+      "en": "From the society’s original image archive",
+      "zh": "学社原有影像档案"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2019-exhibition-sookmyung-embroidery/01.jpg",
+        "caption": {
+          "en": "Exhibition banner",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2019-exhibition-sookmyung-embroidery/02.jpg",
+        "caption": {
+          "en": "Gallery view",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2019-exhibition-sookmyung-embroidery/03.jpg",
+        "caption": {
+          "en": "Pillow-top display",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2019-exhibition-sookmyung-embroidery/04.jpg",
+        "caption": {
+          "en": "Pillow-top display",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2019-exhibition-sookmyung-embroidery/05.jpg",
+        "caption": {
+          "en": "Selected works",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2019-exhibition-sookmyung-embroidery/06.jpg",
+        "caption": {
+          "en": "Public lecture",
+          "zh": "活动档案影像"
+        }
+      }
+    ],
+    "date_label": {
+      "en": "Spring 2019",
+      "zh": "2019年春季"
+    }
+  },
+  {
+    "id": "2017-hoover-visit",
+    "date": "2017",
+    "category": "Field Trip",
+    "title": {
+      "en": "Stanford Hoover Institution — Archive Visit",
+      "zh": "Hoover Institution 档案馆参访Stanford Hoover Institution — Archive Visit"
+    },
+    "summary": {
+      "en": "A visit to Stanford’s Hoover Institution Archives to explore original materials from the Republican era and modern China.",
+      "zh": "走进斯坦福胡佛研究所，近距离观看民国时期与现代中国的珍贵档案原件。"
+    },
+    "paragraphs": {
+      "en": [
+        "A visit to Stanford’s Hoover Institution Archives to explore original materials from the Republican era and modern China."
+      ],
+      "zh": [
+        "走进斯坦福胡佛研究所，近距离观看民国时期与现代中国的珍贵档案原件。"
+      ]
+    },
+    "time": {
+      "en": "",
+      "zh": ""
+    },
+    "location": {
+      "en": "",
+      "zh": ""
+    },
+    "people": {
+      "en": "",
+      "zh": ""
+    },
+    "cover": "images/events/2017-field-trip-hoover-archives/cover.jpg",
+    "cover_caption": {
+      "en": "From the society’s original image archive",
+      "zh": "学社原有影像档案"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2017-field-trip-hoover-archives/01.jpg",
+        "caption": {
+          "en": "Archive entrance",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2017-field-trip-hoover-archives/02.jpg",
+        "caption": {
+          "en": "Group at archive table",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2017-field-trip-hoover-archives/03.jpg",
+        "caption": {
+          "en": "Browsing materials",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2017-field-trip-hoover-archives/04.jpg",
+        "caption": {
+          "en": "Browsing materials",
+          "zh": "活动档案影像"
+        }
+      }
+    ],
+    "date_label": {
+      "en": "Around 2017",
+      "zh": "约2017年"
+    }
+  },
+  {
+    "id": "2016-social-science-salon",
+    "date": "2016-09-22",
+    "category": "Salon",
+    "title": {
+      "en": "Let’s Talk About Social Science — An Interdisciplinary Salon",
+      "zh": "\"Let's Talk About Social Science\"跨学科沙龙 — 历史、社会学、政治学的对话"
+    },
+    "summary": {
+      "en": "Fifteen students gathered for ninety minutes of readings and questions on what makes good social science, helping establish Datong’s tradition of small discussion salons.",
+      "zh": "15 位同学围绕\"什么是好的社科研究\"展开 90 分钟讲读与提问，奠定大同学社小型沙龙的传统。"
+    },
+    "paragraphs": {
+      "en": [
+        "Fifteen students gathered for ninety minutes of readings and questions on what makes good social science, helping establish Datong’s tradition of small discussion salons."
+      ],
+      "zh": [
+        "15 位同学围绕\"什么是好的社科研究\"展开 90 分钟讲读与提问，奠定大同学社小型沙龙的传统。"
+      ]
+    },
+    "time": {
+      "en": "",
+      "zh": ""
+    },
+    "location": {
+      "en": "",
+      "zh": ""
+    },
+    "people": {
+      "en": "",
+      "zh": ""
+    },
+    "cover": "images/events/2016-salon-social-science/cover.jpg",
+    "cover_caption": {
+      "en": "From the society’s original image archive",
+      "zh": "学社原有影像档案"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2016-salon-social-science/01.jpg",
+        "caption": {
+          "en": "Speaker presenting",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2016-salon-social-science/02.jpg",
+        "caption": {
+          "en": "Discussion",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2016-salon-social-science/03.jpg",
+        "caption": {
+          "en": "Audience",
+          "zh": "活动档案影像"
+        }
+      },
+      {
+        "src": "images/events/2016-salon-social-science/04.jpg",
+        "caption": {
+          "en": "Panel",
+          "zh": "活动档案影像"
+        }
+      }
+    ]
+  }
+]

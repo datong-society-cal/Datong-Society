@@ -9,6 +9,7 @@ import re
 from urllib.parse import urlsplit
 
 from build_chinese import translate
+from event_archive import render_archive, validate_archive
 
 ROOT = Path(__file__).resolve().parent.parent
 from site_contract import PAGE_ROUTES, PUBLIC_PATHS
@@ -91,6 +92,28 @@ def render(as_of):
         raise ValueError('Unknown analytics provider')
     import build_chinese
     blocks = build_chinese.CONTENT['blocks']
+    archive = read_json('event-archive.json')
+    validate_archive(archive, ROOT)
+    archive_tokens = {}
+    public_records = list(archive)
+    recent_photos = {
+        '2026-laura-young': [('group-seminar-room.jpg', 'Group photograph in the seminar room', '研讨室合影'), ('group-library.jpg', 'Group photograph at the East Asian Library', '东亚图书馆合影')],
+        '2026-kukai': [('screening.jpg', 'Screening audience · Siche', '放映现场 · Siche 摄'), ('stage.jpg', 'Conversation at Berkeley · Weiran', '伯克利对谈现场 · Weiran 摄')],
+    }
+    for event in events:
+        start, end = datetime.fromisoformat(event['start']), datetime.fromisoformat(event['end'])
+        public_records.append({
+            'id': event['id'], 'date': start.date().isoformat(),
+            'category': 'Film & Panel' if event['id'] == '2026-kukai' else 'Lecture',
+            'title': event['title'], 'location': event['location'],
+            'time': {lang: start.strftime('%H:%M') + '–' + end.strftime('%H:%M') + (' · Pacific Time' if lang == 'en' else ' · 太平洋时间') for lang in ('en', 'zh')},
+            'people': {'en': 'Datong Society · East Asian Library', 'zh': '大同学社 · 东亚图书馆'},
+            'summary': event['description'], 'paragraphs': {lang: [event['description'][lang]] for lang in ('en', 'zh')},
+            'cover': event['poster'], 'cover_caption': {'en': 'Original event poster', 'zh': '原活动海报'},
+            'gallery': [{'src': 'images/events/' + event['id'] + '/' + name, 'caption': {'en': en, 'zh': zh}} for name, en, zh in recent_photos.get(event['id'], [])],
+        })
+    validate_archive(public_records, ROOT)
+    public_archive = localized_block('public-event-archive', render_archive(public_records, 'en'), render_archive(public_records, 'zh'), blocks)
     future = sorted([e for e in events if datetime.fromisoformat(e['end']) >= as_of], key=lambda e: e['start'])
     past = sorted([e for e in events if datetime.fromisoformat(e['end']) < as_of], key=lambda e: e['start'], reverse=True)
     featured = (future or past or [None])[0]
@@ -109,6 +132,9 @@ def render(as_of):
         body = (ROOT / 'content/pages' / (page + '.html')).read_text(encoding='utf-8')
         body = body.replace('{{ featured_event }}', feature).replace('{{ event_programs }}', program).replace('{{ resources }}', resource_block)
         body = body.replace('{{ workshop_schedule }}', workshop_block)
+        body = body.replace('{{ public_event_archive }}', public_archive)
+        for token, replacement in archive_tokens.items():
+            body = body.replace(token, replacement)
         hero = (ROOT / 'templates/hero.html').read_text(encoding='utf-8') if page == 'home' else ''
         brand = '<a class="site-brand" href="index.html"><img src="images/brand/datong-logo-emblem.png" alt="Datong Society emblem" width="52" height="52"><span>DATONG <span lang="zh-Hans">大同</span></span></a>'
         article_title = title if page != 'home' else 'Home'

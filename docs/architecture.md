@@ -9,6 +9,9 @@ or application process is required to operate the website.
 - `content/pages/*.html`: English content fragments, including the historical gallery.
 - `content/events.json`: recent and future events, with stable IDs, timezone-aware
   start/end timestamps, bilingual titles/descriptions/locations, and a poster path.
+- `content/event-archive.json`: individually dated historical public programs, with
+  bilingual summaries, people, logistics, detail paragraphs, and captioned images.
+  `scripts/event_archive.py` renders these with the recent programs on Public Events.
 - `content/resources.json`: curated bilingual resource names and HTTPS links.
 - `content/workshops.json`: dated discussion sessions, bilingual summaries, optional
   speaker/affiliation/time/location/reading text, and expandable discussion questions.
@@ -42,7 +45,20 @@ recent event is shown as a recap. Events are classified against `as_of` in
 `content/site.json`, not the build machine clock: the same Git commit always
 produces the same artifact. Advance `as_of` and `updated` when preparing a release.
 This is a static site; status does not change on the server between releases.
-Older gallery entries remain in `content/pages/events.html`.
+Historical public programs are maintained in `content/event-archive.json`. Keep
+each occurrence of a recurring screening separate. Dates must be confirmed and
+image captions must describe the actual asset; a publicity image is not a scene
+from the event. Internal provenance is recorded in `docs/event-archive-sources.md`.
+Public Events now renders all dated programs with a single card/detail/gallery
+layout. Recent programs come from `events.json`; restored records come from
+`event-archive.json`. Keep one entry per occurrence; merge expanded accounts into
+that entry while retaining original images and earlier-year context. Partial
+year dates are supported for older archives; do not invent a day or venue.
+
+Community photographs and retreats live on About under `#community-archive`;
+DeCal historical materials live on Workshops under `#course-archive`. Public
+Events links to both collections. Year/type filters combine, and all records and
+native detail disclosures remain readable without JavaScript.
 
 ## Add a resource or page
 
