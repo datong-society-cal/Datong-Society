@@ -26,7 +26,7 @@ def validate_archive(records, root):
         for key in ('title', 'summary', 'paragraphs', 'cover_caption'):
             if not all(item[key].get(lang) for lang in ('en', 'zh')):
                 raise ValueError('Missing archive translation: ' + item['id'] + '/' + key)
-        for asset in [item['cover']] + [photo['src'] for photo in item.get('gallery', [])]:
+        for asset in ([item['cover']] if item.get('cover') else []) + [photo['src'] for photo in item.get('gallery', [])]:
             path = Path(asset)
             if path.is_absolute() or '..' in path.parts or not (root / path).is_file():
                 raise ValueError('Invalid archive image: ' + asset)
@@ -51,9 +51,11 @@ def render_archive(records, language):
         for event in [e for e in records if e['date'].startswith(year)]:
             title = escape(event['title'][language])
             caption = escape(event['cover_caption'][language])
-            path = escape(event['cover'], quote=True)
+            path = escape(event.get('cover', ''), quote=True)
             html += f'<article class="event-card public-event" id="{event["id"]}" data-cat="{escape(event["category"], quote=True)}" data-year="{year}">'
-            html += f'<div class="public-event-layout"><figure class="event-cover"><img src="{path}" alt="{caption}" loading="lazy" decoding="async"><figcaption>{caption}</figcaption></figure>'
+            html += '<div class="public-event-layout' + (' public-event-text-only' if not path else '') + '">'
+            if path:
+                html += f'<figure class="event-cover"><img src="{path}" alt="{caption}" loading="lazy" decoding="async"><figcaption>{caption}</figcaption></figure>'
             html += '<div class="public-event-copy"><div class="event-meta">'
             month = event['date'][:7]
             date_label = month.replace('-', ' · ') if language == 'en' else (month[:4] + '年' + str(int(month[5:7])) + '月' if len(month) == 7 else month + '年')
@@ -63,7 +65,8 @@ def render_archive(records, language):
                 html += f'<p class="event-people">{escape(event["people"][language])}</p>'
             html += f'<p class="event-desc">{escape(event["summary"][language])}</p>'
             html += '</div></div>'
-            html += f'<details class="event-details"><summary>{labels["more"]}</summary><div class="event-details-content">'
+            more_label = labels['more'] if event.get('gallery') else ('Read more' if language == 'en' else '展开详情')
+            html += f'<details class="event-details"><summary>{more_label}</summary><div class="event-details-content">'
             html += ''.join(f'<p>{escape(p)}</p>' for p in event['paragraphs'][language] if p != event['summary'][language])
             photos = event.get('gallery', [])
             if photos:

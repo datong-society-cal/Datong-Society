@@ -528,5 +528,262 @@
         }
       }
     ]
+  },
+  {
+    "id": "2025-immigration-rights",
+    "date": "2025-04-29",
+    "category": "Lecture",
+    "title": {
+      "en": "Immigration Rights Seminar",
+      "zh": "移民权益讲座"
+    },
+    "summary": {
+      "en": "A seminar on F-1 visa revocations and practical questions facing immigrant communities, with an announced program of attorney presentations, community resources, and audience Q&A.",
+      "zh": "围绕 F-1 签证撤销及移民社群面临的实际问题，活动预告安排了移民律师讲解、社群资源介绍与现场问答。"
+    },
+    "paragraphs": {
+      "en": [
+        "The program addressed visa-related developments in 2025, interactions with law enforcement, and travel concerns. It was advertised with immigration attorneys and nonprofit leaders; this archive preserves the historical program rather than current legal guidance."
+      ],
+      "zh": [
+        "议程涵盖 2025 年的签证动态、与执法人员互动及出行相关问题，预告嘉宾包括移民律师与非营利机构负责人。此条目记录当时的活动议程。"
+      ]
+    },
+    "cover_caption": {
+      "en": "Original English event poster · April 2025",
+      "zh": "原英文活动海报 · 2025 年 4 月"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2025-immigration-rights/poster-zh.jpg",
+        "caption": {
+          "en": "Original Chinese event poster",
+          "zh": "原中文活动海报"
+        }
+      }
+    ],
+    "cover": "images/events/2025-immigration-rights/poster-en.jpg",
+    "people": {
+      "en": "Zachary M. Nightingale · Olivia Serene Lee · Vincent Pan",
+      "zh": "Zachary M. Nightingale · Olivia Serene Lee · Vincent Pan"
+    }
+  },
+  {
+    "id": "2025-perry-link",
+    "date": "2025-01-24",
+    "category": "Lecture",
+    "title": {
+      "en": "A Conversation with Perry Link",
+      "zh": "与林培瑞对谈"
+    },
+    "summary": {
+      "en": "Perry Link joined Datong for a talk and discussion on authoritarianism, human nature, and possible responses.",
+      "zh": "林培瑞与大同学社围绕极权、人性与对策展开分享和讨论。"
+    },
+    "paragraphs": {
+      "en": [
+        "The conversation brought students and society members together to exchange questions with Link."
+      ],
+      "zh": [
+        "同学与社友借此与林培瑞交流、提问。"
+      ]
+    },
+    "cover_caption": {
+      "en": "A Conversation with Perry Link",
+      "zh": "与林培瑞对谈"
+    },
+    "gallery": []
+  },
+  {
+    "id": "2024-jiang-xue-li-sipan",
+    "date": "2024-04-27",
+    "category": "Lecture",
+    "title": {
+      "en": "A Conversation with Jiang Xue & Li Sipan",
+      "zh": "与江雪、李思磐对谈"
+    },
+    "summary": {
+      "en": "An online conversation with journalists Jiang Xue and Li Sipan about journalism, changing professional identities, and personal choices amid social change.",
+      "zh": "与媒体人江雪、李思磐线上对谈，讨论新闻工作、职业身份转变及社会变迁中的个人选择。"
+    },
+    "paragraphs": {
+      "en": [
+        "The announced conversation traced experiences moving from reporting and editing in market-oriented media toward independent journalism, feminism, and social research."
+      ],
+      "zh": [
+        "活动预告围绕从市场化媒体记者、编辑走向独立媒体人、女权主义者及社会研究者的经历，讨论个人选择与时代背景之间的关系。"
+      ]
+    },
+    "cover_caption": {
+      "en": "A Conversation with Jiang Xue & Li Sipan",
+      "zh": "与江雪、李思磐对谈"
+    },
+    "gallery": []
+  },
+  {
+    "id": "2024-wu-guoguang",
+    "date": "2024-02-25",
+    "category": "Lecture",
+    "title": {
+      "en": "A Conversation with Wu Guoguang",
+      "zh": "与学者吴国光漫谈"
+    },
+    "summary": {
+      "en": "Datong’s program with scholar Wu Guoguang offered a setting for students to ask questions and exchange perspectives.",
+      "zh": "大同学社与学者吴国光漫谈，为同学提供提问与交流的空间。"
+    },
+    "paragraphs": {
+      "en": [
+        "The program centered on an open conversation between the invited scholar and participants."
+      ],
+      "zh": [
+        "活动以嘉宾与参与者之间的开放交流为主要形式。"
+      ]
+    },
+    "cover_caption": {
+      "en": "A Conversation with Wu Guoguang",
+      "zh": "与学者吴国光漫谈"
+    },
+    "gallery": []
+  },
+  {
+    "id": "2023-qin-hui",
+    "date": "2023-11-17",
+    "category": "Lecture",
+    "title": {
+      "en": "Qin Hui: Rural Public Health During the Cultural Revolution",
+      "zh": "秦晖：从流脑大疫到“合作医疗”"
+    },
+    "summary": {
+      "en": "Historian Qin Hui spoke on China’s rural public health during the Cultural Revolution, from the meningitis epidemic to cooperative healthcare.",
+      "zh": "历史学者秦晖以“从流脑大疫到‘合作医疗’：文革时期的中国农村卫生事业”为题，讨论这一时期的农村公共卫生。"
+    },
+    "paragraphs": {
+      "en": [
+        "The lecture was presented primarily in Mandarin and explored the history of rural healthcare."
+      ],
+      "zh": [
+        "讲座以普通话为主，围绕农村医疗卫生的历史展开。"
+      ]
+    },
+    "cover_caption": {
+      "en": "Qin Hui: Rural Public Health During the Cultural Revolution",
+      "zh": "秦晖：从流脑大疫到“合作医疗”"
+    },
+    "gallery": []
+  },
+  {
+    "id": "2023-film-panorama",
+    "date": "2023-04-21",
+    "category": "Film & Panel",
+    "title": {
+      "en": "2023 Film Panorama · Datong × IMFF",
+      "zh": "2023 短片展映 · 大同 × IMFF"
+    },
+    "summary": {
+      "en": "Datong Society and the In Moments Film Festival (IMFF) presented a program of three short films.",
+      "zh": "大同学社与 In Moments Film Festival（IMFF）联合推出三部短片的展映活动。"
+    },
+    "paragraphs": {
+      "en": [
+        "The announced selection comprised Praise the Pink Heaven (Qin Feikai), Hourglass House (Hu Yinghai), and Somewhere (Li Jiahe)."
+      ],
+      "zh": [
+        "公布片目包括秦飞凯的《越南公婆上巴黎》、胡英海的《沙巢》及李家和的《地儿》。"
+      ]
+    },
+    "cover_caption": {
+      "en": "2023 Film Panorama · Datong × IMFF",
+      "zh": "2023 短片展映 · 大同 × IMFF"
+    },
+    "gallery": []
+  },
+  {
+    "id": "2021-76-days",
+    "date": "2021-10-15",
+    "category": "Film & Panel",
+    "title": {
+      "en": "76 Days: Screening & Discussion",
+      "zh": "《76天》：纪录片展映与讨论"
+    },
+    "summary": {
+      "en": "A screening of 76 Days, a documentary following patients and medical workers in Wuhan hospitals during the early COVID-19 outbreak.",
+      "zh": "放映纪录片《76天》，通过武汉医院中患者与医护人员的故事，回看疫情初期的生活与情感。"
+    },
+    "paragraphs": {
+      "en": [
+        "The program announced a post-screening discussion with Junius Brown, then a Berkeley political science PhD candidate."
+      ],
+      "zh": [
+        "活动预告邀请当时的伯克利政治学博士候选人 Junius Brown，与观众共同参与映后讨论。"
+      ]
+    },
+    "cover_caption": {
+      "en": "76 Days: Screening & Discussion",
+      "zh": "《76天》：纪录片展映与讨论"
+    },
+    "gallery": []
+  },
+  {
+    "id": "2021-kecheng-fang",
+    "date": "2021-04-13",
+    "category": "Lecture",
+    "title": {
+      "en": "Kecheng Fang: Changing Media Landscape in China",
+      "zh": "方可成：中国媒体格局的变迁"
+    },
+    "summary": {
+      "en": "Kecheng Fang joined Datong for an online presentation on the changing media landscape in China, followed by audience Q&A.",
+      "zh": "方可成参与大同学社线上活动，分享中国媒体格局的变迁，并与观众问答。"
+    },
+    "paragraphs": {
+      "en": [
+        "The program combined a research presentation with questions and discussion from participants."
+      ],
+      "zh": [
+        "活动结合研究分享、观众提问与讨论。"
+      ]
+    },
+    "cover_caption": {
+      "en": "Original event opening slide · April 2021",
+      "zh": "原活动开场幻灯片 · 2021 年 4 月"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2021-kecheng-fang/speaker-portrait.jpg",
+        "caption": {
+          "en": "Speaker portrait from the original event slides",
+          "zh": "原活动幻灯片中的嘉宾肖像"
+        }
+      }
+    ],
+    "cover": "images/events/2021-kecheng-fang/title-slide.jpg"
+  },
+  {
+    "id": "2020-yiqing-xu",
+    "date": "2020-10-30",
+    "category": "Lecture",
+    "title": {
+      "en": "Chinese International Students at Cross Roads · Yiqing Xu",
+      "zh": "变局中的中国留学生 · 徐轶青"
+    },
+    "summary": {
+      "en": "An online event with Yiqing Xu brought students together for a presentation and Q&A under the title Chinese International Students at Cross Roads.",
+      "zh": "徐轶青参与“变局中的中国留学生”线上活动，与同学分享并进行问答。"
+    },
+    "paragraphs": {
+      "en": [
+        "The program combined a guest presentation with questions and discussion from participants."
+      ],
+      "zh": [
+        "活动结合嘉宾分享、观众提问与讨论。"
+      ]
+    },
+    "cover_caption": {
+      "en": "Online discussion with Yiqing Xu · October 2020",
+      "zh": "徐轶青线上活动截图 · 2020 年 10 月"
+    },
+    "gallery": [],
+    "cover": "images/events/2020-yiqing-xu/online-discussion.jpg"
   }
 ]

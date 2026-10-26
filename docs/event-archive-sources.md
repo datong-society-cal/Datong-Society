@@ -1,5 +1,34 @@
 # Public event archive: first restoration batch
 
+## Additional historical programs — local preview, 2026-10-26
+
+### Drive media verification
+
+- **2025 Immigration Rights:** `24-25 Spring` contains [English poster](https://drive.google.com/file/d/1zdHnkNVyUgGC_C4yAg9bSPZoFGR4YES2/view) and [Chinese poster](https://drive.google.com/file/d/1-tpGszvf7OtDqWW7XQJ6RILQ9map5nKv/view). Visually checked: title, year, April 29, and Datong logo match the announcement. The English poster names Zachary M. Nightingale, Olivia Serene Lee, and Vincent Pan; the public speaker line now reflects this. English original is the cover; Chinese original is in the gallery. Poster pixels, including printed logistics and historical registration QR, are preserved; page metadata still shows month only.
+- **2020 Yiqing Xu:** [Marketing Materials / 推文照片 / xu yiqing panel.png](https://drive.google.com/file/d/1ala15PwSCpt7hEhYORsE3iatnvq2bj9x/view) visually matches the screenshot on the explicitly labeled October 2020 Xu slide in [2024 Spring Info Session](https://docs.google.com/presentation/d/1hUIGWFhbdI3eM5aTj248MWZdq-HLtZk9p8TZnjolM7I/edit), slide `ged8b2d96c8_0_5`. The larger embedded copy is used for clarity. It is labeled an online discussion screenshot.
+- **2021 Kecheng Fang:** [Original activity slides](https://docs.google.com/presentation/d/1n25Ys-aUB0Z5kDohiAsyMhVKhxDKTEIKBfAGsMVY3Xs/edit), created immediately before the April 13 event, supply the opening slide and speaker portrait. Visual inspection confirms the title **Changing Media Landscape in China**. Both are explicitly captioned as slide material / portrait, not event photographs. The public title and summary now use the verified topic.
+- The accessible 2025 Spring, 2024 Spring, 2023 Fall, 2023 Spring, 2021 Fall, 2020 Fall, Marketing Materials, and Others directories were inspected as relevant, alongside Chinese and English name searches and recruitment slide decks. The `76 Days` draft has no embedded images. No matching media was established for Perry Link, Qin Hui, Wu Guoguang, Jiang Xue / Li Sipan, 76 Days, or IMFF in this pass.
+- The original [4/21 IMFF folder](https://drive.google.com/drive/folders/1F31Hn9T97Bkjt8MglWEcbA74WgeM7Qlo), recovered again from the April 22 sharing email, returns no listed children with the current connection. This is an access/result limitation, not proof that the photographs never existed.
+- A Li Chenjian 2022 poster and unlabeled social/group photographs were also discovered but not assigned to the nine records. No removed website photographs were reintroduced.
+
+Five optimized JPEG derivatives total approximately 0.89 MiB. Original downloads remain outside the website repository in the local research output directory.
+
+Nine records added to the same Past Events renderer, bringing the public list to 19. No substitute photographs are assigned. Text-only records use the same headings, month labels, filters and expandable details.
+
+| Record | Source message IDs | Evidence and editorial limits |
+| --- | --- | --- |
+| 2025-04 Immigration Rights Seminar | `1967830ee736ef56` | Original April 29 announcement. Summary describes its advertised program, not present-day legal guidance; unnamed attorneys are not assigned names. |
+| 2025-01 Perry Link | `194a8863f238dcbc`, `19434fd7a183a93c` | January 24 visit confirmed by post-event thanks and Link’s reply; topic proposed January 4. |
+| 2024-04 Jiang Xue / Li Sipan | `18f1d9f29f755d5c` | April 27 final attendee notice; no attendee data or private meeting link reproduced. |
+| 2024-02 Wu Guoguang | `18ddd4fc8202fa03` | February 25 attendee notice; no unverified lecture topic assigned. |
+| 2023-11 Qin Hui | `18bf0f8c3d76bd54` | November 17 announcement quoted in post-event recording inquiry; response confirms no recording. |
+| 2023-04 Film Panorama / IMFF | `18797833d3899c4e` | April 21 joint announcement with three film credits. Directory shared the following day was identified in the earlier investigation. Director attendance remains unconfirmed and is not claimed. |
+| 2021-10 76 Days | `17c865361482a032` | October 15 same-day screening announcement names Junius Brown for discussion; no filmmaker attendance claimed. |
+| 2021-04 Kecheng Fang | `178ce8f8bfc4df04`, `178cdf5344e35298` | April 13 same-day reminder and post-event thank-you confirm online presentation and Q&A; no unverified research title assigned. |
+| 2020-10 Yiqing Xu | `1758c4c7fe6891a0`, `1757bfc1951b9c9a`, `1756802e8a5e10f2` | October 30 final reminder and subsequent thanks. Earlier internal draft explicitly superseded; do not describe this as presentation of his international-student research. |
+
+Unrealized proposals and course-only guest visits are not added as separate public events. Existing ten records are retained. All displayed labels remain year/month only (year only where a month is unknown), without room or clock-time logistics.
+
 Prepared 2026-10-26. These are internal editorial references, not public-page
 links. Personal inbox addresses, registration answers, and meeting attendance
 lists are not included in the generated public content.
