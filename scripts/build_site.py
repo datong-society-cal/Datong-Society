@@ -55,7 +55,7 @@ def workshops_html(sessions, language, as_of):
     rows = []
     for session in sorted(sessions, key=lambda item: item['date']):
         date = datetime.fromisoformat(session['date']).date()
-        past = date < as_of.date()
+        past = session.get('status') == 'past' or date < as_of.date()
         status = ('Past session' if past else 'Upcoming session') if language == 'en' else ('往期讨论' if past else '近期安排')
         row = f'<section class="workshop-session"><p class="home-eyebrow"><time datetime="{session["date"]}">{session["date"]}</time> · {status}</p><h3>{escape(session["title"][language])}</h3>'
         speaker = session.get('speaker', {}).get(language, '')

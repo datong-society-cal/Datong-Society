@@ -91,8 +91,8 @@
     "id": "2026-10-29-zhang",
     "date": "2026-10-29",
     "title": {
-      "en": "Metaphysics Across Cultures: Greek Ontology, Daoist Thought, and World Literature",
-      "zh": "形而上学的跨文化对比：古希腊本体论、中国道学与各国文学的三方对照研究"
+      "en": "Metaphysics Across Cultures: Daoism, Aristotle, Kant, and Kafka",
+      "zh": "形而上学：道家、亚里士多德、康德与卡夫卡"
     },
     "speaker": {
       "en": "Odradek Zhang",
@@ -105,7 +105,8 @@
     "summary": {
       "en": "Session details will be announced.",
       "zh": "具体安排将后续公布。"
-    }
+    },
+    "status": "past"
   },
   {
     "id": "2026-11-05-session",
@@ -117,6 +118,26 @@
     "summary": {
       "en": "Session details will be announced.",
       "zh": "具体安排将后续公布。"
+    }
+  },
+  {
+    "id": "2026-11-12-opera",
+    "date": "2026-11-12",
+    "title": {
+      "en": "Chinese Opera and Male Performers of Female Roles in the Ming and Qing Dynasties",
+      "zh": "明清的戏曲与优伶文化"
+    },
+    "summary": {
+      "en": "Session details will be announced.",
+      "zh": "具体安排将后续公布。"
+    },
+    "speaker": {
+      "en": "David Gong",
+      "zh": "David Gong"
+    },
+    "affiliation": {
+      "en": "UC Berkeley",
+      "zh": "UC Berkeley"
     }
   }
 ]
