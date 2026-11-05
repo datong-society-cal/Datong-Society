@@ -1,3 +1,4 @@
+@font-face {font-family:CoQuBeLi;src:url('../fonts/coqubeli-preview.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
 /* Datong design system: static pages, shared components, three font families. */
 :root {
   --ink:#101a30;
@@ -118,7 +119,8 @@ section {
   height:52px
 }
 .site-brand span[lang] {
-  font-family:'Noto Serif SC',serif
+  font-family:CoQuBeLi,'Noto Serif SC',serif;
+  font-weight:400
 }
 #site-navigation {
   margin-left:auto
@@ -642,3 +644,13 @@ section {
 #public-events-filter button {border:1px solid var(--line);background:transparent;border-radius:3px;padding:.4rem .8rem;cursor:pointer;color:var(--text)}
 #public-events-filter button.is-active {background:var(--link);color:white}
 .expanded-event-records {margin-top:4rem;border-top:2px solid var(--line);padding-top:2rem}
+
+/* The salon uses a text-first composition, with its poster on the right. */
+#east-asian-cultural-salon .public-event-layout {grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr)}
+#east-asian-cultural-salon .public-event-copy {grid-column:1;grid-row:1}
+#east-asian-cultural-salon .event-cover {grid-column:2;grid-row:1}
+@media (max-width: 736px) {
+  #east-asian-cultural-salon .public-event-layout {grid-template-columns:1fr}
+  #east-asian-cultural-salon .public-event-copy {grid-column:1;grid-row:1}
+  #east-asian-cultural-salon .event-cover {grid-column:1;grid-row:2}
+}
