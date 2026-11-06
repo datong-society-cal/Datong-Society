@@ -103,8 +103,8 @@
       "zh": "UC Berkeley"
     },
     "summary": {
-      "en": "Session details will be announced.",
-      "zh": "具体安排将后续公布。"
+      "en": "Odradek Zhang led a discussion of metaphysical questions across Daoist thought, the philosophies of Aristotle and Kant, and Kafka’s fiction.",
+      "zh": "以道家思想、亚里士多德与康德的哲学和卡夫卡的文学作品为切入点，比较不同传统如何提出和处理形而上学问题。"
     },
     "status": "past"
   },
@@ -112,13 +112,18 @@
     "id": "2026-11-05-session",
     "date": "2026-11-05",
     "title": {
-      "en": "Topic to be announced",
-      "zh": "主题待定"
+      "en": "Building a Digital Archive from San Francisco’s Chee Kung Tong Records",
+      "zh": "旧金山致公堂档案数字化"
     },
     "summary": {
-      "en": "Session details will be announced.",
-      "zh": "具体安排将后续公布。"
-    }
+      "en": "The discussion focused on a digital archive built from the records of the Chee Kung Tong’s San Francisco lodge. The project combines a searchable catalog with a map and timeline for exploring the records by place and date.",
+      "zh": "讨论以旧金山致公堂堂口的档案为基础，介绍如何将这些材料整理成可检索的数字档案。项目将档案目录与地图、时间轴结合，便于按地点和年代查阅相关记录。"
+    },
+    "time": {
+      "en": "7–9 PM · Pacific Time",
+      "zh": "晚 7–9 点 · 太平洋时间"
+    },
+    "status": "past"
   },
   {
     "id": "2026-11-12-opera",
@@ -128,8 +133,8 @@
       "zh": "明清的戏曲与优伶文化"
     },
     "summary": {
-      "en": "Session details will be announced.",
-      "zh": "具体安排将后续公布。"
+      "en": "David Gong will examine the culture of Chinese opera in the Ming and Qing dynasties, focusing on male performers who played female roles.",
+      "zh": "从男演员扮演女性角色的舞台实践切入，讨论明清戏曲中的优伶及其所处的演出文化。"
     },
     "speaker": {
       "en": "David Gong",
@@ -138,6 +143,30 @@
     "affiliation": {
       "en": "UC Berkeley",
       "zh": "UC Berkeley"
+    }
+  },
+  {
+    "id": "2026-12-07-book-talk",
+    "date": "2026-12-07",
+    "title": {
+      "en": "Book Talk with Liu Zongkun: Lives Remembered and Roads Traveled",
+      "zh": "《异乡故人》新书分享会"
+    },
+    "speaker": {
+      "en": "Liu Zongkun",
+      "zh": "刘宗坤"
+    },
+    "time": {
+      "en": "2–4 PM · Pacific Time",
+      "zh": "下午 2–4 点 · 太平洋时间"
+    },
+    "summary": {
+      "en": "Writer and Texas attorney Liu Zongkun discusses his essay collection, published by 1 Plus Books in 2026. The essays revisit people he knew in China, met over two decades in Texas, and encountered while walking and cycling abroad. Their stories raise a question familiar to many who have moved away: what makes a place home?",
+      "zh": "旅美律师、作家刘宗坤分享散文集《异乡故人》（壹嘉出版，2026）。书中写到中国故乡的亲友师长、移居得克萨斯二十余年间结识的人，以及徒步与骑行途中偶遇的陌生人。作者借这些人物故事，回望移居经历，追问故乡与归属的意义。"
+    },
+    "location": {
+      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
+      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
     }
   }
 ]
