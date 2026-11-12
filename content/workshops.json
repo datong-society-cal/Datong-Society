@@ -146,6 +146,34 @@
     }
   },
   {
+    "id": "2026-11-25-ancestral-leaves",
+    "date": "2026-11-25",
+    "title": {
+      "en": "Translating Ancestral Leaves: A Family Journey through Chinese History",
+      "zh": "翻译《叶：百年动荡中的一个中国家庭》"
+    },
+    "speaker": {
+      "en": "Fanzhi Meng",
+      "zh": "孟繁之"
+    },
+    "affiliation": {
+      "en": "Peking University",
+      "zh": "北京大学"
+    },
+    "time": {
+      "en": "Time to be announced",
+      "zh": "具体时间待定"
+    },
+    "summary": {
+      "en": "Fanzhi Meng will discuss his experience co-translating historian Joseph W. Esherick’s Ancestral Leaves: A Family Journey through Chinese History into Chinese. The book follows generations of the Ye family, tracing how political and social change shaped their lives from the late Qing through the Republican era and into the People’s Republic.",
+      "zh": "孟繁之将分享他参与翻译历史学家周锡瑞《叶：百年动荡中的一个中国家庭》的经历。这部著作追溯叶氏家族几代人的生活，呈现从晚清、民国到中华人民共和国成立后的社会与政治变迁如何影响一个家庭。"
+    },
+    "location": {
+      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
+      "zh": "加州大学伯克利分校东亚图书馆 · 341 研讨室"
+    }
+  },
+  {
     "id": "2026-12-07-book-talk",
     "date": "2026-12-07",
     "title": {
