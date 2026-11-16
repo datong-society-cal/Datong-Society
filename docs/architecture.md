@@ -15,11 +15,11 @@ or application process is required to operate the website.
 - `content/resources.json`: curated bilingual resource names and HTTPS links.
 - `content/workshops.json`: dated discussion sessions, bilingual summaries, optional
   speaker/affiliation/time/location/reading text, and expandable discussion questions.
-- `content/site.json`: release date, classification timestamp, and optional analytics.
+- `content/site.json`: release date (`updated`) and optional analytics.
 - `content/zh.json`: shared translations and explicitly identified Chinese blocks.
 - `templates/hero.html`, `templates/footer.html`: shared identity and footer.
-- `assets/css/main.css`: shared tokens, layout, and components. Historical CSS
-  is archived in `docs/archive/`; it is neither imported nor deployed.
+- `assets/css/main.css`: shared tokens, layout, and components. It is edited
+  directly; there is no CSS build step.
 - `scripts/build_site.py`: generates seven pages in each language. Edit sources,
   not the fourteen generated root HTML files.
 
@@ -41,9 +41,10 @@ content. Put an optimized poster in `images/events/<event-id>/`, then add it to
 Git before packaging. Poster images are lazy loaded.
 
 The first upcoming event is featured on Home. If none is upcoming, the most
-recent event is shown as a recap. Events are classified against `as_of` in
-`content/site.json`, not the build machine clock: the same Git commit always
-produces the same artifact. Advance `as_of` and `updated` when preparing a release.
+recent event is shown as a recap. Events and workshop sessions are classified
+against `updated` in `content/site.json`, not the build machine clock: the same
+Git commit always produces the same artifact. Set `updated` to the release date
+when preparing a release; it also drives the footer date in both languages.
 This is a static site; status does not change on the server between releases.
 Historical public programs are maintained in `content/event-archive.json`. Keep
 each occurrence of a recurring screening separate. Dates must be confirmed and

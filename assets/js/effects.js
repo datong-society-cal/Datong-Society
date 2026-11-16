@@ -36,19 +36,6 @@
     button.setAttribute('aria-pressed', String(button.classList.contains('is-active')));
   });
 
-  const originalFilter = document.querySelector('#events-filter');
-  const originalCards = [...document.querySelectorAll('.event-card:not(.public-event)')];
-  originalFilter?.addEventListener('click', event => {
-    const button = event.target.closest('button[data-filter]');
-    if (!button || !originalFilter.contains(button)) return;
-    originalFilter.querySelectorAll('button').forEach(item => {
-      item.classList.toggle('is-active', item === button);
-      item.setAttribute('aria-pressed', String(item === button));
-    });
-    originalCards.forEach(card => {
-      card.hidden = button.dataset.filter !== 'all' && card.dataset.cat !== button.dataset.filter;
-    });
-  });
   const overlay = document.querySelector('#lb-overlay');
   const overlayImage = document.querySelector('#lb-img');
   const overlayCaption = document.querySelector('#lb-cap');

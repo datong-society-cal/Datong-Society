@@ -92,7 +92,3 @@ def translate(source):
     parser = ChinesePage()
     parser.feed(source)
     return ''.join(parser.output)
-
-if __name__ == '__main__':
-    for source,destination in PAGES.items():
-        (ROOT/destination).write_text(translate((ROOT/source).read_text(encoding='utf-8')),encoding='utf-8')

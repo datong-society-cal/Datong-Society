@@ -2,6 +2,7 @@
 import hashlib
 from html.parser import HTMLParser
 import json
+import posixpath
 from pathlib import Path, PurePosixPath
 import re
 from urllib.parse import unquote, urlsplit
@@ -52,14 +53,11 @@ Options -Indexes -MultiViews
     </FilesMatch>
 </IfModule>
 '''
-# Retained releases used this previously reviewed static configuration. Accept
-# its exact bytes as well so rollback remains possible after the URL migration.
-LEGACY_APACHE = APACHE[:APACHE.index('Options')] + 'Options -Indexes\n' + APACHE[APACHE.index('<IfModule'):]
 ROOT_FILES = {'index.html', 'collaboration.html', 'LICENSE.txt', '.htaccess', 'deploy-version.json'}
-LANGUAGE_FILES = {'zh.html', 'collaboration-zh.html'}
-CONTENT_FILES = {name + suffix + '.html' for name in ('about', 'contact', 'events', 'resources', 'workshops') for suffix in ('', '-zh')}
+PAGE_FILES = set(PUBLIC_PATHS)
 EXTENSIONS = {
     'assets/css': {'.css'}, 'assets/js': {'.js'},
+    # Retained releases still contain legacy font formats; keep them valid for rollback.
     'assets/fonts': {'.otf', '.woff2', '.woff', '.ttf', '.svg', '.eot'},
     'images': {'.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.ico'},
 }
@@ -70,7 +68,7 @@ def allowed(name):
         return name == '.htaccess'
     if str(path) != name or not re.fullmatch(r'[A-Za-z0-9_./-]+', name):
         return False
-    return name in ROOT_FILES | LANGUAGE_FILES | CONTENT_FILES or any(name.startswith(prefix + '/') and path.suffix.lower() in exts
+    return name in ROOT_FILES | PAGE_FILES or any(name.startswith(prefix + '/') and path.suffix.lower() in exts
         for prefix, exts in EXTENSIONS.items())
 
 def digest(path):
@@ -107,7 +105,7 @@ def validate_tree(root, expected_commit=None):
         raise ValueError('Missing required public files')
     if sum(p.stat().st_size for p in files.values()) > MAX_TOTAL or any(p.stat().st_size > MAX_FILE for p in files.values()):
         raise ValueError('Artifact exceeds size limit')
-    if files['.htaccess'].read_text() not in (APACHE, LEGACY_APACHE):
+    if files['.htaccess'].read_text() != APACHE:
         raise ValueError('Apache configuration differs from the reviewed static configuration')
     html = files['index.html'].read_text(encoding='utf-8')
     if len(html) < 1000 or 'Hosted by the OCF' not in html or 'acting independently of the University of California' not in html:
@@ -117,9 +115,7 @@ def validate_tree(root, expected_commit=None):
     if 'rel="icon" type="image/png" href="images/brand/datong-logo-emblem.png"' not in html:
         raise ValueError('Datong logo favicon missing')
     parsed = References()
-    parsed.feed(html)
-    parsed.feed(files['collaboration.html'].read_text(encoding='utf-8'))
-    for name in (LANGUAGE_FILES | CONTENT_FILES) & files.keys():
+    for name in sorted(PAGE_FILES & files.keys()):
         parsed.feed(files[name].read_text(encoding='utf-8'))
     missing = []
     def check(ref, parent):
@@ -131,7 +127,6 @@ def validate_tree(root, expected_commit=None):
         if url.path.startswith('/'):
             raise ValueError('Root-relative asset breaks the OCF /~datong path: ' + ref)
         # resolve() is case-insensitive on Windows; compare normalized names instead.
-        import posixpath
         name = posixpath.normpath(posixpath.join(parent, unquote(url.path)))
         name = ROUTE_FILES.get(name, name)
         if name not in files:

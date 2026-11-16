@@ -3,17 +3,37 @@ import argparse
 import gzip
 import io
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+import posixpath
+import re
 import shutil
 import subprocess
 import tarfile
-from site_contract import APACHE, EXTENSIONS, ROOT_FILES, LANGUAGE_FILES, CONTENT_FILES, allowed, digest, validate_tree
+from urllib.parse import unquote, urlsplit
+from site_contract import APACHE, EXTENSIONS, ROOT_FILES, PAGE_FILES, References, allowed, digest, validate_tree
 
-def package(commit, output):
+def unreferenced(output):
+    """Published assets that no page or stylesheet references."""
+    refs = set()
+    def add(ref, parent):
+        url = urlsplit(ref)
+        if not (url.scheme or url.netloc) and url.path:
+            refs.add(posixpath.normpath(posixpath.join(parent, unquote(url.path))))
+    for page in output.glob('*.html'):
+        parser = References()
+        parser.feed(page.read_text(encoding='utf-8'))
+        for ref in parser.refs:
+            add(ref, '')
+    for sheet in output.glob('assets/css/*.css'):
+        for match in re.finditer(r'''url\(\s*['"]?([^)'"\s]+)['"]?\s*\)''', sheet.read_text(encoding='utf-8')):
+            add(match.group(1), str(PurePosixPath(sheet.relative_to(output).as_posix()).parent))
+    assets = {p.relative_to(output).as_posix() for prefix in EXTENSIONS for p in (output / prefix).rglob('*') if p.is_file()}
+    return sorted(assets - refs)
+
+def package(commit):
+
     repo = Path(__file__).resolve().parent.parent
-    output = Path(output).resolve()
-    if output != repo / 'dist':
-        raise ValueError('Output must be the repository dist directory')
+    output = repo / 'dist'
     if output.is_symlink():
         raise ValueError('Refusing symlink output')
     if output.exists():
@@ -21,7 +41,7 @@ def package(commit, output):
     output.mkdir()
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=repo).decode().split('\0')
     for name in tracked:
-        if name in ROOT_FILES | LANGUAGE_FILES | CONTENT_FILES or any(name.startswith(p + '/') for p in EXTENSIONS):
+        if name in ROOT_FILES | PAGE_FILES or any(name.startswith(p + '/') for p in EXTENSIONS):
             if not allowed(name):
                 continue  # e.g. images/README.md and CSS build notes are maintenance files.
             source = repo / name
@@ -30,6 +50,9 @@ def package(commit, output):
             destination = output / name
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, destination)
+    unused = unreferenced(output)
+    if unused:
+        raise ValueError('Unreferenced files would be published; delete them or link them: ' + ', '.join(unused))
     (output / '.htaccess').write_text(APACHE, encoding='utf-8', newline='\n')
     (output / 'deploy-version.json').write_text(json.dumps({'commit': commit}) + '\n', encoding='utf-8')
     files = validate_tree(output, commit)
@@ -49,6 +72,5 @@ def package(commit, output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--commit', required=True)
-    parser.add_argument('--output', default='dist')
     args = parser.parse_args()
-    package(args.commit, args.output)
+    package(args.commit)

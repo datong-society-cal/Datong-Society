@@ -7,9 +7,9 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build_site import PAGES, read_json, validate_content
+from build_site import read_json, validate_content
 from build_chinese import translate
-from site_contract import PUBLIC_PATHS
+from site_contract import PAGE_ROUTES as PAGES, PUBLIC_PATHS
 
 class Links(HTMLParser):
     def __init__(self):

@@ -785,5 +785,44 @@
     },
     "gallery": [],
     "cover": "images/events/2020-yiqing-xu/online-discussion.jpg"
+  },
+  {
+    "id": "2026-chsa-chinatown-visit",
+    "date": "2026-11-14",
+    "category": "Field Trip",
+    "title": {
+      "en": "Chinatown & CHSA Visit",
+      "zh": "唐人街与 CHSA 参访"
+    },
+    "summary": {
+      "en": "A visit with the Chinese Historical Society of America (CHSA) in San Francisco’s Chinatown to explore Chinese American history, including the museum’s Bruce Lee exhibition.",
+      "zh": "与美国华人历史学会（CHSA）一同走访旧金山唐人街，探索华人移民历史，并参观李小龙主题展览。"
+    },
+    "paragraphs": {
+      "en": [
+        "A visit with the Chinese Historical Society of America (CHSA) in San Francisco’s Chinatown to explore Chinese American history, including the museum’s Bruce Lee exhibition."
+      ],
+      "zh": [
+        "与美国华人历史学会（CHSA）一同走访旧金山唐人街，探索华人移民历史，并参观李小龙主题展览。"
+      ]
+    },
+    "time": {
+      "en": "",
+      "zh": ""
+    },
+    "location": {
+      "en": "Chinese Historical Society of America · Chinatown, San Francisco",
+      "zh": "美国华人历史学会 · 旧金山唐人街"
+    },
+    "people": {
+      "en": "Datong Society · Chinese Historical Society of America",
+      "zh": "大同学社 · 美国华人历史学会"
+    },
+    "cover": "images/events/2026-chsa-chinatown-visit/cover.jpg",
+    "cover_caption": {
+      "en": "Group photograph in front of a Bruce Lee mural at CHSA",
+      "zh": "在 CHSA 李小龙壁画前合影"
+    },
+    "gallery": []
   }
 ]

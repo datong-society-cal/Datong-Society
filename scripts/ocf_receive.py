@@ -69,9 +69,7 @@ def smoke(source):
     for attempt in range(4):
         try:
             for name in names:
-                clean = 'rel="canonical" href="' + SITE_URL + 'home"' in (source / 'index.html').read_text(encoding='utf-8')
-                path = PUBLIC_PATHS.get(name, name) if clean else name
-                request = Request(SITE_URL + path + '?deployment-check=' + str(time.time_ns()),
+                request = Request(SITE_URL + PUBLIC_PATHS.get(name, name) + '?deployment-check=' + str(time.time_ns()),
                     headers={'Cache-Control': 'no-cache', 'User-Agent': 'Datong-deployment-check'})
                 with urlopen(request, timeout=20) as response:
                     if response.status != 200 or response.read() != (source / name).read_bytes():
