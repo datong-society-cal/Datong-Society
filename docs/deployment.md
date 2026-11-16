@@ -6,13 +6,13 @@ Source: **https://github.com/datong-society-cal/Datong-Society**
 
 GitHub Pages was disabled on October 2, 2026. In repository Settings → Pages,
 the publishing branch is **None**. Keep it disabled; OCF deployment uses the
-independent **Deploy OCF** workflow and does not depend on GitHub Pages.
+independent **Site** workflow and does not depend on GitHub Pages.
 Use `python scripts/serve_site.py --port 8766` for previews with production routes.
 
 ## Everyday updates
 
 Edit the content sources and templates documented in architecture.md, build the generated HTML, and open a pull request. The
-**Validate static site** check must pass. Merge into `main`; **Deploy OCF**
+**Validate static site** check must pass. Merge into `main`; **Site**
 packages the site, transfers it over SSH, verifies it, and records a successful
 GitHub deployment. A push to `main` uses the same workflow.
 
@@ -33,10 +33,11 @@ with its managed Apache server.
 - Fourteen English and Chinese pages, published CSS/JS/fonts, images, and `LICENSE.txt` are packaged.
 - The packager generates reviewed `.htaccess`, a version marker, and a SHA-256
   manifest. The manifest stays private on OCF; it is not served by Apache.
-- Git metadata, workflows, scripts, documentation, legacy Sass, backups, and keys
+- Git metadata, workflows, scripts, documentation, backups, and keys
   never enter the website output. `dist/` and `site.tar.gz` are ignored by Git.
-- **Edit `assets/css/main.css` directly.** Legacy `assets/sass/` is not a valid
-  build source. See `assets/css/BUILD-STATUS.md` before considering a migration.
+- **Edit `assets/css/main.css` directly.** There is no CSS build step.
+- Packaging fails if a file under `assets/` or `images/` is not referenced by any
+  page or stylesheet. Delete unused media instead of publishing it.
 - Keep local URLs relative to the page/CSS so the site also works at
   `https://www.ocf.berkeley.edu/~datong/`.
 - New file types or Apache directives require a deliberate change to
@@ -84,7 +85,7 @@ deployment components and should not be removed.
 - The CI public key has `restrict` and a forced command in `authorized_keys`.
   It cannot request a shell, arbitrary rsync paths, forwarding, or SFTP, and
   cannot update its own receiver or retrieve historical backups.
-- Workflow actions are pinned to full commits; update the pins deliberately.
+- Workflow actions are pinned to full commits; Dependabot proposes monthly pin updates as pull requests.
 - Do not expose the production secret to pull requests. PR jobs only validate.
 
 The forced command accepts exactly one of:
@@ -105,7 +106,7 @@ still has full control of that account.
 
 ## Rollback
 
-In GitHub **Actions → Deploy OCF → Run workflow**, choose branch `main` and enter
+In GitHub **Actions → Site → Run workflow**, choose branch `main` and enter
 a retained full commit SHA in `rollback_commit`. Find retained/current commits
 in the successful deployment history or `~/deploy/state.json` via the human SSH
 key. A rollback runs the same validation, backup, disk checks, and HTTPS checks.

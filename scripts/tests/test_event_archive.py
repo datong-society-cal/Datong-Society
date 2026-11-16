@@ -16,8 +16,9 @@ class EventArchive(unittest.TestCase):
         for filename in ('events.html', 'events-zh.html'):
             html = (ROOT / filename).read_text(encoding='utf-8')
             ids = re.findall(r'class="event-card public-event" id="([^"]+)"', html)
-            self.assertEqual(len(ids), 19)
-            self.assertEqual(len(set(ids)), 19)
+            expected = len(read_json('event-archive.json')) + len(read_json('events.json'))
+            self.assertEqual(len(ids), expected)
+            self.assertEqual(len(set(ids)), expected)
             self.assertEqual(ids.count('2024-geling-yan'), 1)
             self.assertNotIn('archive-title-7', html)
             self.assertNotIn('archive-title-6', html)

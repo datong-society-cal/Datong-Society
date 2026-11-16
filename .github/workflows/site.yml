@@ -1,4 +1,4 @@
-name: Deploy OCF
+name: Site
 
 on:
   push:
@@ -14,6 +14,12 @@ on:
 
 permissions:
   contents: read
+
+# Superseded pull-request validations are cancelled; main and rollback runs are
+# never grouped here (production is serialized by the deploy job below).
+concurrency:
+  group: site-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -70,16 +76,11 @@ jobs:
         env:
           OCF_DEPLOY_KEY: ${{ secrets.OCF_DEPLOY_KEY }}
         run: |
-          python3 - <<'PY'
-          import os
-          from pathlib import Path
-          key = os.environ['OCF_DEPLOY_KEY']
-          if not key.startswith('-----BEGIN OPENSSH PRIVATE KEY-----'):
-              raise SystemExit('OCF_DEPLOY_KEY is missing or malformed')
-          path = Path(os.environ['RUNNER_TEMP']) / 'ocf-ci-key'
-          path.write_text(key.rstrip() + '\n')
-          path.chmod(0o600)
-          PY
+          case "$OCF_DEPLOY_KEY" in
+            '-----BEGIN OPENSSH PRIVATE KEY-----'*) ;;
+            *) echo 'OCF_DEPLOY_KEY is missing or malformed' >&2; exit 1 ;;
+          esac
+          (umask 077; printf '%s\n' "$OCF_DEPLOY_KEY" > "$RUNNER_TEMP/ocf-ci-key")
       - name: Publish and verify, or restore a retained release
         env:
           ROLLBACK_COMMIT: ${{ inputs.rollback_commit }}

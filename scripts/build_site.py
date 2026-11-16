@@ -1,6 +1,6 @@
 """Build bilingual static pages with Python's standard library. No server runtime."""
 import argparse
-from datetime import datetime
+from datetime import date, datetime
 from html import escape
 import hashlib
 import json
@@ -8,13 +8,12 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
-from build_chinese import translate
+import build_chinese
 from event_archive import render_archive, validate_archive
 
-ROOT = Path(__file__).resolve().parent.parent
 from site_contract import PAGE_ROUTES, PUBLIC_PATHS
 
-PAGES = PAGE_ROUTES
+ROOT = Path(__file__).resolve().parent.parent
 
 def read_json(name):
     return json.loads((ROOT / 'content' / name).read_text(encoding='utf-8'))
@@ -54,22 +53,26 @@ def event_html(event, language, featured=False, past=False):
 def workshops_html(sessions, language, as_of):
     rows = []
     for session in sorted(sessions, key=lambda item: item['date']):
-        date = datetime.fromisoformat(session['date']).date()
-        past = session.get('status') == 'past' or date < as_of.date()
+        past = date.fromisoformat(session['date']) < as_of
         status = ('Past session' if past else 'Upcoming session') if language == 'en' else ('往期讨论' if past else '近期安排')
         row = f'<section class="workshop-session"><p class="home-eyebrow"><time datetime="{session["date"]}">{session["date"]}</time> · {status}</p><h3>{escape(session["title"][language])}</h3>'
         speaker = session.get('speaker', {}).get(language, '')
         affiliation = session.get('affiliation', {}).get(language, '')
         if speaker:
-            label = 'Speaker' if language == 'en' else '主讲人'
+            label = 'Speaker: ' if language == 'en' else '主讲人：'
             byline = escape(speaker) + (', ' + escape(affiliation) if affiliation else '')
-            row += f'<p class="workshop-speaker">{label}: {byline}</p>'
+            row += f'<p class="workshop-speaker">{label}{byline}</p>'
         metadata = [session.get(key, {}).get(language, '') for key in ('time', 'location')]
         if any(metadata):
             row += '<p class="workshop-meta">' + '<br>'.join(escape(value) for value in metadata if value) + '</p>'
         row += f'<p>{escape(session["summary"][language])}</p>'
         if session.get('reading'):
             row += f'<p class="workshop-meta">{escape(session["reading"][language])}</p>'
+        if session.get('registration') and not past:
+            if urlsplit(session['registration']).scheme != 'https':
+                raise ValueError('Registration link must use HTTPS: ' + session['id'])
+            label = 'Register ↗' if language == 'en' else '报名 ↗'
+            row += f'<p><a class="button" href="{escape(session["registration"])}" target="_blank" rel="noopener noreferrer">{label}</a></p>'
         if session.get('questions'):
             label = 'Discussion questions' if language == 'en' else '讨论问题'
             row += '<details><summary>' + label + '</summary><ul>' + ''.join('<li>' + escape(question) + '</li>' for question in session['questions'][language]) + '</ul></details>'
@@ -90,11 +93,9 @@ def render(as_of):
         analytics_tag = f'<script data-goatcounter="{escape(endpoint)}" async src="https://gc.zgo.at/count.js"></script>'
     elif analytics['provider'] != 'none':
         raise ValueError('Unknown analytics provider')
-    import build_chinese
     blocks = build_chinese.CONTENT['blocks']
     archive = read_json('event-archive.json')
     validate_archive(archive, ROOT)
-    archive_tokens = {}
     public_records = list(archive)
     recent_photos = {
         '2026-laura-young': [('group-seminar-room.jpg', 'Group photograph in the seminar room', '研讨室合影'), ('group-library.jpg', 'Group photograph at the East Asian Library', '东亚图书馆合影')],
@@ -114,8 +115,8 @@ def render(as_of):
         })
     validate_archive(public_records, ROOT)
     public_archive = localized_block('public-event-archive', render_archive(public_records, 'en'), render_archive(public_records, 'zh'), blocks)
-    future = sorted([e for e in events if datetime.fromisoformat(e['end']) >= as_of], key=lambda e: e['start'])
-    past = sorted([e for e in events if datetime.fromisoformat(e['end']) < as_of], key=lambda e: e['start'], reverse=True)
+    future = sorted([e for e in events if datetime.fromisoformat(e['end']).date() >= as_of], key=lambda e: e['start'])
+    past = sorted([e for e in events if datetime.fromisoformat(e['end']).date() < as_of], key=lambda e: e['start'], reverse=True)
     featured = (future or past or [None])[0]
     feature = localized_block('featured-event', event_html(featured, 'en', True, not future), event_html(featured, 'zh', True, not future), blocks) if featured else ''
     program = localized_block('event-programs', ''.join(event_html(e, 'en', past=e in past) for e in future + past), ''.join(event_html(e, 'zh', past=e in past) for e in future + past), blocks)
@@ -126,15 +127,16 @@ def render(as_of):
     resource_block = localized_block('campus-links', links('en'), links('zh'), blocks)
     workshops = read_json('workshops.json')
     workshop_block = localized_block('workshop-schedule', workshops_html(workshops, 'en', as_of), workshops_html(workshops, 'zh', as_of), blocks)
-    footer = (ROOT / 'templates/footer.html').read_text(encoding='utf-8')
-    for page, (en_name, zh_name, title) in PAGES.items():
-        nav = '<nav id="site-navigation" aria-label="Main navigation"><ul>' + ''.join(f'<li><a href="{en}"'+ (' aria-current="page"' if key == page else '') + f'>{label}</a></li>' for key,(en,zh,label) in PAGES.items() if key != 'collaboration') + '</ul></nav>'
+    updated = date.fromisoformat(config['updated'])
+    stamp = localized_block('updated', 'Updated ' + updated.strftime('%b ') + str(updated.day) + updated.strftime(', %Y'),
+        f'更新于 {updated.year} 年 {updated.month} 月 {updated.day} 日', blocks).replace('<div ', '<span ').replace('</div>', '</span>')
+    footer = (ROOT / 'templates/footer.html').read_text(encoding='utf-8').replace('{{ updated }}', stamp)
+    for page, (en_name, zh_name, title) in PAGE_ROUTES.items():
+        nav = '<nav id="site-navigation" aria-label="Main navigation"><ul>' + ''.join(f'<li><a href="{en}"'+ (' aria-current="page"' if key == page else '') + f'>{label}</a></li>' for key,(en,zh,label) in PAGE_ROUTES.items() if key != 'collaboration') + '</ul></nav>'
         body = (ROOT / 'content/pages' / (page + '.html')).read_text(encoding='utf-8')
         body = body.replace('{{ featured_event }}', feature).replace('{{ event_programs }}', program).replace('{{ resources }}', resource_block)
         body = body.replace('{{ workshop_schedule }}', workshop_block)
         body = body.replace('{{ public_event_archive }}', public_archive)
-        for token, replacement in archive_tokens.items():
-            body = body.replace(token, replacement)
         hero = (ROOT / 'templates/hero.html').read_text(encoding='utf-8') if page == 'home' else ''
         brand = '<a class="site-brand" href="index.html"><img src="images/brand/datong-logo-emblem.png" alt="Datong Society emblem" width="52" height="52"><span>DATONG <span lang="zh-Hans">大同</span></span></a>'
         article_title = title if page != 'home' else 'Home'
@@ -149,7 +151,7 @@ def render(as_of):
 {hero}<main id="main"><article id="{page}">{body}</article></main>{footer}
 <div id="lb-overlay"><figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure></div>
 <script src="assets/js/main.js" defer></script><script src="assets/js/effects.js" defer></script><script src="assets/js/language.js" defer></script>{analytics_tag}</body></html>'''
-        for section,(en,zh,label) in PAGES.items():
+        for section,(en,zh,label) in PAGE_ROUTES.items():
             html = html.replace(f'href="#{section}"', f'href="{en}"').replace(f'href="index.html#{section}"', f'href="{en}"')
         html = html.replace('href="#"', 'href="index.html"')
         html = re.sub(r'<h2 class="major">(.*?)</h2>', r'<h1 class="major">\1</h1>', html)
@@ -167,18 +169,15 @@ def render(as_of):
         for filename, path in PUBLIC_PATHS.items():
             html = html.replace('href="' + filename + '"', 'href="' + path + '"')
         html = html.replace('href="#main"', 'href="' + PUBLIC_PATHS[en_name] + '#main"')
-        (ROOT / en_name).write_text(html + '\n', encoding='utf-8')
-        translated = translate(html)
-        (ROOT / zh_name).write_text(translated + '\n', encoding='utf-8')
+        (ROOT / en_name).write_text(html + '\n', encoding='utf-8', newline='\n')
+        translated = build_chinese.translate(html)
+        (ROOT / zh_name).write_text(translated + '\n', encoding='utf-8', newline='\n')
     # Persist generated localized blocks so the translation check uses the same content IDs.
-    (ROOT / 'content/zh.json').write_text(json.dumps(build_chinese.CONTENT, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'Built {len(PAGES) * 2} pages; {len(future)} upcoming and {len(past)} past events.')
+    (ROOT / 'content/zh.json').write_text(json.dumps(build_chinese.CONTENT, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    print(f'Built {len(PAGE_ROUTES) * 2} pages; {len(future)} upcoming and {len(past)} past events.')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--as-of', help='Timezone-aware ISO timestamp for reproducible event classification')
+    parser.add_argument('--as-of', help='Classification date (YYYY-MM-DD); defaults to "updated" in content/site.json')
     args = parser.parse_args()
-    now = datetime.fromisoformat(args.as_of or read_json('site.json')['as_of'])
-    if not now.tzinfo:
-        raise SystemExit('Build timestamp must include a timezone')
-    render(now)
+    render(date.fromisoformat(args.as_of or read_json('site.json')['updated']))

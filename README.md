@@ -42,7 +42,7 @@ See [architecture and editing guide](docs/architecture.md) and
 [deployment, rollback, and handover](docs/deployment.md).
 
 Before publishing, add new files to Git and run `python scripts/check_site.py`.
-The OCF workflow builds and validates the same artifact on Linux. GitHub Pages
+The **Site** workflow builds and validates the same artifact on Linux. GitHub Pages
 remains disabled. Preview locally with `python scripts/serve_site.py --port 8766`.
 
 GoatCounter analytics is configured in `content/site.json` for the society-owned
