@@ -1,6 +1,7 @@
 [
   {
     "id": "2026-kukai",
+    "category": "Film & Panel",
     "start": "2026-10-12T18:30:00-07:00",
     "end": "2026-10-12T21:00:00-07:00",
     "poster": "images/events/2026-kukai/poster.jpg",
@@ -8,17 +9,42 @@
       "en": "KŪKAI 空海 — Screening & Discussion",
       "zh": "KŪKAI 空海 — 放映与对谈"
     },
+    "speaker": {
+      "en": "Yue Ye (director, online)",
+      "zh": "岳野（导演，线上）"
+    },
     "location": {
       "en": "Anthropology & Art Practice Building, Room 160 · UC Berkeley",
       "zh": "伯克利 Anthropology & Art Practice Building · 160 教室"
     },
+    "hosts": {
+      "en": "Datong Society × C. V. Starr East Asian Library × Deep Value",
+      "zh": "大同学社 × C. V. Starr 东亚图书馆 × Deep Value"
+    },
     "description": {
-      "en": "A documentary on Kūkai’s journey from Japan to Tang China, followed by an online conversation with director Yue Ye. Co-hosted with C. V. Starr East Asian Library and Deep Value. Classical Chinese narration with English subtitles; film runtime: 97 minutes.",
-      "zh": "纪录片讲述空海自日本赴唐的旅程，并与导演岳野在线对谈。由 C. V. Starr 东亚图书馆、大同学社与 Deep Value 合办。文言旁白，英文字幕，片长 97 分钟。"
-    }
+      "en": "A documentary on Kūkai’s journey from Japan to Tang China, followed by an online conversation with director Yue Ye. Classical Chinese narration with English subtitles; film runtime: 97 minutes.",
+      "zh": "纪录片讲述空海自日本赴唐的旅程，放映后与导演岳野在线对谈。文言旁白，英文字幕，片长 97 分钟。"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2026-kukai/screening.jpg",
+        "caption": {
+          "en": "Screening audience · Siche",
+          "zh": "放映现场 · Siche 摄"
+        }
+      },
+      {
+        "src": "images/events/2026-kukai/stage.jpg",
+        "caption": {
+          "en": "Conversation at Berkeley · Weiran",
+          "zh": "伯克利对谈现场 · Weiran 摄"
+        }
+      }
+    ]
   },
   {
     "id": "2026-laura-young",
+    "category": "Lecture",
     "start": "2026-10-21T19:00:00-07:00",
     "end": "2026-10-21T20:00:00-07:00",
     "poster": "images/events/2026-laura-young/poster.jpg",
@@ -26,13 +52,113 @@
       "en": "A Conversation with Laura Wen-yu Young",
       "zh": "与 Laura Wen-yu Young 对谈"
     },
+    "speaker": {
+      "en": "Laura Wen-yu Young, Wang and Wang, LLP",
+      "zh": "Laura Wen-yu Young, Wang and Wang, LLP"
+    },
+    "location": {
+      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
+      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+    },
+    "hosts": {
+      "en": "Datong Society × C. V. Starr East Asian Library",
+      "zh": "大同学社 × C. V. Starr 东亚图书馆"
+    },
+    "description": {
+      "en": "An evening of remarks by Laura Wen-yu Young of Wang and Wang, LLP, followed by open discussion.",
+      "zh": "Laura Wen-yu Young（Wang and Wang, LLP）嘉宾分享与开放讨论。"
+    },
+    "gallery": [
+      {
+        "src": "images/events/2026-laura-young/group-seminar-room.jpg",
+        "caption": {
+          "en": "Group photograph in the seminar room",
+          "zh": "研讨室合影"
+        }
+      },
+      {
+        "src": "images/events/2026-laura-young/group-library.jpg",
+        "caption": {
+          "en": "Group photograph at the East Asian Library",
+          "zh": "东亚图书馆合影"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2026-cultural-salon",
+    "category": "Salon",
+    "start": "2026-11-16T15:30:00-08:00",
+    "end": "2026-11-16T18:25:00-08:00",
+    "poster": "images/events/2026-cultural-salon/poster.jpg",
+    "title": {
+      "en": "East Asian Cultural Salon",
+      "zh": "东亚文化沙龙"
+    },
+    "location": {
+      "en": "ASUC Senate Chambers, Eshleman Hall, 5th Floor · UC Berkeley",
+      "zh": "伯克利 Eshleman Hall 五楼 · ASUC Senate Chambers"
+    },
+    "hosts": {
+      "en": "Datong Society × ASUC OSD",
+      "zh": "大同学社 × ASUC OSD"
+    },
+    "description": {
+      "en": "Short talks, cultural tables, and conversation over food. Open to all; no prior knowledge required.",
+      "zh": "简短分享、文化展台与餐叙交流。面向所有人开放，无需相关背景。"
+    }
+  },
+  {
+    "id": "2026-fanzhi-meng",
+    "category": "Lecture",
+    "start": "2026-11-25T15:00:00-08:00",
+    "poster": "images/events/2026-fanzhi-meng/poster.jpg",
+    "registration": "https://docs.google.com/forms/d/1WsOaiOEeOp3xuHvziAOMmG4qEHR5QAsCmpCrToCw3m0/viewform",
+    "title": {
+      "en": "Personal, Family, Lineage, and the State",
+      "zh": "个人、家庭、家族与国家"
+    },
+    "speaker": {
+      "en": "Fan-chih Meng, Peking University",
+      "zh": "孟繁之, 北京大学"
+    },
+    "location": {
+      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
+      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+    },
+    "hosts": {
+      "en": "Datong Society × C. V. Starr East Asian Library",
+      "zh": "大同学社 × C. V. Starr 东亚图书馆"
+    },
+    "description": {
+      "en": "Beginning with the speaker’s Chinese translation of Joseph W. Esherick’s Ancestral Leaves, this lecture draws on more than two decades of research into the papers of the Chou family and on the archives of Chinese scholars overseas. It explores how private documents can reconstruct historical contexts and illuminate the interplay of individual, family, lineage, and state in twentieth-century China.",
+      "zh": "从翻译周锡瑞（Joseph W. Esherick）教授《叶：百年动荡中的一个中国家庭》谈起，结合二十余年整理周馥、周学熙、周叔弢、周一良等周氏家族文献的研究，以及对海外中国学人档案的考察，探讨如何从私人文献重建历史情境，理解个人、家庭、家族与国家在二十世纪中国社会变迁中的互动。"
+    },
+    "subtitle": {
+      "en": "Social Transformation in Twentieth-Century China and Family History Research",
+      "zh": "二十世纪中国社会变迁与家族史研究"
+    }
+  },
+  {
+    "id": "2026-liu-zongkun",
+    "category": "Author Talk",
+    "start": "2026-12-07T14:00:00-08:00",
+    "end": "2026-12-07T16:00:00-08:00",
+    "title": {
+      "en": "Book Talk with Liu Zongkun: Lives Remembered and Roads Traveled",
+      "zh": "《异乡故人》新书分享会"
+    },
+    "speaker": {
+      "en": "Liu Zongkun, Independent Attorney and Writer",
+      "zh": "刘宗坤, 独立律师、作家"
+    },
     "location": {
       "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
       "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
     },
     "description": {
-      "en": "Datong Society and the East Asian Library hosted Laura Wen-yu Young of Wang and Wang, LLP for an evening of remarks and open discussion.",
-      "zh": "大同学社与东亚图书馆共同举办 Laura Wen-yu Young（Wang and Wang, LLP）对谈，活动包含嘉宾分享与开放讨论。"
+      "en": "A book talk on Liu Zongkun’s essay collection, published by 1 Plus Books in 2026. The essays revisit people he knew in China, met over two decades in Texas, and encountered while walking and cycling abroad. Their stories raise a question familiar to many who have moved away: what makes a place home?",
+      "zh": "散文集《异乡故人》（壹嘉出版，2026）新书分享。书中写到作者在中国故乡的亲友师长、移居得克萨斯二十余年间结识的人，以及徒步与骑行途中偶遇的陌生人。作者借这些人物故事，回望移居经历，追问故乡与归属的意义。"
     }
   }
 ]

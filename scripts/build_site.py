@@ -9,7 +9,7 @@ import re
 from urllib.parse import urlsplit
 
 import build_chinese
-from event_archive import render_archive, validate_archive
+from event_archive import LABELS as EVENT_LABELS, render_archive, validate_archive
 
 from site_contract import PAGE_ROUTES, PUBLIC_PATHS
 
@@ -34,21 +34,98 @@ def validate_content(events, resources):
         if urlsplit(item['url']).scheme != 'https':
             raise ValueError('Resource URL must use HTTPS')
     for event in events:
-        start, end = datetime.fromisoformat(event['start']), datetime.fromisoformat(event['end'])
-        if not start.tzinfo or not end.tzinfo or end <= start:
+        start = datetime.fromisoformat(event['start'])
+        end = datetime.fromisoformat(event['end']) if event.get('end') else None
+        if not start.tzinfo or (end and (not end.tzinfo or end <= start)):
             raise ValueError('Event requires timezone-aware start/end')
-        poster = Path(event['poster'])
-        if poster.is_absolute() or '..' in poster.parts or not (ROOT / poster).is_file():
-            raise ValueError('Invalid event poster')
+        if event['category'] not in EVENT_LABELS['en']:
+            raise ValueError('Unknown event category: ' + event['id'])
+        for key in ('location', 'description'):
+            if not all(event[key].get(language) for language in ('en', 'zh')):
+                raise ValueError('Missing event translation: ' + event['id'] + '/' + key)
+        if event.get('registration') and urlsplit(event['registration']).scheme != 'https':
+            raise ValueError('Registration link must use HTTPS: ' + event['id'])
+        for asset in ([event['poster']] if event.get('poster') else []) + [photo['src'] for photo in event.get('gallery', [])]:
+            path = Path(asset)
+            if path.is_absolute() or '..' in path.parts or not (ROOT / path).is_file():
+                raise ValueError('Invalid event image: ' + asset)
 
-def event_html(event, language, featured=False, past=False):
-    title = escape(event['title'][language])
-    date = datetime.fromisoformat(event['start']).strftime('%b %d, %Y · %I:%M %p')
-    heading = ('Recent event' if past else 'Upcoming event') if language == 'en' else ('近期回顾' if past else '近期活动')
-    details = 'View event poster' if language == 'en' else '查看活动海报'
-    image = f'<a class="home-poster" href="{escape(event["poster"])}" target="_blank" rel="noopener"><img src="{escape(event["poster"])}" alt="{title}" loading="lazy" decoding="async"></a>'
-    text = f'<div><p class="home-eyebrow">{heading}</p><h2>{title}</h2><p>{escape(event["description"][language])}</p><p><time datetime="{event["start"]}">{date} · Pacific Time</time><br>{escape(event["location"][language])}</p><a class="button" href="{event["poster"]}" target="_blank" rel="noopener">{details} ↗</a></div>'
-    return f'<section class="home-feature">{image if featured else ""}{text}</section>'
+def event_end(event):
+    return datetime.fromisoformat(event.get('end') or event['start'])
+
+def event_date(event, language):
+    start = datetime.fromisoformat(event['start'])
+    if language == 'en':
+        return start.strftime('%A, %B ') + str(start.day) + start.strftime(', %Y')
+    return f'{start.year} 年 {start.month} 月 {start.day} 日，星期' + '一二三四五六日'[start.weekday()]
+
+def event_time(event, language):
+    start = datetime.fromisoformat(event['start'])
+    end = datetime.fromisoformat(event['end']) if event.get('end') else None
+    if language == 'zh':
+        return start.strftime('%H:%M') + ('–' + end.strftime('%H:%M') if end else '') + ' · 太平洋时间'
+    clock = lambda t: t.strftime('%I:%M').lstrip('0')
+    if not end:
+        span = clock(start) + start.strftime(' %p')
+    elif start.strftime('%p') == end.strftime('%p'):
+        span = clock(start) + '–' + clock(end) + end.strftime(' %p')
+    else:
+        span = clock(start) + start.strftime(' %p') + '–' + clock(end) + end.strftime(' %p')
+    return span + ' · Pacific Time'
+
+def full_title(event, language):
+    sub = event.get('subtitle', {}).get(language)
+    return event['title'][language] + (('：' if language == 'zh' else ': ') + sub if sub else '')
+
+def event_people(event, language):
+    if not event.get('speaker'):
+        return ''
+    guest = event['category'] == 'Film & Panel'
+    label = ('Guest: ' if guest else 'Speaker: ') if language == 'en' else ('嘉宾：' if guest else '主讲人：')
+    return label + event['speaker'][language]
+
+def event_hosts(event, language):
+    if not event.get('hosts'):
+        return ''
+    return ('Hosted by ' if language == 'en' else '主办：') + event['hosts'][language]
+
+def event_copy(event, language, upcoming):
+    """Shared text block: tag and date, title, speaker, logistics, description, hosts, actions."""
+    status = ('Upcoming' if language == 'en' else '近期活动') if upcoming else ('Recent' if language == 'en' else '近期回顾')
+    category = EVENT_LABELS[language][event['category']]
+    html = f'<div class="event-meta"><span class="event-tag">{status} · {category}</span><time datetime="{event["start"][:10]}">{event_date(event, language)}</time></div>'
+    html += f'<h3>{escape(event["title"][language])}</h3>'
+    if event.get('subtitle'):
+        html += f'<p class="event-subtitle">{escape(event["subtitle"][language])}</p>'
+    if event_people(event, language):
+        html += f'<p class="event-people">{escape(event_people(event, language))}</p>'
+    html += f'<p class="event-logistics">{escape(event_time(event, language))}<br>{escape(event["location"][language])}</p>'
+    html += f'<p class="event-desc">{escape(event["description"][language])}</p>'
+    if event_hosts(event, language):
+        html += f'<p class="event-hosts">{escape(event_hosts(event, language))}</p>'
+    actions = []
+    if upcoming and event.get('registration'):
+        actions.append(f'<a class="button primary" href="{escape(event["registration"], quote=True)}" target="_blank" rel="noopener noreferrer">' + ('Register' if language == 'en' else '报名') + ' ↗</a>')
+    if event.get('poster'):
+        actions.append(f'<a class="button" href="{escape(event["poster"], quote=True)}" target="_blank" rel="noopener noreferrer">' + ('View poster' if language == 'en' else '查看海报') + ' ↗</a>')
+    if actions:
+        html += '<p class="event-actions">' + ''.join(actions) + '</p>'
+    return html
+
+def poster_figure(event, language, css_class='event-cover'):
+    alt = escape(full_title(event, language) + (' — event poster' if language == 'en' else ' — 活动海报'), quote=True)
+    src = escape(event['poster'], quote=True)
+    return f'<figure class="{css_class}"><a href="{src}" target="_blank" rel="noopener noreferrer"><img src="{src}" alt="{alt}" loading="lazy" decoding="async"></a></figure>'
+
+def upcoming_html(event, language):
+    layout = 'public-event-layout' + ('' if event.get('poster') else ' public-event-text-only')
+    cover = poster_figure(event, language) if event.get('poster') else ''
+    return (f'<article class="event-card planned-event public-event" id="{event["id"]}"><div class="{layout}">{cover}'
+            f'<div class="public-event-copy">{event_copy(event, language, True)}</div></div></article>')
+
+def event_html(event, language, past=False):
+    image = poster_figure(event, language, 'home-poster') if event.get('poster') else ''
+    return f'<section class="home-feature{"" if image else " home-feature-text-only"}">{image}<div>{event_copy(event, language, not past)}</div></section>'
 
 def workshops_html(sessions, language, as_of):
     rows = []
@@ -97,29 +174,25 @@ def render(as_of):
     archive = read_json('event-archive.json')
     validate_archive(archive, ROOT)
     public_records = list(archive)
-    recent_photos = {
-        '2026-laura-young': [('group-seminar-room.jpg', 'Group photograph in the seminar room', '研讨室合影'), ('group-library.jpg', 'Group photograph at the East Asian Library', '东亚图书馆合影')],
-        '2026-kukai': [('screening.jpg', 'Screening audience · Siche', '放映现场 · Siche 摄'), ('stage.jpg', 'Conversation at Berkeley · Weiran', '伯克利对谈现场 · Weiran 摄')],
-    }
-    for event in events:
-        start, end = datetime.fromisoformat(event['start']), datetime.fromisoformat(event['end'])
+    future = sorted([e for e in events if event_end(e).date() >= as_of], key=lambda e: e['start'])
+    past = sorted([e for e in events if event_end(e).date() < as_of], key=lambda e: e['start'], reverse=True)
+    for event in past:
         public_records.append({
-            'id': event['id'], 'date': start.date().isoformat(),
-            'category': 'Film & Panel' if event['id'] == '2026-kukai' else 'Lecture',
-            'title': event['title'], 'location': event['location'],
-            'time': {lang: start.strftime('%H:%M') + '–' + end.strftime('%H:%M') + (' · Pacific Time' if lang == 'en' else ' · 太平洋时间') for lang in ('en', 'zh')},
-            'people': {'en': 'Datong Society · East Asian Library', 'zh': '大同学社 · 东亚图书馆'},
-            'summary': event['description'], 'paragraphs': {lang: [event['description'][lang]] for lang in ('en', 'zh')},
-            'cover': event['poster'], 'cover_caption': {'en': 'Original event poster', 'zh': '原活动海报'},
-            'gallery': [{'src': 'images/events/' + event['id'] + '/' + name, 'caption': {'en': en, 'zh': zh}} for name, en, zh in recent_photos.get(event['id'], [])],
+            'id': event['id'], 'date': event['start'][:10], 'category': event['category'],
+            'title': {lang: full_title(event, lang) for lang in ('en', 'zh')}, 'location': event['location'],
+            'time': {lang: event_time(event, lang) for lang in ('en', 'zh')},
+            'people': {lang: ' · '.join(x for x in (event_people(event, lang), event_hosts(event, lang)) if x) for lang in ('en', 'zh')},
+            'summary': event['description'],
+            'paragraphs': {lang: [event['description'][lang], event_time(event, lang) + ' · ' + event['location'][lang]] for lang in ('en', 'zh')},
+            'cover': event.get('poster', ''), 'cover_caption': {'en': 'Original event poster', 'zh': '原活动海报'},
+            'gallery': event.get('gallery', []),
         })
     validate_archive(public_records, ROOT)
     public_archive = localized_block('public-event-archive', render_archive(public_records, 'en'), render_archive(public_records, 'zh'), blocks)
-    future = sorted([e for e in events if datetime.fromisoformat(e['end']).date() >= as_of], key=lambda e: e['start'])
-    past = sorted([e for e in events if datetime.fromisoformat(e['end']).date() < as_of], key=lambda e: e['start'], reverse=True)
     featured = (future or past or [None])[0]
-    feature = localized_block('featured-event', event_html(featured, 'en', True, not future), event_html(featured, 'zh', True, not future), blocks) if featured else ''
-    program = localized_block('event-programs', ''.join(event_html(e, 'en', past=e in past) for e in future + past), ''.join(event_html(e, 'zh', past=e in past) for e in future + past), blocks)
+    feature = localized_block('featured-event', event_html(featured, 'en', not future), event_html(featured, 'zh', not future), blocks) if featured else ''
+    none = ('<p>No upcoming events are scheduled. Join the mailing list for announcements.</p>', '<p>暂无近期活动，欢迎订阅邮件列表获取通知。</p>')
+    upcoming = localized_block('upcoming-events', ''.join(upcoming_html(e, 'en') for e in future) or none[0], ''.join(upcoming_html(e, 'zh') for e in future) or none[1], blocks)
     def links(language):
         title = 'Useful links for students &amp; researchers at Cal' if language == 'en' else '伯克利学生与研究者常用链接'
         rows = ''.join(f'<li><a href="{escape(r["url"])}" target="_blank" rel="noopener noreferrer">{escape(r["title"][language])} ↗</a></li>' for r in resources)
@@ -134,7 +207,7 @@ def render(as_of):
     for page, (en_name, zh_name, title) in PAGE_ROUTES.items():
         nav = '<nav id="site-navigation" aria-label="Main navigation"><ul>' + ''.join(f'<li><a href="{en}"'+ (' aria-current="page"' if key == page else '') + f'>{label}</a></li>' for key,(en,zh,label) in PAGE_ROUTES.items() if key != 'collaboration') + '</ul></nav>'
         body = (ROOT / 'content/pages' / (page + '.html')).read_text(encoding='utf-8')
-        body = body.replace('{{ featured_event }}', feature).replace('{{ event_programs }}', program).replace('{{ resources }}', resource_block)
+        body = body.replace('{{ featured_event }}', feature).replace('{{ upcoming_events }}', upcoming).replace('{{ resources }}', resource_block)
         body = body.replace('{{ workshop_schedule }}', workshop_block)
         body = body.replace('{{ public_event_archive }}', public_archive)
         hero = (ROOT / 'templates/hero.html').read_text(encoding='utf-8') if page == 'home' else ''

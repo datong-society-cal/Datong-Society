@@ -639,18 +639,19 @@ section {
 #upcoming-events {margin-top:2.5rem}
 .planned-event {padding:1.5rem 0;border-bottom:1px solid var(--line)}
 .planned-event h3 {font-size:1.55rem;line-height:1.3;margin:1rem 0}
+.public-event-copy .event-logistics {margin-bottom:1rem}
+.event-subtitle {font:400 1.05rem/1.5 Georgia,'Noto Serif SC',serif;color:#4b5560;margin:-.4rem 0 1.1rem}
+.planned-event .public-event-layout:not(.public-event-text-only) {grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:2.5rem}
+.planned-event .event-cover img {max-height:none;height:auto;background:none;box-shadow:0 1px 3px rgba(16,26,48,.12),0 8px 24px rgba(16,26,48,.08)}
+.planned-event .event-desc {font-size:.95rem}
+@media(max-width:680px) {.planned-event .public-event-layout:not(.public-event-text-only) {grid-template-columns:1fr;gap:1.25rem}}
+.event-hosts {font-size:.8rem;color:#5e625f;line-height:1.6;margin-bottom:1rem}
+.event-actions {display:flex;flex-wrap:wrap;gap:.75rem;margin:0}
+.event-actions .button {margin:0}
+.home-feature.home-feature-text-only {grid-template-columns:1fr}
+.home-feature h3 {font-size:1.6rem;line-height:1.3;margin:.6rem 0 1rem}
 
 #public-events-filter {display:flex;gap:.5rem;flex-wrap:wrap}
 #public-events-filter button {border:1px solid var(--line);background:transparent;border-radius:3px;padding:.4rem .8rem;cursor:pointer;color:var(--text)}
 #public-events-filter button.is-active {background:var(--link);color:white}
 .expanded-event-records {margin-top:4rem;border-top:2px solid var(--line);padding-top:2rem}
-
-/* The salon uses a text-first composition, with its poster on the right. */
-#east-asian-cultural-salon .public-event-layout {grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr)}
-#east-asian-cultural-salon .public-event-copy {grid-column:1;grid-row:1}
-#east-asian-cultural-salon .event-cover {grid-column:2;grid-row:1}
-@media (max-width: 736px) {
-  #east-asian-cultural-salon .public-event-layout {grid-template-columns:1fr}
-  #east-asian-cultural-salon .public-event-copy {grid-column:1;grid-row:1}
-  #east-asian-cultural-salon .event-cover {grid-column:1;grid-row:2}
-}
