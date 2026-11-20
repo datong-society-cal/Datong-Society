@@ -15,7 +15,7 @@ class EventArchive(unittest.TestCase):
     def test_public_records_are_unique_and_community_archives_are_relocated(self):
         for filename in ('events.html', 'events-zh.html'):
             html = (ROOT / filename).read_text(encoding='utf-8')
-            ids = re.findall(r'class="event-card public-event" id="([^"]+)"', html)
+            ids = re.findall(r'class="event-card (?:planned-event )?public-event" id="([^"]+)"', html)
             expected = len(read_json('event-archive.json')) + len(read_json('events.json'))
             self.assertEqual(len(ids), expected)
             self.assertEqual(len(set(ids)), expected)
