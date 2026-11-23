@@ -144,21 +144,27 @@
     "category": "Author Talk",
     "start": "2026-12-07T14:00:00-08:00",
     "end": "2026-12-07T16:00:00-08:00",
+    "poster": "images/events/2026-liu-zongkun/poster.jpg",
+    "registration": "https://luma.com/76tbzfec",
     "title": {
       "en": "Book Talk with Liu Zongkun: Lives Remembered and Roads Traveled",
       "zh": "《异乡故人》新书分享会"
     },
     "speaker": {
-      "en": "Liu Zongkun, Independent Attorney and Writer",
-      "zh": "刘宗坤, 独立律师、作家"
+      "en": "Liu Zongkun (known online as 徒步的骑手), Independent Attorney, Writer, and YouTuber",
+      "zh": "刘宗坤（网名「徒步的骑手」）, 独立律师、作家、YouTuber"
     },
     "location": {
       "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
       "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
     },
     "description": {
-      "en": "A book talk on Liu Zongkun’s essay collection, published by 1 Plus Books in 2026. The essays revisit people he knew in China, met over two decades in Texas, and encountered while walking and cycling abroad. Their stories raise a question familiar to many who have moved away: what makes a place home?",
-      "zh": "散文集《异乡故人》（壹嘉出版，2026）新书分享。书中写到作者在中国故乡的亲友师长、移居得克萨斯二十余年间结识的人，以及徒步与骑行途中偶遇的陌生人。作者借这些人物故事，回望移居经历，追问故乡与归属的意义。"
+      "en": "A book talk on Liu Zongkun’s essay collection, published by 1 Plus Books in 2026. The essays revisit people he knew in China, met over two decades in Texas, and encountered while walking and cycling abroad. Their stories raise a question familiar to many who have moved away: what makes a place home? A conversation with UC Berkeley students, followed by a book signing.",
+      "zh": "散文集《异乡故人》（壹嘉出版，2026）新书分享。书中写到作者在中国故乡的亲友师长、移居得克萨斯二十余年间结识的人，以及徒步与骑行途中偶遇的陌生人。作者借这些人物故事，回望移居经历，追问故乡与归属的意义。与 UC 学生座谈，现场签售。"
+    },
+    "hosts": {
+      "en": "Datong Society × 1 Plus Institute",
+      "zh": "大同学社 × 壹嘉人文学社"
     }
   }
 ]
