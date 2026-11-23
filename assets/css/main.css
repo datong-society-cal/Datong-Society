@@ -293,6 +293,15 @@ section {
 .resource-directory h3 {
   font-size:1.15rem
 }
+.reading-list {margin-top:3rem;max-width:52rem}
+.reading-list h3 {font-size:1.15rem}
+.reading-list p {line-height:1.75}
+.reading-count {font-size:.85rem;color:#4b5560}
+.reading-group {border-top:1px solid var(--line)}
+.reading-group:last-child {border-bottom:1px solid var(--line)}
+.reading-group summary {cursor:pointer;color:var(--link);padding:.6rem 0;min-height:44px}
+.reading-group ul {padding-left:1.2rem;margin:0 0 1rem}
+.reading-group li {margin-bottom:.5rem;line-height:1.6;font-size:.92rem}
 .image.main img {
   width:100%;
   border-radius:var(--radius)
