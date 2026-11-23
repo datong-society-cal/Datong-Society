@@ -198,6 +198,15 @@ def render(as_of):
         rows = ''.join(f'<li><a href="{escape(r["url"])}" target="_blank" rel="noopener noreferrer">{escape(r["title"][language])} ↗</a></li>' for r in resources)
         return f'<section class="resource-directory"><h3>{title}</h3><ul>{rows}</ul></section>'
     resource_block = localized_block('campus-links', links('en'), links('zh'), blocks)
+    reading = read_json('reading-list.json')
+    def reading_html(language):
+        count = sum(len(section['books']) for section in reading['sections'])
+        label = f'{count} titles in {len(reading["sections"])} topics' if language == 'en' else f'共 {len(reading["sections"])} 个主题、{count} 本书'
+        groups = ''.join('<details class="reading-group"><summary>' + escape(section['title'][language]) + f' <span class="reading-count">({len(section["books"])})</span></summary><ul>'
+            + ''.join('<li>' + escape(book) + '</li>' for book in section['books']) + '</ul></details>' for section in reading['sections'])
+        return (f'<section class="reading-list" id="reading-list"><h3>{escape(reading["title"][language])}</h3>'
+            f'<p>{escape(reading["intro"][language])}</p><p class="reading-count">{label}</p>{groups}</section>')
+    resource_block += localized_block('reading-list', reading_html('en'), reading_html('zh'), blocks)
     workshops = read_json('workshops.json')
     workshop_block = localized_block('workshop-schedule', workshops_html(workshops, 'en', as_of), workshops_html(workshops, 'zh', as_of), blocks)
     updated = date.fromisoformat(config['updated'])
