@@ -14,6 +14,8 @@
       "en": "UC Berkeley",
       "zh": "UC Berkeley"
     },
+    "time": null,
+    "location": null,
     "summary": {
       "en": "A discussion of forest destruction and afforestation in China, the organization of forestry work, and how local cases can reshape broader historical interpretations.",
       "zh": "从毁林与造林的关系切入，讨论林业劳动的组织，以及局部案例如何修正更广泛的历史解释。"
@@ -47,12 +49,12 @@
       "zh": "UC Berkeley, School of Law"
     },
     "time": {
-      "en": "7–8 PM · Pacific Time",
-      "zh": "晚 7–8 点 · 太平洋时间"
+      "en": "7–8 PM",
+      "zh": "晚上 7–8 点"
     },
     "location": {
-      "en": "Meeting Room, C. V. Starr East Asian Library · UC Berkeley",
-      "zh": "伯克利 C. V. Starr 东亚图书馆 · 会议室"
+      "en": "Meeting Room, East Asian Library · UC Berkeley",
+      "zh": "伯克利东亚图书馆 · 会议室"
     },
     "summary": {
       "en": "An introductory discussion of what China’s constitution does, approached through the formation of political institutions, with the Dual State model as a starting point.",
@@ -75,12 +77,8 @@
       "zh": "Wang and Wang, LLP"
     },
     "time": {
-      "en": "7–8 PM · Pacific Time",
-      "zh": "晚 7–8 点 · 太平洋时间"
-    },
-    "location": {
-      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
-      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+      "en": "7–8 PM",
+      "zh": "晚上 7–8 点"
     },
     "summary": {
       "en": "An informal conversation about legal education and careers in law, with guest remarks followed by open discussion.",
@@ -114,9 +112,13 @@
       "en": "Building a Digital Archive from San Francisco’s Chee Kung Tong Records",
       "zh": "旧金山致公堂档案数字化"
     },
-    "time": {
-      "en": "7–9 PM · Pacific Time",
-      "zh": "晚 7–9 点 · 太平洋时间"
+    "speaker": {
+      "en": "Green Wang",
+      "zh": "Green Wang"
+    },
+    "affiliation": {
+      "en": "UC Berkeley",
+      "zh": "UC Berkeley"
     },
     "summary": {
       "en": "A discussion of a digital archive built from the records of the Chee Kung Tong’s San Francisco lodge, combining a searchable catalog with a map and timeline for exploring the records by place and date.",
@@ -159,12 +161,8 @@
       "zh": "北京大学"
     },
     "time": {
-      "en": "3:00 PM · Pacific Time",
-      "zh": "15:00 · 太平洋时间"
-    },
-    "location": {
-      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
-      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+      "en": "3–5 PM",
+      "zh": "下午 3–5 点"
     },
     "summary": {
       "en": "Beginning with the speaker’s Chinese translation of Joseph W. Esherick’s Ancestral Leaves, this lecture draws on more than two decades of research into the papers of the Chou family and on the archives of Chinese scholars overseas. It explores how private documents can reconstruct historical contexts and illuminate the interplay of individual, family, lineage, and state in twentieth-century China.",
@@ -187,10 +185,6 @@
       "en": "UC Berkeley",
       "zh": "UC Berkeley"
     },
-    "time": {
-      "en": "Time to be announced",
-      "zh": "具体时间待定"
-    },
     "summary": {
       "en": "A look at relations between the People’s Republic of China and the United States from the founding of the PRC in October 1949 to the ping-pong diplomacy of April 1971. The period is usually remembered for hostility and isolation; the discussion follows how the two countries moved from enemies toward potential partners well before rapprochement.",
       "zh": "回顾 1949 年 10 月中华人民共和国成立至 1971 年 4 月“乒乓外交”之间的中美关系。这段时期常被概括为敌对与隔绝，讨论将关注两国如何在正式和解之前，逐步从敌人走向潜在伙伴。"
@@ -212,12 +206,8 @@
       "zh": "独立律师、作家"
     },
     "time": {
-      "en": "2–4 PM · Pacific Time",
-      "zh": "下午 2–4 点 · 太平洋时间"
-    },
-    "location": {
-      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
-      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+      "en": "2–4 PM",
+      "zh": "下午 2–4 点"
     },
     "summary": {
       "en": "A book talk on Liu Zongkun’s essay collection, published by 1 Plus Books in 2026. The essays revisit people he knew in China, met over two decades in Texas, and encountered while walking and cycling abroad. Their stories raise a question familiar to many who have moved away: what makes a place home?",

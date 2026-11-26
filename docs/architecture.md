@@ -117,6 +117,13 @@ OCF recovery access, and any separately owned analytics account together.
 
 Workshop speaker bylines use `Speaker: Name, Affiliation` (Chinese: `主讲人：姓名, 所属机构`). Store names and affiliations separately. Leave unconfirmed affiliations blank; do not infer departments, degrees, or titles. Times and locations appear on separate lines.
 
+Regular workshop sessions default to `7–9 PM` in `Seminar Room 341, East Asian Library`
+(`WORKSHOP_DEFAULTS` in `scripts/build_site.py`). Omit `time` and `location` for
+sessions that follow this default; give a value only for exceptions (guest talks,
+other rooms or hours). Set a field to `null` when the detail is genuinely unknown:
+the row is then left out. Do not store placeholders such as "Time to be announced".
+Each card shows Speaker / Date / Time / Location in that order, dropping empty rows.
+
 For local preview use `serve_site.py`, which implements the same route table,
 redirects and 404 behavior. The standard `http.server` does not implement these
 routes. GoatCounter receives each page’s clean canonical URL; prior `.html`

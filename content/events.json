@@ -57,8 +57,8 @@
       "zh": "Laura Wen-yu Young, Wang and Wang, LLP"
     },
     "location": {
-      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
-      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+      "en": "Seminar Room 341, East Asian Library · UC Berkeley",
+      "zh": "伯克利东亚图书馆 · 341 研讨室"
     },
     "hosts": {
       "en": "Datong Society × C. V. Starr East Asian Library",
@@ -112,6 +112,7 @@
     "id": "2026-fanzhi-meng",
     "category": "Lecture",
     "start": "2026-11-25T15:00:00-08:00",
+    "end": "2026-11-25T17:00:00-08:00",
     "poster": "images/events/2026-fanzhi-meng/poster.jpg",
     "registration": "https://docs.google.com/forms/d/1WsOaiOEeOp3xuHvziAOMmG4qEHR5QAsCmpCrToCw3m0/viewform",
     "title": {
@@ -123,8 +124,8 @@
       "zh": "孟繁之, 北京大学"
     },
     "location": {
-      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
-      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+      "en": "Seminar Room 341, East Asian Library · UC Berkeley",
+      "zh": "伯克利东亚图书馆 · 341 研讨室"
     },
     "hosts": {
       "en": "Datong Society × C. V. Starr East Asian Library",
@@ -155,8 +156,8 @@
       "zh": "刘宗坤（网名「徒步的骑手」）, 独立律师、作家、YouTuber"
     },
     "location": {
-      "en": "Seminar Room 341, C. V. Starr East Asian Library · UC Berkeley",
-      "zh": "伯克利 C. V. Starr 东亚图书馆 · 341 研讨室"
+      "en": "Seminar Room 341, East Asian Library · UC Berkeley",
+      "zh": "伯克利东亚图书馆 · 341 研讨室"
     },
     "description": {
       "en": "A book talk on Liu Zongkun’s essay collection, published by 1 Plus Books in 2026. The essays revisit people he knew in China, met over two decades in Texas, and encountered while walking and cycling abroad. Their stories raise a question familiar to many who have moved away: what makes a place home? A conversation with UC Berkeley students, followed by a book signing.",

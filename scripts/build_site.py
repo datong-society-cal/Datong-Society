@@ -127,21 +127,37 @@ def event_html(event, language, past=False):
     image = poster_figure(event, language, 'home-poster') if event.get('poster') else ''
     return f'<section class="home-feature{"" if image else " home-feature-text-only"}">{image}<div>{event_copy(event, language, not past)}</div></section>'
 
+# Regular sessions meet Thursday evenings in Room 341 of the East Asian Library.
+# A session record overrides these with its own value, or with null when the
+# detail is unknown (the row is then omitted).
+WORKSHOP_DEFAULTS = {
+    'time': {'en': '7–9 PM', 'zh': '晚上 7–9 点'},
+    'location': {'en': 'Seminar Room 341, East Asian Library · UC Berkeley', 'zh': '伯克利东亚图书馆 · 341 研讨室'},
+}
+
+def workshop_detail(session, key, language):
+    value = session[key] if key in session else WORKSHOP_DEFAULTS[key]
+    return value[language] if value else ''
+
 def workshops_html(sessions, language, as_of):
     rows = []
     for session in sorted(sessions, key=lambda item: item['date']):
         past = date.fromisoformat(session['date']) < as_of
         status = ('Past session' if past else 'Upcoming session') if language == 'en' else ('往期讨论' if past else '近期安排')
-        row = f'<section class="workshop-session"><p class="home-eyebrow"><time datetime="{session["date"]}">{session["date"]}</time> · {status}</p><h3>{escape(session["title"][language])}</h3>'
+        row = f'<section class="workshop-session"><p class="home-eyebrow">{status}</p><h3>{escape(session["title"][language])}</h3>'
         speaker = session.get('speaker', {}).get(language, '')
         affiliation = session.get('affiliation', {}).get(language, '')
-        if speaker:
-            label = 'Speaker: ' if language == 'en' else '主讲人：'
-            byline = escape(speaker) + (', ' + escape(affiliation) if affiliation else '')
-            row += f'<p class="workshop-speaker">{label}{byline}</p>'
-        metadata = [session.get(key, {}).get(language, '') for key in ('time', 'location')]
-        if any(metadata):
-            row += '<p class="workshop-meta">' + '<br>'.join(escape(value) for value in metadata if value) + '</p>'
+        day = date.fromisoformat(session['date'])
+        if language == 'en':
+            when = f'{day:%a}, {day:%b} {day.day}, {day.year}'
+        else:
+            when = f'{day.year} 年 {day.month} 月 {day.day} 日（周{"一二三四五六日"[day.weekday()]}）'
+        labels = ('Speaker', 'Date', 'Time', 'Location') if language == 'en' else ('主讲人', '日期', '时间', '地点')
+        values = (escape(speaker) + (', ' + escape(affiliation) if speaker and affiliation else ''),
+                  f'<time datetime="{session["date"]}">{when}</time>',
+                  escape(workshop_detail(session, 'time', language)),
+                  escape(workshop_detail(session, 'location', language)))
+        row += '<dl class="workshop-details">' + ''.join(f'<dt>{label}</dt><dd>{value}</dd>' for label, value in zip(labels, values) if value) + '</dl>'
         row += f'<p>{escape(session["summary"][language])}</p>'
         if session.get('reading'):
             row += f'<p class="workshop-meta">{escape(session["reading"][language])}</p>'
